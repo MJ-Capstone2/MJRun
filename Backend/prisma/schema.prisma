@@ -18,3 +18,19 @@ password String @db.Char(64)
 email String @unique @db.VarChar(50)
 nickname String @unique @db.VarChar(50)
 }
+
+model Horse{
+
+}
+
+model Jockey{
+
+}
+
+model Trainer{
+
+}
+
+model HorseRace{
+
+}
