@@ -7,30 +7,50 @@ import {
   makeStyles,
   useTheme,
   useMediaQuery,
+  Button
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import DrawerComponent from "./Drawer";
+import logo from '../constants/logo.png';
 
 const useStyles = makeStyles((theme) => ({
   root:{
-    background:"#ffffff"
+    background: theme.overrides.background,
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center"
+  },
+  img:{
+    width:"1.7em",
+    height:"1.7em",
+    marginRight:"0.5em"
   },
   navlinks: {
-    marginLeft: theme.spacing(4),
     display: "flex",
   },
   logo: {
-    flexGrow: "1",
-    color: "#393F93",
-    cursor: "pointer"
+    color: theme.palette.primary.main,
+    cursor: "pointer",
+    textDecoration: "none",
+    display: "flex",
+    flexDirection:"row",
+    alignItems:"center",
+    marginBottom: "0.15em"
+  },
+  logo_font: {
+    fontStyle: "italic",
+    fontFamily: '"Apple Color Emoji"',
+    fontWeight:"900"
   },
   link: {
     textDecoration: "none",
-    color: "#393F93",
-    fontSize: "20px",
-    marginLeft: theme.spacing(12),
+    color: theme.palette.primary.main,
+    fontSize: "1.3em",
+    fontWeight:"500",
+    marginRight: theme.spacing(5),
     "&:hover": {
-      color: "yellow"
+      color: theme.palette.primary.dark
     },
   },
 }));
@@ -38,34 +58,45 @@ const useStyles = makeStyles((theme) => ({
 function Navbar() {
   const classes = useStyles();
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   return (
-    <AppBar position="static" className={classes.root}>
+    <AppBar position="static">
       <CssBaseline />
-      <Toolbar>
-        <Typography variant="h4" className={classes.logo}>
-          MJ.RUN
-        </Typography>
         {isMobile ? (
-          <DrawerComponent />
+          <Toolbar className={classes.root}>
+            <Link to="/" className={classes.logo}>
+              <img src={logo} alt="logo" className={classes.img}/>
+              <Typography variant="h4">
+                MJ.RUN
+              </Typography>
+            </Link>
+            <DrawerComponent />
+          </Toolbar>
         ) : (
-          <div className={classes.navlinks}>
-            <Link to="/" className={classes.link}>
-              Home
+          <Toolbar className={classes.root}>
+            <Link to="/" className={classes.logo}>
+              <img src={logo} alt="logo" className={classes.img}/>
+              <Typography variant="h5" className={classes.logo_font}>
+                MJ.RUN
+              </Typography>
             </Link>
-            <Link to="/about" className={classes.link}>
-              About
-            </Link>
-            <Link to="/contact" className={classes.link}>
-              Contact
-            </Link>
-            <Link to="/faq" className={classes.link}>
-              FAQ
-            </Link>
-          </div>
+            <div className={classes.navlinks}>
+              <Link to="/prediction" className={classes.link}>
+                경마예측
+              </Link>
+              <Link to="/info" className={classes.link}>
+                경마정보
+              </Link>
+              <Link to="/rank" className={classes.link}>
+                랭킹
+              </Link>
+            </div>
+            <Button variant="contained" color="primary" disableElevation>
+              로그인
+            </Button>
+          </Toolbar>
         )}
-      </Toolbar>
     </AppBar>
   );
 }

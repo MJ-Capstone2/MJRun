@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import {
     Divider,
-  Drawer,
-  IconButton,
-  List,
-  ListItem,
-  ListItemText,
-  makeStyles,
+    Drawer,
+    IconButton,
+    List,
+    ListItem,
+    ListItemText,
+    makeStyles,
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
@@ -60,7 +60,7 @@ function DrawerComponent() {
         </List>
       </Drawer>
       <IconButton onClick={() => setOpenDrawer(!openDrawer)}className={classes.icon}>
-        <MenuIcon color="primary"/>
+        <MenuIcon color='primary'/>
       </IconButton>
     </>
   );
