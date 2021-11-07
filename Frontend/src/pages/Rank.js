@@ -1,6 +1,6 @@
 import { Typography } from "@material-ui/core";
 
-function Faq() {
-  return <Typography>Faq page</Typography>;
+function Rank() {
+  return <Typography>Rank page</Typography>;
 }
-export default Faq;
+export default Rank;

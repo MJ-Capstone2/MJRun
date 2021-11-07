@@ -1,6 +1,6 @@
 import { Typography } from "@material-ui/core";
 
-function About() {
-  return <Typography>About us page</Typography>;
+function Info() {
+  return <Typography>Info us page</Typography>;
 }
-export default About;
+export default Info;

@@ -1,6 +1,6 @@
 import { Typography } from "@material-ui/core";
 
-function Contact() {
-  return <Typography>Contact Us page</Typography>;
+function Prediction() {
+  return <Typography>Prediction Us page</Typography>;
 }
-export default Contact;
+export default Prediction;
