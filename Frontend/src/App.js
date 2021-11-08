@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import Info from "./pages/Info";
 import Prediction from "./pages/Prediction";
 import Rank from "./pages/Rank";
+import Login from "./pages/Login";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/prediction" component={Prediction} />
           <Route path="/info" component={Info} />
           <Route path="/rank" component={Rank} />
+          <Route path="/login" component={Login} />
         </Switch>
       </Router>
     </ThemeProvider>

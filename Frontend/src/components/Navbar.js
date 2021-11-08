@@ -92,7 +92,7 @@ function Navbar() {
                 랭킹
               </Link>
             </div>
-            <Button variant="contained" color="primary" disableElevation>
+            <Button component={Link} to="/login" variant="contained" color="primary" disableElevation>
               로그인
             </Button>
           </Toolbar>
