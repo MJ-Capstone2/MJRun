@@ -1,6 +1,12 @@
-import { Typography } from "@material-ui/core";
+import React from 'react';
+import InfoTab from '../components/Info/InfoTab';
 
-function Info() {
-  return <Typography>Info us page</Typography>;
+const Info = () => {
+  return (
+    <div>
+      <InfoTab />
+    </div>
+  );
 }
+
 export default Info;

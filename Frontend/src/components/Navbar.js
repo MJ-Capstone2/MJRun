@@ -22,8 +22,8 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center"
   },
   img:{
-    width:"1.7em",
-    height:"1.7em",
+    width:"2em",
+    height:"2em",
     marginRight:"0.5em"
   },
   navlinks: {
@@ -67,7 +67,7 @@ function Navbar() {
           <Toolbar className={classes.root}>
             <Link to="/" className={classes.logo}>
               <img src={logo} alt="logo" className={classes.img}/>
-              <Typography variant="h4">
+              <Typography variant="h5" className={classes.logo_font}>
                 MJ.RUN
               </Typography>
             </Link>
