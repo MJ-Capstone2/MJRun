@@ -19,7 +19,8 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "center"
+    alignItems: "center",
+    borderBottom: "solid 1px #ccc"
   },
   img:{
     width:"2em",

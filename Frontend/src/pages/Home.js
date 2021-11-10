@@ -2,7 +2,7 @@ import {
   makeStyles
 } from "@material-ui/core";
 import { Swiper, SwiperSlide } from "swiper/react";
-import SwiperCore, { Navigation, Pagination } from "swiper";
+import SwiperCore, { Navigation, Pagination, Autoplay } from "swiper";
 import 'swiper/core/'
 import 'swiper/swiper-bundle.min.css'
 import 'swiper/swiper.min.css'
@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-SwiperCore.use([Navigation, Pagination]);
+SwiperCore.use([Navigation, Pagination, Autoplay]);
 
 function Home() {
   const classes = useStyles();
@@ -25,6 +25,8 @@ function Home() {
       centeredSlides
       onSlideChange={() => console.log("slide change")}
       onSwiper={swiper => console.log(swiper)}
+      loop={true}
+      autoplay={{delay:3000,disableOnInteraction: false}}
       navigation
       pagination={{ clickable: 'true' }}
     >

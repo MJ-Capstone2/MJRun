@@ -35,25 +35,25 @@ function DrawerComponent() {
         <List>
         <ListItem onClick={() => setOpenDrawer(false)}>
             <ListItemText>
-              <Link to="/" className={classes.link}>Home</Link>
+              <Link to="/" className={classes.link}>홈</Link>
             </ListItemText>
           </ListItem>
           <Divider/>
           <ListItem onClick={() => setOpenDrawer(false)}>
             <ListItemText>
-              <Link to="/about" className={classes.link}>About</Link>
+              <Link to="/prediction" className={classes.link}>경마예측</Link>
             </ListItemText>
           </ListItem>
           <Divider/>
           <ListItem onClick={() => setOpenDrawer(false)}>
             <ListItemText>
-              <Link to="/contact" className={classes.link}>Contact</Link>
+              <Link to="/info" className={classes.link}>경마정보</Link>
             </ListItemText>
           </ListItem>
           <Divider/>
           <ListItem onClick={() => setOpenDrawer(false)}>
             <ListItemText>
-              <Link to="/about" className={classes.link}>Faq</Link>
+              <Link to="/rank" className={classes.link}>랭킹</Link>
             </ListItemText>
           </ListItem>
           <Divider/>
