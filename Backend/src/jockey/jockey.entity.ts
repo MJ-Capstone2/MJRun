@@ -1,7 +1,7 @@
 import { BaseEntity, Column, Entity, PrimaryColumn } from 'typeorm';
 
 @Entity()
-export class Trainer extends BaseEntity {
+export class jockey extends BaseEntity {
   @PrimaryColumn({ type: 'int', length: 20 })
   number: number;
 
