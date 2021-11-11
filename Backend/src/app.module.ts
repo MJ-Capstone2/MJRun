@@ -13,6 +13,7 @@ import { WheatherController } from './wheather/wheather.controller';
 import { UserService } from './user/user.service';
 import { MySqlConfigModule } from './config/database/config.module';
 import { MySqlConfigService } from './config/database/config.service';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { MySqlConfigService } from './config/database/config.service';
       useClass: MySqlConfigService,
       inject: [MySqlConfigService],
     }),
+    UserModule,
   ],
   controllers: [
     AppController,
