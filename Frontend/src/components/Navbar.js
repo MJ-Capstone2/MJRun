@@ -83,11 +83,8 @@ function Navbar() {
               </Typography>
             </Link>
             <div className={classes.navlinks}>
-              <Link to="/prediction" className={classes.link}>
-                경마예측
-              </Link>
-              <Link to="/info" className={classes.link}>
-                경마정보
+              <Link to="/race" className={classes.link}>
+                경마 정보/예측
               </Link>
               <Link to="/rank" className={classes.link}>
                 랭킹

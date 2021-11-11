@@ -9,6 +9,8 @@ import {
 } from "@material-ui/core";
 import PropTypes from 'prop-types';
 
+import DatePick from './DatePick';
+
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -92,6 +94,8 @@ const InfoTab = () => {
           <Tab label="제주" {...a11yProps(2)} className={value===2 ? classes.activetab : classes.inactivetab}/>
         </Tabs>
       </AppBar>
+
+      <DatePick />
 
       <TabPanel value={value} index={0}>
         부산
