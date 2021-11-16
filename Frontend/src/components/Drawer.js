@@ -10,7 +10,7 @@ import {
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
-import MenuIcon from "@material-ui/icons/Menu";
+import AssessmentIcon from '@material-ui/icons/Assessment';
 
 const useStyles = makeStyles(()=>({
     link:{
@@ -60,7 +60,7 @@ function DrawerComponent() {
         </List>
       </Drawer>
       <IconButton onClick={() => setOpenDrawer(!openDrawer)}className={classes.icon}>
-        <MenuIcon color='primary'/>
+        <AssessmentIcon color="action" style={{width:'1.2em', height:'1.2em'}} />
       </IconButton>
     </>
   );
