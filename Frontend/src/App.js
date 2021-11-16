@@ -5,8 +5,6 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import Theme from './constants/Theme';
 
 import Home from "./pages/Home";
-import Race from "./pages/Race";
-import Rank from "./pages/Rank";
 import Login from "./pages/Login";
 
 function App() {
@@ -16,8 +14,6 @@ function App() {
         <Navbar />
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route path="/race" component={Race} />
-          <Route path="/rank" component={Rank} />
           <Route path="/login" component={Login} />
         </Switch>
       </Router>

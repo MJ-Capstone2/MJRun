@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
   leftArea : {
     flex: 1,
     background: '#fff',
-    borderRight: 'solid 1px #ccc',
+    borderRight: 'solid 1px #cccccc',
     display: 'flex',
     alignItems:'center',
     paddingTop:'5em',
