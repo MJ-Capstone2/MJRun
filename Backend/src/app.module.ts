@@ -14,6 +14,9 @@ import { UserService } from './user/user.service';
 import { MySqlConfigModule } from './config/database/config.module';
 import { MySqlConfigService } from './config/database/config.service';
 import { UserModule } from './user/user.module';
+import { HorseModule } from './horse/horse.module';
+import { JockeyModule } from './jockey/jockey.module';
+import { TrainerModule } from './trainer/trainer.module';
 
 @Module({
   imports: [
@@ -24,17 +27,11 @@ import { UserModule } from './user/user.module';
       inject: [MySqlConfigService],
     }),
     UserModule,
+    HorseModule,
+    JockeyModule,
+    TrainerModule,
   ],
-  controllers: [
-    AppController,
-    HorseController,
-    UserController,
-    RaceController,
-    RaceresultController,
-    JockeyController,
-    TrainerController,
-    WheatherController,
-  ],
-  providers: [AppService, UserService],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}
