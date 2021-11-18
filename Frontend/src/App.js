@@ -6,6 +6,7 @@ import Theme from './constants/Theme';
 
 import Home from "./pages/Home";
 import Login from "./pages/Login";
+import Admin from "./pages/Admin";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/login" component={Login} />
+          <Route path="/admin/:id" component={Admin} />
         </Switch>
       </Router>
     </ThemeProvider>

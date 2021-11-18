@@ -16,7 +16,9 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'row',
     display:'flex',
     justifyContent: 'space-between',
-    alignItems: 'center'
+    alignItems: 'center',
+    paddingLeft: 20,
+    paddingRight: 20
   },
   content_wrap: {
     display:'flex',
@@ -59,7 +61,7 @@ const Home = () => {
     <div>
       <div className={classes.card_container}>
         <div className={classes.title_wrap}>
-          <Typography>서울 R1 (14:30)</Typography>
+          <Typography variant="h5"><b>서울 R1 (14:30)</b></Typography>
           <div className={classes.live_badge}>
             LIVE
           </div>
@@ -67,7 +69,7 @@ const Home = () => {
       </div>
       <div className={classes.card_container}>
         <div className={classes.content_wrap}>
-          <Typography>예측번호</Typography>
+          <Typography variant="h6"><b>예측번호</b></Typography>
           <div className={classes.order_wrap}>
             {
               horses.map((horse, idx) => (
@@ -79,7 +81,7 @@ const Home = () => {
       </div>
       <div className={classes.card_container}>
         <div className={classes.content_wrap}>
-          <Typography>말/기수/조교사 정보</Typography>
+          <Typography variant="h6"><b>말/기수/조교사 정보</b></Typography>
         </div>
       </div>
     </div>

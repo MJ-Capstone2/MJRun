@@ -29,7 +29,7 @@ const PredictOrder = ({ order, name, age }) => {
       <div className={classes.order_title}>
         {order}위
       </div>
-      <Typography>{name}({age})</Typography>
+      <Typography>{name} ({age})</Typography>
     </div>
   );
 }
