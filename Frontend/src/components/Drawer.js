@@ -10,7 +10,7 @@ import {
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
-import AssessmentIcon from '@material-ui/icons/Assessment';
+import MenuIcon from '@material-ui/icons/Menu';
 
 const useStyles = makeStyles(()=>({
     link:{
@@ -41,26 +41,20 @@ function DrawerComponent() {
           <Divider/>
           <ListItem onClick={() => setOpenDrawer(false)}>
             <ListItemText>
-              <Link to="/prediction" className={classes.link}>경마예측</Link>
+              <Link to="/guide" className={classes.link}>초보자 가이드</Link>
             </ListItemText>
           </ListItem>
           <Divider/>
           <ListItem onClick={() => setOpenDrawer(false)}>
             <ListItemText>
-              <Link to="/info" className={classes.link}>경마정보</Link>
-            </ListItemText>
-          </ListItem>
-          <Divider/>
-          <ListItem onClick={() => setOpenDrawer(false)}>
-            <ListItemText>
-              <Link to="/rank" className={classes.link}>랭킹</Link>
+              <Link to="/prediction" className={classes.link}>AI 예측률</Link>
             </ListItemText>
           </ListItem>
           <Divider/>
         </List>
       </Drawer>
       <IconButton onClick={() => setOpenDrawer(!openDrawer)}className={classes.icon}>
-        <AssessmentIcon color="action" style={{width:'1.2em', height:'1.2em'}} />
+        <MenuIcon color="primary" />
       </IconButton>
     </>
   );

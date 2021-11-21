@@ -6,7 +6,9 @@ import Theme from './constants/Theme';
 
 import Home from "./pages/Home";
 import Login from "./pages/Login";
-import Admin from "./pages/Admin";
+import Guide from './pages/Guide';
+import Prediction from './pages/Prediction';
+import Admin from './pages/Admin';
 
 function App() {
   return (
@@ -15,8 +17,10 @@ function App() {
         <Navbar />
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route path="/login" component={Login} />
-          <Route path="/admin/:id" component={Admin} />
+          <Route path="/guide" component={Guide} />
+          <Route path="/prediction" component={Prediction} />
+          <Route path="/guide" component={Login} />
+          <Route path="/admin" component={Admin} />
         </Switch>
       </Router>
     </ThemeProvider>
