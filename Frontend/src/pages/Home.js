@@ -1,9 +1,10 @@
 import React from 'react';
 import {
   Typography,
-  makeStyles,
+  makeStyles
 } from "@material-ui/core";
 import PredictOrder from '../components/PredictOrder';
+import Info from '../components/Info';
 
 const useStyles = makeStyles((theme) => ({
   card_container : {
@@ -73,7 +74,7 @@ const Home = () => {
           <div className={classes.order_wrap}>
             {
               horses.map((horse, idx) => (
-                  <PredictOrder order={idx+1} name={horse.name} age={horse.age}/>
+                  <PredictOrder key={idx} order={idx+1} name={horse.name} age={horse.age}/>
               ))
             }
           </div>
@@ -82,6 +83,11 @@ const Home = () => {
       <div className={classes.card_container}>
         <div className={classes.content_wrap}>
           <Typography variant="h6"><b>말/기수/조교사 정보</b></Typography>
+        </div>
+      </div>
+      <div className={classes.card_container}>
+        <div className={classes.content_wrap}>
+          <Info />
         </div>
       </div>
     </div>
