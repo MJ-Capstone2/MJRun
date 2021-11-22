@@ -3,8 +3,8 @@ import {
   Typography,
   makeStyles
 } from "@material-ui/core";
-import PredictOrder from '../components/PredictOrder';
-import Info from '../components/Info';
+import PredictOrder from '../components/Home/PredictOrder';
+import Info from '../components/Home/Info';
 
 const useStyles = makeStyles((theme) => ({
   card_container : {
@@ -64,7 +64,7 @@ const Home = () => {
         <div className={classes.title_wrap}>
           <Typography variant="h5"><b>서울 R1 (14:30)</b></Typography>
           <div className={classes.live_badge}>
-            LIVE
+            진행중
           </div>
         </div>
       </div>
