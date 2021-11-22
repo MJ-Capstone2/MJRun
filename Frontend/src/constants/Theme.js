@@ -14,6 +14,9 @@ const theme = createTheme({
       dark: '#482880',
       contrastText: '#000',
     },
+    background: {
+      paper: '#fff'
+    }
   },
   typography: {
     fontFamily: [

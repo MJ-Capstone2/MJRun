@@ -1,6 +1,6 @@
 import React from "react";
 import {
-  makeStyles, Typography
+  makeStyles
 } from "@material-ui/core";
 import { CircularProgressBar } from "@tomik23/react-circular-progress-bar";
 

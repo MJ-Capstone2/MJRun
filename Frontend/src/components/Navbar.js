@@ -8,6 +8,7 @@ import {
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import DrawerComponent from "./Drawer";
+import Selector from './Selector';
 
 const useStyles = makeStyles((theme) => ({
   root:{
@@ -17,6 +18,13 @@ const useStyles = makeStyles((theme) => ({
     display:'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center'
+  },
+  tool_bar:{
+    background: theme.overrides.background,
+    display:'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
     alignItems: 'center'
   },
   logo: {
@@ -29,6 +37,9 @@ const useStyles = makeStyles((theme) => ({
     fontStyle: "italic",
     fontFamily: '"Apple Color Emoji"',
     fontWeight:"900",
+  },
+  paper : {
+    backgroundColor: theme.palette.background.paper,
   }
 }));
 
@@ -36,9 +47,9 @@ function Navbar() {
   const classes = useStyles();
 
   return (
-    <AppBar position="sticky" elevation={0}>
+    <AppBar position="fixed" className={classes.paper} elevation={0.2}>
       <CssBaseline />
-      <Toolbar className={classes.root}>
+      <div className={classes.root}>
         <DrawerComponent />
 
         <Link to="/" className={classes.logo}>
@@ -48,7 +59,10 @@ function Navbar() {
         </Link>
 
         <span style={{width:'4em'}}></span>
-      </Toolbar>
+      </div>
+      <div className={classes.root}>
+        <Selector />
+      </div>
     </AppBar>
   );
 };
