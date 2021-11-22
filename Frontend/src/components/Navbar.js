@@ -8,7 +8,6 @@ import {
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import DrawerComponent from "./Drawer";
-import Selector from './Selector';
 
 const useStyles = makeStyles((theme) => ({
   root:{
@@ -47,7 +46,7 @@ function Navbar() {
   const classes = useStyles();
 
   return (
-    <AppBar position="fixed" className={classes.paper} elevation={0.2}>
+    <AppBar position="static" className={classes.paper} elevation={0}>
       <CssBaseline />
       <div className={classes.root}>
         <DrawerComponent />
@@ -59,9 +58,6 @@ function Navbar() {
         </Link>
 
         <span style={{width:'4em'}}></span>
-      </div>
-      <div className={classes.root}>
-        <Selector />
       </div>
     </AppBar>
   );

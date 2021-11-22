@@ -9,6 +9,7 @@ import Login from "./pages/Login";
 import Guide from './pages/Guide';
 import Prediction from './pages/Prediction';
 import Admin from './pages/Admin';
+import NotFound from './pages/NotFound';
 
 function App() {
   return (
@@ -19,8 +20,9 @@ function App() {
           <Route exact path="/" component={Home} />
           <Route path="/guide" component={Guide} />
           <Route path="/prediction" component={Prediction} />
-          <Route path="/guide" component={Login} />
-          <Route path="/admin" component={Admin} />
+          <Route exact path="/admin" component={Admin} />
+          <Route exact path="/admin/login" component={Login} />
+          <Route path="*" component={NotFound} />
         </Switch>
       </Router>
     </ThemeProvider>

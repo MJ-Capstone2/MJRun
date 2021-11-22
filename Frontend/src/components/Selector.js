@@ -27,7 +27,7 @@ function Selector(){
 
   return (
     <div className={classes.root}>
-      <AppBar position="sticky" className={classes.paper} color="default" elevation={0.2}>
+      <AppBar position="relative" className={classes.paper} color="default" elevation={0}>
         <Tabs
           value={value}
           onChange={handleChange}

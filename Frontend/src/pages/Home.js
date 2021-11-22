@@ -3,6 +3,7 @@ import {
   Typography,
   makeStyles
 } from "@material-ui/core";
+import Selector from '../components/Selector';
 import PredictOrder from '../components/Home/PredictOrder';
 import Info from '../components/Home/Info';
 
@@ -60,6 +61,7 @@ const Home = () => {
 
   return(
     <div>
+      <Selector />
       <div className={classes.card_container}>
         <div className={classes.title_wrap}>
           <Typography variant="h5"><b>서울 R1 (14:30)</b></Typography>
