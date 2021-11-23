@@ -41,17 +41,17 @@ function Navbar() {
   return (
     <AppBar position="static" className={classes.paper} elevation={0}>
       <CssBaseline />
-      <Toolbar className={classes.root}>
-      <DrawerComponent />
+      <div className={classes.root}>
+        <DrawerComponent />
 
-      <Link to="/" className={classes.logo}>
-        <Typography variant="h5" className={classes.logo_font}>
-          MJ.RUN
-        </Typography>
-      </Link>
+        <Link to="/" className={classes.logo}>
+          <Typography variant="h5" className={classes.logo_font}>
+            MJ.RUN
+          </Typography>
+        </Link>
 
-      <span style={{width:'4em'}}></span>
-      </Toolbar>
+        <span style={{width:'4em'}}></span>
+      </div>
       </AppBar>
   );
 };

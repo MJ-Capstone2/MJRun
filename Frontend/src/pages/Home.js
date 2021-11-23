@@ -66,7 +66,7 @@ const Home = () => {
         <div className={classes.title_wrap}>
           <Typography variant="h5"><b>서울 R1 (14:30)</b></Typography>
           <div className={classes.live_badge}>
-            LIVE
+            진행중
           </div>
         </div>
       </div>
