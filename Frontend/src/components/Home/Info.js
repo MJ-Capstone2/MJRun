@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  Typography,
   makeStyles,
   Tabs,
   Tab
@@ -8,6 +7,7 @@ import {
 import TableChartIcon from '@material-ui/icons/TableChart';
 import ViewAgendaIcon from '@material-ui/icons/ViewAgenda';
 import InfoCard from './InfoCard';
+import InfoTable from './InfoTable';
 
 const useStyles = makeStyles((theme) => ({
   roots_container : {
@@ -29,7 +29,7 @@ function TabPanel({ value }) {
   return (
     <div>
       { value === 0 && (
-        <Typography>111</Typography>
+        <InfoTable />
       )}
       { value === 1 && (
         <InfoCard />

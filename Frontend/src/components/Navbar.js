@@ -19,13 +19,6 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-between',
     alignItems: 'center'
   },
-  tool_bar:{
-    background: theme.overrides.background,
-    display:'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
   logo: {
     color: theme.palette.primary.main,
     cursor: "pointer",
@@ -48,18 +41,18 @@ function Navbar() {
   return (
     <AppBar position="static" className={classes.paper} elevation={0}>
       <CssBaseline />
-      <div className={classes.root}>
-        <DrawerComponent />
+      <Toolbar className={classes.root}>
+      <DrawerComponent />
 
-        <Link to="/" className={classes.logo}>
-          <Typography variant="h5" className={classes.logo_font}>
-            MJ.RUN
-          </Typography>
-        </Link>
+      <Link to="/" className={classes.logo}>
+        <Typography variant="h5" className={classes.logo_font}>
+          MJ.RUN
+        </Typography>
+      </Link>
 
-        <span style={{width:'4em'}}></span>
-      </div>
-    </AppBar>
+      <span style={{width:'4em'}}></span>
+      </Toolbar>
+      </AppBar>
   );
 };
 

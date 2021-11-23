@@ -66,7 +66,7 @@ const Home = () => {
         <div className={classes.title_wrap}>
           <Typography variant="h5"><b>서울 R1 (14:30)</b></Typography>
           <div className={classes.live_badge}>
-            진행중
+            LIVE
           </div>
         </div>
       </div>
@@ -82,13 +82,10 @@ const Home = () => {
           </div>
         </div>
       </div>
+      
       <div className={classes.card_container}>
         <div className={classes.content_wrap}>
           <Typography variant="h6"><b>말/기수/조교사 정보</b></Typography>
-        </div>
-      </div>
-      <div className={classes.card_container}>
-        <div className={classes.content_wrap}>
           <Info />
         </div>
       </div>
