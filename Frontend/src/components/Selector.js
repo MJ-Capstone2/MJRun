@@ -3,8 +3,7 @@ import {
   makeStyles,
   AppBar,
   Tabs,
-  Tab,
-  Typography
+  Tab
 } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({

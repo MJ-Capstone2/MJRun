@@ -10,18 +10,20 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
-    alignContent: 'center',
+    alignItems: 'center',
+    marginTop: 100
   },
   typo: {
-    textAlign: 'center'
+    fontSize: 25
   },
   form: {
-    '& > *': {
-      margin: theme.spacing(1),
-      width: '60%',
-    },
-    textAlign: 'center',
-    verticalAlign: 'middle',
+    display: 'flex',
+    flexDirection: 'column',
+    width: '70%',
+    maxWidth: 500,
+    '&>*': {
+      margin: 8
+    }
   }
 }));
 
@@ -32,7 +34,7 @@ const Login = () => {
     <div className={classes.root}>
       <Typography className={classes.typo}>MJ.RUN</Typography>
       
-      <form className={classes.form} noValidate autoComplete="off">
+      <form className={classes.form}>
         <TextField id="outlined-basic" label="ID" variant="outlined" />
         <TextField id="outlined-basic" label="PW" type="password" variant="outlined" />
 
