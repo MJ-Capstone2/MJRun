@@ -22,7 +22,7 @@ function App() {
           <Route path="/guide" component={Guide} />
           <Route path="/prediction" component={Prediction} />
           <Route exact path="/admin" component={Admin} />
-          <Route exact path="/login" component={Login} />
+          <Route exact path="/admin/login" component={Login} />
           <Route path="*" component={NotFound} />
         </Switch>
         {/* <Footer /> */}
