@@ -4,8 +4,8 @@ import { Horse } from './entities/horse.entity';
 
 @EntityRepository(Horse)
 export class HorseRepository extends Repository<Horse> {
-  async createHorse(createUserDto: CreateHorseDto): Promise<Horse> {
-    const newHorse = this.create({ ...createUserDto });
+  async createHorse(createHorseDto: CreateHorseDto): Promise<Horse> {
+    const newHorse = this.create({ ...createHorseDto });
     await this.save(newHorse);
     return newHorse;
   }

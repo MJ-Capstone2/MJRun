@@ -28,25 +28,10 @@ export class CreateHorseDto {
   @IsString()
   @IsNotEmpty()
   readonly nationality: string;
-  @IsString()
+  @IsInt()
   @IsNotEmpty()
-  readonly grade: string;
+  readonly rating: number;
   @IsDecimal()
   @IsNotEmpty()
   readonly weight: number;
-  @IsInt()
-  @IsPositive()
-  readonly ord1_total_score: number;
-  @IsDecimal()
-  @IsNotEmpty()
-  readonly total_win_rate: number;
-  @IsDecimal()
-  @IsNotEmpty()
-  readonly total_double_win_rate: number;
-  @IsInt()
-  @IsPositive()
-  readonly total_prize_money: number;
-  @IsDecimal()
-  @IsPositive()
-  readonly recent_1year_prize_money: number;
 }
