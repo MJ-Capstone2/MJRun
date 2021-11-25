@@ -1,56 +1,96 @@
+import React from 'react';
 import {
+  Typography,
   makeStyles
 } from "@material-ui/core";
-import { Swiper, SwiperSlide } from "swiper/react";
-import SwiperCore, { Navigation, Pagination, Autoplay } from "swiper";
-import 'swiper/core/'
-import 'swiper/swiper-bundle.min.css'
-import 'swiper/swiper.min.css'
+import Selector from '../components/Selector';
+import PredictOrder from '../components/Home/PredictOrder';
+import Info from '../components/Home/Info';
 
 const useStyles = makeStyles((theme) => ({
-  root : {
+  card_container : {
+    background: theme.overrides.background,
+    margin: '1em 0',
+    padding: '0.8em 0.4em',
+  },
+  title_wrap: {
     width: '100%',
-    height: '30em'
+    flexDirection: 'row',
+    display:'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingLeft: 20,
+    paddingRight: 20
+  },
+  content_wrap: {
+    display:'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
+  },
+  order_wrap: {
+    display:'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  live_badge: {
+    background: '#FFDCDC',
+    color: '#FF0F0F',
+    borderRadius: '0.1em',
+    padding: '0.2em 0.6em'
   }
 }));
 
-SwiperCore.use([Navigation, Pagination, Autoplay]);
+const horses = [
+  {
+    name: '금빛질주',
+    age: 10
+  },
+  {
+    name: '마이리더',
+    age: 10
+  },
+  {
+    name: '금빛질주',
+    age: 10
+  }
+]
 
-function Home() {
+const Home = () => {
   const classes = useStyles();
-  return (
-    <Swiper
-      spaceBetween={50}
-      slidesPerView={1}
-      centeredSlides
-      onSlideChange={() => console.log("slide change")}
-      onSwiper={swiper => console.log(swiper)}
-      loop={true}
-      autoplay={{delay:3000,disableOnInteraction: false}}
-      navigation
-      pagination={{ clickable: 'true' }}
-    >
-      <SwiperSlide>
-        <div className={classes.root}>
-          Slide 1
+
+  return(
+    <div>
+      <Selector />
+      <div className={classes.card_container}>
+        <div className={classes.title_wrap}>
+          <Typography variant="h5"><b>서울 R1 (14:30)</b></Typography>
+          <div className={classes.live_badge}>
+            진행중
+          </div>
         </div>
-      </SwiperSlide>
-      <SwiperSlide>
-        <div className={classes.root}>
-          Slide 2
+      </div>
+      <div className={classes.card_container}>
+        <div className={classes.content_wrap}>
+          <Typography variant="h6"><b>예측번호</b></Typography>
+          <div className={classes.order_wrap}>
+            {
+              horses.map((horse, idx) => (
+                  <PredictOrder key={idx} order={idx+1} name={horse.name} age={horse.age}/>
+              ))
+            }
+          </div>
         </div>
-      </SwiperSlide>
-      <SwiperSlide>
-        <div className={classes.root}>
-          Slide 3
+      </div>
+      
+      <div className={classes.card_container}>
+        <div className={classes.content_wrap}>
+          <Typography variant="h6"><b>말/기수/조교사 정보</b></Typography>
+          <Info />
         </div>
-      </SwiperSlide>
-      <SwiperSlide>
-        <div className={classes.root}>
-          Slide 4
-        </div>
-      </SwiperSlide>
-    </Swiper>
+      </div>
+    </div>
   );
-}
+};
+
 export default Home;

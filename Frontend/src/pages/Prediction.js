@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   makeStyles,
   Typography,
@@ -8,16 +9,21 @@ import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import RadialBar from '../components/RadialBar';
 
 const useStyles = makeStyles((theme) => ({
-  fixedArea : {
-    width: '26em',
-    height: '100%',
-    position: 'fixed',
+  area: {
+    display: 'flex',
+  },
+  leftArea : {
+    flex: 1,
     background: '#fff',
-    borderRight: 'solid 1px #ccc',
+    borderRight: 'solid 1px #cccccc',
     display: 'flex',
     alignItems:'center',
     paddingTop:'5em',
-    flexDirection:'column'
+    flexDirection:'column',
+  },
+  rightArea : {
+    flex: 4
+
   },
   predictRatio: {
     margin: '0.8em',
@@ -33,11 +39,11 @@ const useStyles = makeStyles((theme) => ({
 
 const predicts = [12.2, 5.6, 10.5] 
 
-function Prediction() {
+const Prediction = () => {
   const classes = useStyles();
 
   return (
-    <div className={classes.fixedArea}>
+    <div className={classes.area}>
       <Typography style={{marginBottom:'0.3em'}}>AI금주 예측률</Typography>
       <RadialBar />
       {
@@ -58,4 +64,5 @@ function Prediction() {
     </div>
   );
 }
+
 export default Prediction;
