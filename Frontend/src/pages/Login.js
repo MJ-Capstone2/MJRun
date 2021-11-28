@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { 
   Typography,
   TextField,
@@ -11,7 +11,8 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    marginTop: 100
+    paddingTop: 100,
+    paddingBottom: 100
   },
   typo: {
     fontSize: 25
@@ -30,17 +31,39 @@ const useStyles = makeStyles((theme) => ({
 const Login = () => {
   const classes = useStyles();
 
+  const [ID, SetID] = useState("");
+  const [Password, SetPassword] = useState("");
+
+  const onIDHandler = (event) => {
+    SetID(event.currentTarget.value)
+  };
+  const onPasswordHandler = (event) => {
+    SetPassword(event.currentTarget.value)
+  };
+  const onSubmitHandler = (event) => {
+    event.preventDefault();
+    
+    console.log('ID', ID)
+    console.log('Password', Password)
+  };
+
   return (
     <div className={classes.root}>
       <Typography className={classes.typo}>MJ.RUN</Typography>
       
-      <form className={classes.form}>
-        <TextField id="outlined-basic" label="ID" variant="outlined" />
-        <TextField id="outlined-basic" label="PW" type="password" variant="outlined" />
+      <form className={classes.form} onSubmit={onSubmitHandler}>
+        <TextField id="id" label="ID" variant="outlined" value={ID} onChange={onIDHandler} />
+        <TextField id="pwd" label="PW" type="password" variant="outlined" value={Password} onChange={onPasswordHandler} />
 
-        <Button variant="contained" color="primary" className={classes.button} type="submit">로그인</Button>
+        <Button 
+          type="submit" 
+          variant="contained" 
+          color="primary" 
+          className={classes.button}
+        >로그인</Button>
       </form>
     </div>
   );
 };
+
 export default Login;
