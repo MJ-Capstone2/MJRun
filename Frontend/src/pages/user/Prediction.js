@@ -6,7 +6,8 @@ import {
   IconButton
 } from "@material-ui/core";
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
-import RadialBar from '../components/RadialBar';
+import RadialBar from '../../components/user/RadialBar';
+import UserLayout from '../../layout/UserLayout';
 
 const useStyles = makeStyles((theme) => ({
   area: {
@@ -43,7 +44,7 @@ const Prediction = () => {
   const classes = useStyles();
 
   return (
-    <div className={classes.area}>
+    <UserLayout>
       <Typography style={{marginBottom:'0.3em'}}>AI금주 예측률</Typography>
       <RadialBar />
       {
@@ -61,7 +62,7 @@ const Prediction = () => {
           누적 예측률: 18.5%
         </Typography>
       </div>
-    </div>
+    </UserLayout>
   );
 }
 

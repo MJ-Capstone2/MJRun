@@ -1,10 +1,11 @@
 import React from 'react';
+import UserLayout from '../layout/UserLayout';
 
 function NotFound(){
   return (
-    <div>
+    <UserLayout>
       Not Found 404
-    </div>
+    </UserLayout>
   )
 }
 

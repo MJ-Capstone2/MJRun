@@ -1,11 +1,13 @@
 import React from 'react';
+import UserLayout from '../../layout/UserLayout';
 import {
   Typography,
   makeStyles
 } from "@material-ui/core";
-import Selector from '../components/Selector';
-import PredictOrder from '../components/Home/PredictOrder';
-import Info from '../components/Home/Info';
+import Selector from '../../components/user/Selector';
+import PredictOrder from '../../components/user/Home/PredictOrder';
+import Info from '../../components/user/Home/Info';
+
 
 const useStyles = makeStyles((theme) => ({
   card_container : {
@@ -60,7 +62,7 @@ const Home = () => {
   const classes = useStyles();
 
   return(
-    <div>
+    <UserLayout>
       <Selector />
       <div className={classes.card_container}>
         <div className={classes.title_wrap}>
@@ -89,7 +91,7 @@ const Home = () => {
           <Info />
         </div>
       </div>
-    </div>
+    </UserLayout>
   );
 };
 
