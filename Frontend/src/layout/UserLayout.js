@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const User = ({children, loading=false}) => {
+const UserLayout = ({children, loading=false}) => {
 
   const classes = useStyles();
 
@@ -36,4 +36,4 @@ const User = ({children, loading=false}) => {
   )
 }
 
-export default User;
+export default UserLayout;
