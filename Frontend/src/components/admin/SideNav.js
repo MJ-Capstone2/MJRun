@@ -34,7 +34,7 @@ const SideNav = () => {
           관리페이지
         </div>
         <Divider />
-        <ListItemLink href="/admin/horse">
+        <ListItemLink href="/admin">
           <ListItemText primary="말" />
         </ListItemLink>
         <ListItemLink href="/admin/jockey">

@@ -7,49 +7,53 @@ const Admin = () => {
 
   let { dtype } = useParams();
 
-  function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
+  function createHdata(id, name, sex, age, delta_weight, total_participate, ord1, ord2, ord3) {
+    return { id, name, sex, age, delta_weight, total_participate, ord1, ord2, ord3 };
   }
 
   const getTitle = (dtype) => {
     switch(dtype){
-      case 'horse':
-        return '말';
       case 'jockey':
         return '기수';
       case 'trainer':
         return '조교사';
       default:
-        return '???';
+        return '말';
     }
   }
   
-  const rows = [
-    createData('Cupcake', 305, 3.7, 67, 4.3),
-    createData('Donut', 452, 25.0, 51, 4.9),
-    createData('Eclair', 262, 16.0, 24, 6.0),
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-    createData('Gingerbread', 356, 16.0, 49, 3.9),
-    createData('Honeycomb', 408, 3.2, 87, 6.5),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-    createData('Jelly Bean', 375, 0.0, 94, 0.0),
-    createData('KitKat', 518, 26.0, 65, 7.0),
-    createData('Lollipop', 392, 0.2, 98, 0.0),
-    createData('Marshmallow', 318, 0, 81, 2.0),
-    createData('Nougat', 360, 19.0, 9, 37.0),
-    createData('Oreo', 437, 18.0, 63, 4.0),
+  const Hrows = [
+    createHdata(1,'가나다','암', 2, '+2.0', 10, 1, 3, 0),
+    createHdata(2,'나다라','암', 2, '+2.0', 10, 1, 3, 0),
+    createHdata(3,'생각대로','암', 2, '+2.0', 10, 1, 3, 0),
+    createHdata(4,'생각대로','암', 2, '+2.0', 10, 1, 3, 0),
+    createHdata(5,'생각대로','암', 2, '+2.0', 10, 1, 3, 0),
+    createHdata(6,'생각대로','암', 1, '+2.0', 10, 1, 3, 0),
+    createHdata(7,'생각대로','암', 1, '+2.0', 10, 1, 3, 0),
+    createHdata(8,'생각대로','암', 3, '+2.0', 10, 1, 3, 0),
+    createHdata(9,'생각대로','암', 2, '+2.0', 10, 1, 3, 0),
+    createHdata(10,'생각대로','암', 2, '+2.0', 10, 1, 3, 0),
+    createHdata(11,'마바사','암', 2, '+2.0', 10, 1, 3, 0),
+    createHdata(12,'생각대로','암', 2, '+2.0', 10, 1, 3, 0),
+    createHdata(13,'생각대로','암', 2, '+2.0', 10, 1, 3, 0),
+    createHdata(14,'생각대로','암', 2, '+2.0', 10, 1, 3, 0),
+    createHdata(15,'생각대로','암', 2, '+2.0', 10, 1, 3, 0),
   ];
-  const columns = [
-    { id: 'name', numeric: false, disablePadding: true, label: 'Dessert (100g serving)' },
-    { id: 'calories', numeric: true, disablePadding: false, label: 'Calories' },
-    { id: 'fat', numeric: true, disablePadding: false, label: 'Fat (g)' },
-    { id: 'carbs', numeric: true, disablePadding: false, label: 'Carbs (g)' },
-    { id: 'protein', numeric: true, disablePadding: false, label: 'Protein (g)' },
+  const horse_columns = [
+    { id: 'id', numeric: false, disablePadding: true, label: '마번' },
+    { id: 'name', numeric: true, disablePadding: false, label: '마명' },
+    { id: 'sex', numeric: true, disablePadding: false, label: '성별' },
+    { id: 'age', numeric: true, disablePadding: false, label: '나이' },
+    { id: 'delta_weight', numeric: false, disablePadding: false, label: '무게증감(Kg)' },
+    { id: 'total_participate', numeric: true, disablePadding: false, label: '총출전' },
+    { id: 'ord1', numeric: true, disablePadding: false, label: '1위' },
+    { id: 'ord2', numeric: true, disablePadding: false, label: '2위' },
+    { id: 'ord3', numeric: true, disablePadding: false, label: '3위' },
   ];
 
   return(
     <AdminLayout>
-      <Table columns={columns} rows={rows} title={getTitle(dtype)}/>
+      <Table columns={horse_columns} rows={Hrows} title={getTitle(dtype)}/>
     </AdminLayout>
   );
 };
