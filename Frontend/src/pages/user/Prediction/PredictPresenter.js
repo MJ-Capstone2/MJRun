@@ -6,8 +6,8 @@ import {
   IconButton
 } from "@material-ui/core";
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
-import RadialBar from '../../components/user/RadialBar';
-import UserLayout from '../../layout/UserLayout';
+import RadialBar from '../../../components/user/RadialBar';
+import UserLayout from '../../../layout/UserLayout';
 
 const useStyles = makeStyles((theme) => ({
   area: {
@@ -38,9 +38,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const predicts = [12.2, 5.6, 10.5] 
-
-const Prediction = () => {
+const PredictPresenter = ({predicts}) => {
   const classes = useStyles();
 
   return (
@@ -66,4 +64,4 @@ const Prediction = () => {
   );
 }
 
-export default Prediction;
+export default PredictPresenter;

@@ -1,13 +1,12 @@
 import React from 'react';
-import UserLayout from '../../layout/UserLayout';
+import UserLayout from '../../../layout/UserLayout';
 import {
   Typography,
   makeStyles
 } from "@material-ui/core";
-import Selector from '../../components/user/Selector';
-import PredictOrder from '../../components/user/Home/PredictOrder';
-import Info from '../../components/user/Home/Info';
-
+import Selector from '../../../components/user/Selector';
+import PredictOrder from '../../../components/user/Home/PredictOrder';
+import Info from '../../../components/user/Home/Info';
 
 const useStyles = makeStyles((theme) => ({
   card_container : {
@@ -43,22 +42,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const horses = [
-  {
-    name: '금빛질주',
-    age: 10
-  },
-  {
-    name: '마이리더',
-    age: 10
-  },
-  {
-    name: '금빛질주',
-    age: 10
-  }
-]
-
-const Home = () => {
+const HomePresenter = ({horses}) => {
   const classes = useStyles();
 
   return(
@@ -95,4 +79,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default HomePresenter;

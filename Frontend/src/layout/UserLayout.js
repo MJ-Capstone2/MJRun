@@ -4,6 +4,7 @@ import {
   makeStyles,
   CircularProgress
 } from "@material-ui/core";
+import Footer from '../components/user/Footer';
 
 const useStyles = makeStyles((theme) => ({
   spiner: {
@@ -31,6 +32,7 @@ const UserLayout = ({children, loading=false}) => {
         children
         }
       </main>
+      <Footer />
     </div>
 
   )
