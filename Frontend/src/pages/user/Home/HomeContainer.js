@@ -137,19 +137,19 @@ import HomePresenter from './HomePresenter';
   ]
   const predicts = [1,2,3]
 
-  const [raceId, setRaceId] = useState(1);
+  const [raceIdx, setRaceIdx] = useState(0);
   const handleChange = (e, newValue) => {
-    setRaceId(newValue);
+    setRaceIdx(newValue);
   };
-
-  const createdata = (races, race_attendant, predicts) => {
-    return { races, race_attendant, predicts };
+  const race = races[raceIdx];
+  const createdata = (races, race_attendant, predicts, race) => {
+    return { races, race_attendant, predicts, race };
   }
 
   return (
     <HomePresenter
-      { ...createdata(races, race_attendant, predicts) }
-      raceId={raceId}
+      { ...createdata(races, race_attendant, predicts, race) }
+      raceIdx={raceIdx}
       handleChange={handleChange}
     />
   );

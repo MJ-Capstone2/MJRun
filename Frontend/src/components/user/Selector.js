@@ -5,6 +5,7 @@ import {
   Tabs,
   Tab
 } from '@material-ui/core';
+import { getLabel } from '../../utils';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -16,16 +17,15 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function Selector({ races, raceId, handleChange }){
+function Selector({ races, raceIdx, handleChange }){
+  
   const classes = useStyles();
-
-  const getLabel = (race) => (`${race.location}${race.num}R`)
 
   return (
     <div className={classes.root}>
       <AppBar position="relative" className={classes.paper} color="default" elevation={0}>
         <Tabs
-          value={raceId}
+          value={raceIdx}
           onChange={handleChange}
           variant="scrollable"
           scrollButtons="on"
@@ -35,7 +35,7 @@ function Selector({ races, raceId, handleChange }){
         >
           {
             races.map((race, idx)=>(
-              <Tab key={idx} label={getLabel(race)} value={race.id}/>
+              <Tab key={idx} label={getLabel(race)}/>
             ))
           }
         </Tabs>
