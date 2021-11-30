@@ -7,6 +7,7 @@ import {
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import DrawerComponent from "./Drawer";
+import DatePicker from "./DatePicker";
 
 const useStyles = makeStyles((theme) => ({
   root:{
@@ -22,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.primary.main,
     cursor: "pointer",
     textDecoration: "none",
-    marginBottom: "0.15em",
+    marginBottom: "0.15em"
   },
   logo_font: {
     fontStyle: "italic",
@@ -40,6 +41,7 @@ function Navbar() {
   return (
     <AppBar position="static" className={classes.paper} elevation={0}>
       <CssBaseline />
+
       <div className={classes.root}>
         <DrawerComponent />
 
@@ -49,7 +51,7 @@ function Navbar() {
           </Typography>
         </Link>
 
-        <span style={{width:'4em'}}></span>
+        <DatePicker />
       </div>
       </AppBar>
   );
