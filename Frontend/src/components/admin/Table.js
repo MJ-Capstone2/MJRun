@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import clsx from 'clsx';
 import { lighten, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -106,12 +106,26 @@ const useToolbarStyles = makeStyles((theme) => ({
   title: {
     flex: '1 1 100%',
   },
+  input: {
+    display: 'none',
+  },
 }));
 
 /* 테이블 제목부분 */
 const EnhancedTableToolbar = (props) => {
   const classes = useToolbarStyles();
   const { numSelected, title } = props;
+  const [files, setFiles] = useState([]);
+  const handleInputChange = (e) => {
+    setFiles(e.target.files);
+  }
+  const getFileName = () => {
+    let fileName = '';
+    for(let i=0; i<files.length; i++){
+      fileName = fileName + files[i].name + ', ';
+    }
+    return fileName;
+  }
 
   return (
     <Toolbar
@@ -128,7 +142,7 @@ const EnhancedTableToolbar = (props) => {
           {title}
         </Typography>
       )}
-
+      <Typography>{getFileName()}</Typography>
       {numSelected > 0 ? (
         <Tooltip title="삭제">
           <IconButton aria-label="delete">
@@ -136,11 +150,14 @@ const EnhancedTableToolbar = (props) => {
           </IconButton>
         </Tooltip>
       ) : (
-        <Tooltip title="데이터 추가">
-          <IconButton aria-label="add">
-            <AddIcon />
-          </IconButton>
-        </Tooltip>
+        <>
+          <input accept=".csv" className={classes.input} id="icon-button-file" type="file" multiple onChange={handleInputChange}/>
+          <label htmlFor="icon-button-file">
+            <IconButton aria-label="upload picture" component="span">
+              <AddIcon />
+            </IconButton>
+          </label>
+        </>
       )}
     </Toolbar>
   );

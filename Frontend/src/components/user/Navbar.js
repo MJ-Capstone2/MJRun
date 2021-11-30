@@ -12,7 +12,6 @@ import DatePicker from "./DatePicker";
 const useStyles = makeStyles((theme) => ({
   root:{
     background: theme.overrides.background,
-    borderBottom: "solid 1px #ccc",
     width: '100%',
     display:'flex',
     flexDirection: 'row',

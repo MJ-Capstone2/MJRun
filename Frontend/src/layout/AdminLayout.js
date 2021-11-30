@@ -6,6 +6,9 @@ import {
   makeStyles,
   CircularProgress
 } from "@material-ui/core";
+import {
+  useRouteMatch
+} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   spiner: {
@@ -39,6 +42,9 @@ const useStyles = makeStyles((theme) => ({
 const AdminLayout = ({children, loading=false}) => {
 
   const classes = useStyles();
+  let { path } = useRouteMatch();
+
+  console.log('path val:', path);
 
   return (
     <div>
