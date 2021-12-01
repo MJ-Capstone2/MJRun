@@ -1,13 +1,14 @@
-import { BaseEntity, Column, Entity, PrimaryColumn } from 'typeorm';
+import { BaseEntity, Column, Entity, PrimaryColumn, Unique } from 'typeorm';
 
 @Entity('Administrator')
+@Unique(['email'])
 export class Administrator extends BaseEntity {
   @PrimaryColumn({ type: 'varchar', length: 20 })
   id: string;
 
   @Column({ type: 'char', length: 64 })
-  password: String;
+  password: string;
 
-  @Column({ type: 'varchar', length: 50, unique: true })
+  @Column({ type: 'varchar', length: 50 })
   email: string;
 }

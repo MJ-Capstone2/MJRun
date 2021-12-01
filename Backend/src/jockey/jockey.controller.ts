@@ -25,21 +25,21 @@ export class JockeyController {
     return this.jockeyService.findAll();
   }
 
-  @Get(':jockey_number')
-  findOne(@Param('jockey_number') jockey_number: string) {
-    return this.jockeyService.findOne(+jockey_number);
+  @Get(':jk_id')
+  findOne(@Param('jk_id') jk_id: string) {
+    return this.jockeyService.findOne(+jk_id);
   }
 
-  @Patch(':jockey_number')
+  @Patch(':jk_id')
   update(
-    @Param('jockey_number') jockey_number: string,
+    @Param('jk_id') jk_id: string,
     @Body() updateJockeyDto: UpdateJockeyDto,
   ) {
-    return this.jockeyService.update(+jockey_number, updateJockeyDto);
+    return this.jockeyService.update(+jk_id, updateJockeyDto);
   }
 
-  @Delete(':jockey_number')
-  remove(@Param('jockey_number') jockey_number: string) {
-    return this.jockeyService.remove(+jockey_number);
+  @Delete(':jk_id')
+  remove(@Param('jk_id') jk_id: string) {
+    return this.jockeyService.remove(+jk_id);
   }
 }

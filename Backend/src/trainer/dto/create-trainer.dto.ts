@@ -1,16 +1,9 @@
-import {
-  IsDecimal,
-  IsInt,
-  IsNotEmpty,
-  IsPositive,
-  IsString,
-  Min,
-} from 'class-validator';
+import { IsInt, IsNotEmpty, IsPositive, IsString } from 'class-validator';
 
 export class CreateTrainerDto {
   @IsInt()
   @IsNotEmpty()
-  readonly trainer_number: number;
+  readonly tr_id: number;
 
   @IsString()
   @IsNotEmpty()
@@ -18,20 +11,11 @@ export class CreateTrainerDto {
 
   @IsInt()
   @IsNotEmpty()
-  @Min(1)
-  readonly career: number;
+  @IsPositive()
+  readonly debut: number;
 
   @IsInt()
+  @IsNotEmpty()
   @IsPositive()
-  readonly ord1_total_score: number;
-
-  @IsDecimal()
-  readonly total_win_rate: number;
-
-  @IsDecimal()
-  readonly total_double_win_rate: number;
-
-  @IsInt()
-  @IsPositive()
-  readonly total_racing_count: number;
+  readonly birthdate: number;
 }

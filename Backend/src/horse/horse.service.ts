@@ -17,8 +17,8 @@ export class HorseService {
   }
 
   async findAll(): Promise<Horse[]> {
-    const horses = await this.horseRepository.find();
-    return horses;
+    // const horses = ;
+    return await this.horseRepository.find();
   }
 
   async findOne(horse_number: number) {

@@ -1,23 +1,24 @@
 import { EntityRepository, Repository } from 'typeorm';
 import { Administrator } from './entities/administrator.entity';
-import { CreateAdministratorDto } from './dto/create-administrator.dto';
-import * as bcrypt from 'bcrypt';
+import { HashedAdministratorDto } from './dto/hash-administrator.dto';
+import {
+  ConflictException,
+  InternalServerErrorException,
+} from '@nestjs/common';
 
 @EntityRepository(Administrator)
 export class AdministratorRepository extends Repository<Administrator> {
   async createAdministrator(
-    createAdministratorDto: CreateAdministratorDto,
+    hashedAdministratorDto: HashedAdministratorDto,
   ): Promise<Administrator> {
-    const { id, password, email } = createAdministratorDto;
-    const saltOrRounds = 10;
-    const hashPassword = await bcrypt.hash(password, saltOrRounds);
-
-    const newAdministrator = this.create({
-      id,
-      password: hashPassword,
-      email,
-    });
-    await this.save(newAdministrator);
+    const newAdministrator = this.create({ ...hashedAdministratorDto });
+    try {
+      await this.save(newAdministrator);
+    } catch (e) {
+      if (e.code == '23505')
+        throw new ConflictException('Existing Admin ID or e-mail address');
+      else throw new InternalServerErrorException();
+    }
     return newAdministrator;
   }
 }

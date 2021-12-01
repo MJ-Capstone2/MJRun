@@ -1,20 +1,25 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateAdministratorDto } from './dto/create-administrator.dto';
 import { Administrator } from './entities/administrator.entity';
 import { AdministratorRepository } from './administrator.repository';
 import * as bcrypt from 'bcrypt';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AdministratorService {
   constructor(
     @InjectRepository(AdministratorRepository)
     private administratorRepository: AdministratorRepository,
+    private jwtService: JwtService,
   ) {}
 
   async getAllAdministrator(): Promise<Administrator[]> {
-    const administrators = await this.administratorRepository.find();
-    return administrators;
+    return await this.administratorRepository.find();
   }
 
   async getAdministratorById(id: string): Promise<Administrator> {
@@ -25,12 +30,17 @@ export class AdministratorService {
     return administrator;
   }
 
-  createAdministrator(
+  async createAdministrator(
     createAdministratorDto: CreateAdministratorDto,
   ): Promise<Administrator> {
-    return this.administratorRepository.createAdministrator(
-      createAdministratorDto,
-    );
+    const { id, password, email } = createAdministratorDto;
+    const salt = await bcrypt.genSalt();
+    const hasedPassword = await bcrypt.hash(password, salt);
+    return this.administratorRepository.createAdministrator({
+      id,
+      password: hasedPassword,
+      email,
+    });
   }
 
   async deleteAdministrator(id: string): Promise<void> {
@@ -67,10 +77,18 @@ export class AdministratorService {
     return administrator;
   }
 
-  async logIn(id: string, password: string): Promise<boolean> {
+  async signIn(id: string, password: string): Promise<{ accessToken: string }> {
     const hashPassword = (
       await this.getAdministratorById(id)
     ).password.toString();
-    return await bcrypt.compare(password, hashPassword);
+    const isCorrect = await bcrypt.compare(password, hashPassword);
+    if (isCorrect) {
+      // 유저 토큰 생성
+      const payload = { id };
+      const accessToken = this.jwtService.sign(payload);
+      return { accessToken };
+    } else {
+      throw new UnauthorizedException('SignIn Failed');
+    }
   }
 }
