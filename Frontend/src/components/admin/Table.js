@@ -2,21 +2,24 @@ import React, { useState } from 'react';
 import clsx from 'clsx';
 import { lighten, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TablePagination from '@material-ui/core/TablePagination';
-import TableRow from '@material-ui/core/TableRow';
-import TableSortLabel from '@material-ui/core/TableSortLabel';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
-import Checkbox from '@material-ui/core/Checkbox';
-import IconButton from '@material-ui/core/IconButton';
-import Tooltip from '@material-ui/core/Tooltip';
+import {
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TablePagination,
+  TableRow,
+  TableSortLabel,
+  Toolbar,
+  Typography,
+  Paper,
+  Checkbox,
+  IconButton,
+  Tooltip
+} from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/Add';
+import UploadModal from './UploadModal';
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -106,26 +109,21 @@ const useToolbarStyles = makeStyles((theme) => ({
   title: {
     flex: '1 1 100%',
   },
-  input: {
-    display: 'none',
-  },
 }));
 
 /* 테이블 제목부분 */
 const EnhancedTableToolbar = (props) => {
   const classes = useToolbarStyles();
   const { numSelected, title } = props;
-  const [files, setFiles] = useState([]);
-  const handleInputChange = (e) => {
-    setFiles(e.target.files);
-  }
-  const getFileName = () => {
-    let fileName = '';
-    for(let i=0; i<files.length; i++){
-      fileName = fileName + files[i].name + ', ';
-    }
-    return fileName;
-  }
+  const [open, setOpen] = React.useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
     <Toolbar
@@ -142,7 +140,6 @@ const EnhancedTableToolbar = (props) => {
           {title}
         </Typography>
       )}
-      <Typography>{getFileName()}</Typography>
       {numSelected > 0 ? (
         <Tooltip title="삭제">
           <IconButton aria-label="delete">
@@ -150,14 +147,14 @@ const EnhancedTableToolbar = (props) => {
           </IconButton>
         </Tooltip>
       ) : (
-        <>
-          <input accept=".csv" className={classes.input} id="icon-button-file" type="file" multiple onChange={handleInputChange}/>
-          <label htmlFor="icon-button-file">
-            <IconButton aria-label="upload picture" component="span">
+        <div>
+          <Tooltip title="데이터 추가">
+            <IconButton aria-label="add" onClick={handleOpen}>
               <AddIcon />
             </IconButton>
-          </label>
-        </>
+          </Tooltip>
+          <UploadModal open={open} handleClose={handleClose}/>
+        </div>
       )}
     </Toolbar>
   );
