@@ -8,7 +8,7 @@ import { JockeyAggregationRepository } from './jockey-aggregation.repository';
 @Injectable()
 export class JockeyAggregationService {
   constructor(
-    @InjectRepository(JockeyAggregationService)
+    @InjectRepository(JockeyAggregationRepository)
     private jockeyAggregationRepository: JockeyAggregationRepository,
   ) {}
   async create(createJockeyAggregationDto: CreateJockeyAggregationDto) {

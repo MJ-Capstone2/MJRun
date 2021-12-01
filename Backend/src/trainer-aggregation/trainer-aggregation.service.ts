@@ -42,9 +42,9 @@ export class TrainerAggregationService {
     tr_id: number,
     updateTrainerAggregationDto: UpdateTrainerAggregationDto,
   ): Promise<TrainerAggregation> {
-    const TrainerAggregation = await this.findOne(tr_id);
+    const trainerAggregation = await this.findOne(tr_id);
     const updateTrainerAggregation = Object.assign({
-      ...TrainerAggregation,
+      ...trainerAggregation,
       ...updateTrainerAggregationDto,
     });
 
