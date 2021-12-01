@@ -24,8 +24,9 @@ const useStyles = makeStyles(()=>({
 }));
 
 function DrawerComponent() {
-    const classes = useStyles();
+  const classes = useStyles();
   const [openDrawer, setOpenDrawer] = useState(false);
+  
   return (
     <>
       <Drawer
@@ -59,4 +60,5 @@ function DrawerComponent() {
     </>
   );
 }
+
 export default DrawerComponent;

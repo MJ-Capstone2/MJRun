@@ -5,6 +5,7 @@ import {
   Tabs,
   Tab
 } from '@material-ui/core';
+import { getLabel } from '../../utils';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -16,19 +17,15 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function Selector(){
+function Selector({ races, raceIdx, handleChange }){
+  
   const classes = useStyles();
-  const [value, setValue] = React.useState(0);
-
-  const handleChange = (e, newValue) => {
-    setValue(newValue);
-  };
 
   return (
     <div className={classes.root}>
       <AppBar position="relative" className={classes.paper} color="default" elevation={0}>
         <Tabs
-          value={value}
+          value={raceIdx}
           onChange={handleChange}
           variant="scrollable"
           scrollButtons="on"
@@ -36,13 +33,11 @@ function Selector(){
           textColor="primary"
           aria-label="scrollable force tabs example"
         >
-          <Tab label="Item One" />
-          <Tab label="Item Two" />
-          <Tab label="Item Three" />
-          <Tab label="Item Four" />
-          <Tab label="Item Five" />
-          <Tab label="Item Six" />
-          <Tab label="Item Seven" />
+          {
+            races.map((race, idx)=>(
+              <Tab key={idx} label={getLabel(race)}/>
+            ))
+          }
         </Tabs>
       </AppBar>
     </div>

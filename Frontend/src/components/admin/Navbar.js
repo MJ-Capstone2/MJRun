@@ -26,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
   },
   paper : {
     backgroundColor: theme.palette.background.paper,
+    boxShadow : '0 0 1em 0 rgba(50,50,93,0.1)',
   }
 }));
 

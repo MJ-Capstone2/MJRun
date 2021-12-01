@@ -250,8 +250,8 @@ const InfoTable = () => {
             <Typography> </Typography>
           </Box>
           {
-            columns.map((column) => (
-              <Box m={1} className={classes.colbox}>
+            columns.map((column, idx) => (
+              <Box key={idx} m={1} className={classes.colbox}>
                 <Typography>{column}</Typography>
               </Box>
             ))
@@ -261,7 +261,7 @@ const InfoTable = () => {
         <div className={classes.body}>
           {
             infos.map((info, idx) => (
-              <div className={classes.row}>
+              <div className={classes.row} key={idx}>
                 <Box borderRadius={5} m={1} className={`${classes.rowbox1} ${idx%2===0 ? classes.evenbox : classes.oddbox}`}>
                   <Typography><b>{idx+1} {info.horse.name}</b> ({info.horse.sex}/{info.horse.age})</Typography>
                   <Typography>무게증감 {info.horse.weight} </Typography>

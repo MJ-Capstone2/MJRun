@@ -1,13 +1,13 @@
 import React from 'react';
-import UserLayout from '../../layout/UserLayout';
+import UserLayout from '../../../layout/UserLayout';
 import {
   Typography,
   makeStyles
 } from "@material-ui/core";
-import Selector from '../../components/user/Selector';
-import PredictOrder from '../../components/user/Home/PredictOrder';
-import Info from '../../components/user/Home/Info';
-
+import Selector from '../../../components/user/Selector';
+import PredictOrder from '../../../components/user/Home/PredictOrder';
+import Info from '../../../components/user/Home/Info';
+import { getLabel } from '../../../utils';
 
 const useStyles = makeStyles((theme) => ({
   card_container : {
@@ -19,7 +19,6 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     flexDirection: 'row',
     display:'flex',
-    justifyContent: 'space-between',
     alignItems: 'center',
     paddingLeft: 20,
     paddingRight: 20
@@ -34,42 +33,19 @@ const useStyles = makeStyles((theme) => ({
     display:'flex',
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  live_badge: {
-    background: '#FFDCDC',
-    color: '#FF0F0F',
-    borderRadius: '0.1em',
-    padding: '0.2em 0.6em'
   }
 }));
 
-const horses = [
-  {
-    name: '금빛질주',
-    age: 10
-  },
-  {
-    name: '마이리더',
-    age: 10
-  },
-  {
-    name: '금빛질주',
-    age: 10
-  }
-]
+const HomePresenter = ({ races, raceIdx, handleChange, race_attendant, predicts, race }) => {
 
-const Home = () => {
   const classes = useStyles();
 
   return(
     <UserLayout>
-      <Selector />
+      <Selector races={races} raceIdx={raceIdx} handleChange={handleChange}/>
       <div className={classes.card_container}>
         <div className={classes.title_wrap}>
-          <Typography variant="h5"><b>서울 R1 (14:30)</b></Typography>
-          <div className={classes.live_badge}>
-            진행중
-          </div>
+          <Typography variant="h5"><b>{getLabel(race)} {race.start_time}</b></Typography>
         </div>
       </div>
       <div className={classes.card_container}>
@@ -77,14 +53,13 @@ const Home = () => {
           <Typography variant="h6"><b>예측번호</b></Typography>
           <div className={classes.order_wrap}>
             {
-              horses.map((horse, idx) => (
-                  <PredictOrder key={idx} order={idx+1} name={horse.name} age={horse.age}/>
-              ))
+             predicts.map((pre, idx)=>(
+              <PredictOrder key={idx} order={idx+1} name={race_attendant[pre-1].horse.name} age={race_attendant[pre-1].num}/>
+             ))
             }
           </div>
         </div>
       </div>
-      
       <div className={classes.card_container}>
         <div className={classes.content_wrap}>
           <Typography variant="h6"><b>말/기수/조교사 정보</b></Typography>
@@ -95,4 +70,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default HomePresenter;
