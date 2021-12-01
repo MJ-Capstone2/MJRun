@@ -3,7 +3,7 @@ import { BaseEntity, Column, Entity, JoinColumn, OneToOne } from 'typeorm';
 
 @Entity('AIPrediction')
 export class AIPrediction extends BaseEntity {
-  @OneToOne(() => AIPrediction, {
+  @OneToOne(() => HorseRace, {
     primary: true,
     onDelete: 'CASCADE',
   })
