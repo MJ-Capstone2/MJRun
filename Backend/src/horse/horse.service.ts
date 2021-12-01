@@ -25,7 +25,7 @@ export class HorseService {
     const horse = await this.horseRepository.findOne(horse_number);
     if (!horse) {
       throw new NotFoundException(
-        `Can't find Hourse with hourse_number : ${horse_number}`,
+        `Can't find Horse with hourse_number : ${horse_number}`,
       );
     }
     return horse;
