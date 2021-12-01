@@ -1,14 +1,14 @@
-import { Horse } from 'src/horse/entities/horse.entity';
+import { Trainer } from 'src/trainer/entities/trainer.entity';
 import { BaseEntity, Column, Entity, JoinColumn, OneToOne } from 'typeorm';
 
-@Entity('HorseAggregation')
-export class HorseAggregation extends BaseEntity {
-  @OneToOne(() => Horse, {
+@Entity('TrainerAggregation')
+export class TrainerAggregation extends BaseEntity {
+  @OneToOne(() => Trainer, {
     primary: true,
     onDelete: 'CASCADE',
   })
-  @JoinColumn({ name: 'horse_number' })
-  horse: Horse;
+  @JoinColumn({ name: 'jk_id' })
+  trainer: Trainer;
 
   @Column({ type: 'int' })
   total_race_count: number;

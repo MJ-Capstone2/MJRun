@@ -6,23 +6,25 @@ import {
   Param,
   Patch,
   Post,
-  UsePipes,
+  Req,
+  UseGuards,
   ValidationPipe,
 } from '@nestjs/common';
 import { AdministratorService } from './administrator.service';
 import { Administrator } from './entities/administrator.entity';
 import { CreateAdministratorDto } from './dto/create-administrator.dto';
+import { AuthGuard } from '@nestjs/passport';
 
-@Controller('administrator')
+@Controller('admin')
 export class AdministratorController {
   constructor(private administratorService: AdministratorService) {}
 
-  @Get('/login')
+  @Get('/signIn')
   logInAdministrator(
     @Body('id') id: string,
     @Body('password') pw: string,
-  ): Promise<Boolean> {
-    return this.administratorService.logIn(id, pw);
+  ): Promise<{ accessToken: string }> {
+    return this.administratorService.signIn(id, pw);
   }
 
   @Get('/:id')
@@ -34,14 +36,19 @@ export class AdministratorController {
     return this.administratorService.getAllAdministrator();
   }
 
-  @Post()
-  @UsePipes(ValidationPipe)
+  @Post('/signUp')
   createAdministrator(
-    @Body() createAdministratorDto: CreateAdministratorDto,
+    @Body(ValidationPipe) createAdministratorDto: CreateAdministratorDto,
   ): Promise<Administrator> {
     return this.administratorService.createAdministrator(
       createAdministratorDto,
     );
+  }
+
+  @Post('/Test')
+  @UseGuards(AuthGuard())
+  test(@Req() req) {
+    console.log('req', req);
   }
 
   @Delete('/:id')

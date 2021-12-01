@@ -17,37 +17,32 @@ export class JockeyService {
   }
 
   async findAll() {
-    const jockeys = await this.jockeyRepository.find();
-    return jockeys;
+    return await this.jockeyRepository.find();
   }
 
-  async findOne(jockey_number: number) {
-    const jockey = await this.jockeyRepository.findOne(jockey_number);
+  async findOne(jk_id: number) {
+    const jockey = await this.jockeyRepository.findOne(jk_id);
     if (!jockey) {
-      throw new NotFoundException(
-        `Can't find jockey with jockey_number : ${jockey_number}`,
-      );
+      throw new NotFoundException(`Can't find jockey with jk_id : ${jk_id}`);
     }
     return jockey;
   }
 
   async update(
-    jockey_number: number,
+    jk_id: number,
     updateJockeyDto: UpdateJockeyDto,
   ): Promise<Jockey> {
-    const jockey = await this.findOne(jockey_number);
+    const jockey = await this.findOne(jk_id);
     const updatejockey = Object.assign({ ...jockey, ...updateJockeyDto });
     await this.jockeyRepository.save(updatejockey);
     return updatejockey;
   }
 
-  async remove(jockey_number: number) {
-    const result = await this.jockeyRepository.delete(jockey_number);
+  async remove(jk_id: number) {
+    const result = await this.jockeyRepository.delete(jk_id);
 
     if (result.affected == 0) {
-      throw new NotFoundException(
-        `Can't find jockey with jockey_number : ${jockey_number}`,
-      );
+      throw new NotFoundException(`Can't find jockey with jk_id : ${jk_id}`);
     }
 
     console.log(result);

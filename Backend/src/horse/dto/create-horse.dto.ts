@@ -4,9 +4,7 @@ import {
   IsNotEmpty,
   IsPositive,
   IsString,
-  Max,
   MaxLength,
-  Min,
 } from 'class-validator';
 export class CreateHorseDto {
   @IsInt()
@@ -20,11 +18,9 @@ export class CreateHorseDto {
   @IsPositive()
   @IsNotEmpty()
   readonly age: number;
-  @IsInt()
-  @Min(0)
-  @Max(1)
+  @IsString()
   @IsNotEmpty()
-  readonly sex: number;
+  readonly sex: string;
   @IsString()
   @IsNotEmpty()
   readonly nationality: string;

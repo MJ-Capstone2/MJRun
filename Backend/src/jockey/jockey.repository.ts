@@ -6,7 +6,6 @@ import { Jockey } from './entities/jockey.entity';
 export class JockeyRepository extends Repository<Jockey> {
   async createJockey(createJockeyDto: CreateJockeyDto): Promise<Jockey> {
     const newJockey = this.create({ ...createJockeyDto });
-    // console.log(createJockeyDto);
     await this.save(newJockey);
     return newJockey;
   }

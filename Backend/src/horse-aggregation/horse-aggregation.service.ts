@@ -13,9 +13,7 @@ export class HorseAggregationService {
   ) {}
   async create(createHorseAggregationDto: CreateHorseAggregationDto) {
     try {
-      const existAggregation = await this.findOne(
-        createHorseAggregationDto.horse.horse_number,
-      );
+      await this.findOne(createHorseAggregationDto.horse.horse_number);
     } catch {
       return this.horseAggregationRepository.createHorseAggregation(
         createHorseAggregationDto,
@@ -24,10 +22,9 @@ export class HorseAggregationService {
   }
 
   async findAll(): Promise<HorseAggregation[]> {
-    const horseAggregation = await this.horseAggregationRepository.find({
+    return await this.horseAggregationRepository.find({
       relations: ['horse'],
     });
-    return horseAggregation;
   }
 
   async findOne(horse_number: number): Promise<HorseAggregation> {
@@ -42,8 +39,17 @@ export class HorseAggregationService {
     return horseAggreagtion;
   }
 
-  update(id: number, updateHorseAggregationDto: UpdateHorseAggregationDto) {
-    return `This action updates a #${id} horseAggregation`;
+  async update(
+    horse_number: number,
+    updateHorseDto: UpdateHorseAggregationDto,
+  ) {
+    const horseAggreagtion = await this.findOne(horse_number);
+    const updateHorseAggregation = Object.assign({
+      ...horseAggreagtion,
+      ...updateHorseDto,
+    });
+    await this.horseAggregationRepository.save(updateHorseAggregation);
+    return updateHorseAggregation;
   }
 
   async remove(horse_number: number): Promise<void> {

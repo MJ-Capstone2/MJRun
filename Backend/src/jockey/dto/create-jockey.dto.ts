@@ -3,7 +3,7 @@ import { IsInt, IsNotEmpty, IsPositive, IsString } from 'class-validator';
 export class CreateJockeyDto {
   @IsInt()
   @IsNotEmpty()
-  readonly jockey_number: number;
+  readonly jk_id: number;
 
   @IsString()
   @IsNotEmpty()
@@ -12,22 +12,10 @@ export class CreateJockeyDto {
   @IsInt()
   @IsNotEmpty()
   @IsPositive()
-  readonly age: number;
+  readonly debut: number;
 
   @IsInt()
   @IsNotEmpty()
   @IsPositive()
-  readonly career: number;
-
-  @IsInt()
-  @IsPositive()
-  readonly ord1_total_score: number;
-
-  @IsInt()
-  @IsPositive()
-  readonly totla_racing_count: number;
-
-  @IsInt()
-  @IsPositive()
-  readonly ord1_1year_score: number;
+  readonly birthdate: number;
 }
