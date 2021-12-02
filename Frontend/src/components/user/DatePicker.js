@@ -1,10 +1,13 @@
-import { ko } from "date-fns/esm/locale";
-import React, { useState } from 'react';
+import 
+  React,
+  { useState }
+from 'react';
 import { 
   Grid,
   makeStyles 
 } from '@material-ui/core';
 import DateFnsUtils from '@date-io/date-fns';
+import { ko } from "date-fns/esm/locale";
 import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker
@@ -19,12 +22,11 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-
-
 const DatePicker = () => {
   const classes = useStyles();
 
-  const [selectedDate, setSelectedDate] = React.useState(new Date());
+  const [selectedDate, setSelectedDate] = useState(new Date());
+
   const handleDateChange = (date) => {
     setSelectedDate(date);
   };
