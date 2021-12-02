@@ -1,4 +1,5 @@
-import { BaseEntity, Column, Entity, PrimaryColumn } from 'typeorm';
+import { RaceAttendant } from 'src/race-attendant/entities/race-attendant.entity';
+import { BaseEntity, Column, Entity, OneToMany, PrimaryColumn } from 'typeorm';
 
 @Entity('Jockey')
 export class Jockey extends BaseEntity {
@@ -13,4 +14,7 @@ export class Jockey extends BaseEntity {
 
   @Column({ type: 'int' })
   birthdate: number;
+
+  @OneToMany(() => RaceAttendant, (raceAttendant) => raceAttendant.jockey)
+  races: RaceAttendant[];
 }

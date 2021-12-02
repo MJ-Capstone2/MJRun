@@ -13,6 +13,8 @@ import { HorseAggregationModule } from './horse-aggregation/horse-aggregation.mo
 import { JockeyAggregationModule } from './jockey-aggregation/jockey-aggregation.module';
 import { TrainerAggregationModule } from './trainer-aggregation/trainer-aggregation.module';
 import { HorseRaceModule } from './horse-race/horse-race.module';
+import { AIPredictionModule } from './aiprediction/aiprediction.module';
+import { RaceAttendantModule } from './race-attendant/race-attendant.module';
 
 @Module({
   imports: [
@@ -30,6 +32,8 @@ import { HorseRaceModule } from './horse-race/horse-race.module';
     JockeyAggregationModule,
     TrainerAggregationModule,
     HorseRaceModule,
+    AIPredictionModule,
+    RaceAttendantModule,
   ],
   controllers: [AppController],
   providers: [AppService],
