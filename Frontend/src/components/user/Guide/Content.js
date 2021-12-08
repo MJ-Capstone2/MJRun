@@ -6,15 +6,22 @@ import {
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Navigation, Pagination } from "swiper";
-import 'swiper/core/'
-import 'swiper/swiper-bundle.min.css'
-import 'swiper/swiper.min.css'
+import 'swiper/core/';
+import 'swiper/swiper-bundle.min.css';
+import 'swiper/swiper.min.css';
 
 import su1 from '../../../constants/signup/회원가입1.png';
 import su2 from '../../../constants/signup/회원가입2.png';
 import su3 from '../../../constants/signup/회원가입3.png';
 import su4 from '../../../constants/signup/회원가입4.png';
 import su5 from '../../../constants/signup/회원가입5.png';
+
+import sr1 from '../../../constants/seatreservation/좌석예매1.png';
+import sr2 from '../../../constants/seatreservation/좌석예매2.png';
+import sr3 from '../../../constants/seatreservation/좌석예매3.png';
+import sr4 from '../../../constants/seatreservation/좌석예매4.png';
+import sr5 from '../../../constants/seatreservation/좌석예매5.png';
+import sr6 from '../../../constants/seatreservation/좌석예매6.png';
 
 SwiperCore.use([Navigation, Pagination]);
 
@@ -25,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: 10
   },
   tabs : {
-    marginTop: 40,
+    marginTop: 30,
     marginBottom: 30,
     display: 'flex',
     flexDirection: 'column',
@@ -43,11 +50,15 @@ const useStyles = makeStyles((theme) => ({
   typo: {
     width: '80%',
     maxWidth: 400,
+    wordBreak: 'break-all'
   }
 }));
 
-const suimgs = [su1, su2, su3, su4, su5]
+const suimgs = [su1, su2, su3, su4, su5];
 const sucmts = [["https://m.kra.co.kr/comp/view/appDown/mycardApp3.do 위 사이트에서 앱을 다운받는다."], ["회원가입 버튼을 누른다."], ["정보를 입력하고 회원가입을 마친다."], ["메인화면으로 돌아와 로그인 버튼을 누른다."], ["회원번호, 비밀번호를 입력한다", "로그인 버튼을 누른다."]]
+
+const srimgs = [sr1, sr2, sr3, sr4, sr5, sr6];
+const srcmts = [["좌석구매(예매) 버튼을 누른다."], ["사업장과 날짜를 선택한다.", "다음단계 버튼을 누른다,"], ["결제유형 및 결제방법, 층, 영역, 시간, 좌석선택 방법을 선택한다.", "다음단계 버튼을 누른다."], ["흰색 자리 중 하나를 선택한다."], ["선택완료 버튼을 누른다."], ["개인정보 수집 및 이용동의에 체크한다.", "결제하기 버튼을 누른다"]]
 
 const Content = ({ tabindex }) => {
   const classes = useStyles();
@@ -67,7 +78,7 @@ const Content = ({ tabindex }) => {
           tabindex === 0 ? suimgs.map((suimg, idx) => 
             <SwiperSlide>
               <div className={classes.tabs}>
-                <Typography variant="h6">STEP: {idx+1}</Typography>
+                <Typography variant="h6">STEP {idx+1}</Typography>
 
                 <img src={suimg} alt="suimg" className={classes.img}/>
                 {
@@ -79,10 +90,17 @@ const Content = ({ tabindex }) => {
             </SwiperSlide>
           )
           :
-          tabindex === 1 ? suimgs.map((suimg, idx) => 
+          tabindex === 1 ? srimgs.map((srimg, idx) => 
             <SwiperSlide>
               <div className={classes.tabs}>
-                Slide 2
+                <Typography variant="h6">STEP {idx+1}</Typography>
+
+                <img src={srimg} alt="srimg" className={classes.img}/>
+                {
+                  srcmts[idx].map((srcmt, index) =>
+                    <Typography className={classes.typo}>{index+1}. {srcmt}</Typography>
+                  )
+                }
               </div>
             </SwiperSlide>
           )
