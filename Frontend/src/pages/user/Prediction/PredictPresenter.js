@@ -10,21 +10,16 @@ import RadialBar from '../../../components/user/RadialBar';
 import UserLayout from '../../../layout/UserLayout';
 
 const useStyles = makeStyles((theme) => ({
-  area: {
+  root: {
+    backgroundColor: 'white',
     display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    marginTop: 10,
+    marginBottom: 10
   },
-  leftArea : {
-    flex: 1,
-    background: '#fff',
-    borderRight: 'solid 1px #cccccc',
-    display: 'flex',
-    alignItems:'center',
-    paddingTop:'5em',
-    flexDirection:'column',
-  },
-  rightArea : {
-    flex: 4
-
+  title: {
+    marginTop: '0.8em'
   },
   predictRatio: {
     margin: '0.8em',
@@ -43,22 +38,28 @@ const PredictPresenter = ({predicts}) => {
 
   return (
     <UserLayout>
-      <Typography style={{marginBottom:'0.3em'}}>AI금주 예측률</Typography>
-      <RadialBar />
-      {
-        predicts.map((pre, idx) => (
-          <Typography className={classes.predictRatio}>{idx+1}등: {pre}%</Typography>
-        ))
-      }
-      <div className={classes.total}>
-        <Tooltip title="누적 예측률? 전체 예측횟수/맞힌 예측횟수">
-          <IconButton size="small" color="#ccc" aria-label="upload picture" component="span">
-            <HelpOutlineIcon fontSize="small" style={{marginRight:'0.6em'}}/>
-          </IconButton>
-        </Tooltip>
-        <Typography>
-          누적 예측률: 18.5%
-        </Typography>
+      <div className={classes.root}>
+        <Typography variant="h5" className={classes.title}><b>AI금주 예측률</b></Typography>
+
+        <RadialBar />
+
+        {
+          predicts.map((pre, idx) => (
+            <Typography className={classes.predictRatio}>{idx+1}등: {pre}%</Typography>
+          ))
+        }
+
+        <div className={classes.total}>
+          <Tooltip title="누적 예측률 = 전체 예측횟수 / 맞힌 예측횟수">
+            <IconButton size="small" color="#ccc" aria-label="upload picture" component="span">
+              <HelpOutlineIcon fontSize="small" style={{marginRight:'0.6em'}}/>
+            </IconButton>
+          </Tooltip>
+
+          <Typography>
+            누적 예측률: 18.5%
+          </Typography>
+        </div>
       </div>
     </UserLayout>
   );
