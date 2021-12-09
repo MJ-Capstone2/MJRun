@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import HomePresenter from './HomePresenter';
+import { getAnything } from '../../../api';
 
  const HomeContainer = () => {
+
+  // 가짜 data
   const races = [
     {
       id: 1,
@@ -136,6 +139,8 @@ import HomePresenter from './HomePresenter';
     }
   ]
   const predicts = [1,2,3]
+
+  
 
   const [raceIdx, setRaceIdx] = useState(0);
   const handleChange = (e, newValue) => {

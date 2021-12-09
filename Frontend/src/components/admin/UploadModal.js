@@ -56,6 +56,13 @@ const UploadModal = ({open, handleClose}) => {
   const removeFile = (f) => {
     setFiles(files.filter(x => x !== f));
   }
+  const onSubmit = (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    for (let i=0; i < files.length; i ++) {
+      formData.append(`file[${i}]`, files[i]);
+    }
+  }
   return (
     <Modal
       aria-labelledby="transition-modal-title"
@@ -109,7 +116,12 @@ const UploadModal = ({open, handleClose}) => {
             </label>
           </div>
           <div className={classes.btn_container}>
-            <Button variant="contained" color="secondary" style={{justifyItems: 'center'}}>
+            <Button
+              variant="contained"
+              color="secondary"
+              style={{justifyItems: 'center'}}
+              onClick={onSubmit}
+            >
               Upload
             </Button>
           </div>
