@@ -15,6 +15,7 @@ import { TrainerAggregationModule } from './trainer-aggregation/trainer-aggregat
 import { HorseRaceModule } from './horse-race/horse-race.module';
 import { AIPredictionModule } from './aiprediction/aiprediction.module';
 import { RaceAttendantModule } from './race-attendant/race-attendant.module';
+import { AIModelModule } from './aimodel/aimodel.module';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { RaceAttendantModule } from './race-attendant/race-attendant.module';
     HorseRaceModule,
     AIPredictionModule,
     RaceAttendantModule,
+    AIModelModule,
   ],
   controllers: [AppController],
   providers: [AppService],
