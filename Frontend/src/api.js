@@ -19,7 +19,9 @@ export const getAnything = async (path, params = {}) => {
 };
 
 export const homeApi = {
-  races: () => getAnything("localhost:3000/horse-race", { race_date :"2016-01-08"}),
-  race_attendant: () => getAnything("localhost:3000/race-attendant"),
-  predicts: () => getAnything("localhost:3000/")
-}
+  races: () => getAnything("horse-race"),
+  race_attendant: () => getAnything("race-attendant"),
+  predicts: () => getAnything("")
+};
+
+export const horseApi = {};

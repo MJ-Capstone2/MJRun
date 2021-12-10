@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import HomePresenter from './HomePresenter';
-import { getAnything } from '../../../api';
+import { homeApi, getAnything } from '../../../api';
 
  const HomeContainer = () => {
 
@@ -150,6 +150,13 @@ import { getAnything } from '../../../api';
   const createdata = (races, race_attendant, predicts, race) => {
     return { races, race_attendant, predicts, race };
   }
+  const getData = async() => {
+    const d = await getAnything("horse-race");
+    console.log(d);
+  }
+  useEffect(() => {
+    getData();
+  });
 
   return (
     <HomePresenter

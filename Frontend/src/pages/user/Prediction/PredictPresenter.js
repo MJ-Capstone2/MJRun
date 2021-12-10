@@ -50,7 +50,7 @@ const PredictPresenter = ({predicts}) => {
         }
 
         <div className={classes.total}>
-          <Tooltip title="누적 예측률 = 전체 예측횟수 / 맞힌 예측횟수">
+          <Tooltip title="누적 예측률 = 맞힌 예측횟수/전체 예측횟수">
             <IconButton size="small" color="#ccc" aria-label="upload picture" component="span">
               <HelpOutlineIcon fontSize="small" style={{marginRight:'0.6em'}}/>
             </IconButton>
