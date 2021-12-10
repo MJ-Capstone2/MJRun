@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const makeGetRequest = (path, params) =>
-  axios.get(`localhost:3000/${path}`,{
+  axios.get(`http://localhost:3000/${path}`,{
     params
   }
 );
@@ -24,4 +24,8 @@ export const homeApi = {
   predicts: () => getAnything("")
 };
 
-export const horseApi = {};
+export const adminHorse = {};
+
+export const adminJockey = () => getAnything("jockey");
+
+export const adminTrainer = () => getAnything("trainer");

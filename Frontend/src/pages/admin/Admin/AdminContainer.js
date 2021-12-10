@@ -1,26 +1,66 @@
 import React, { useState, useEffect } from 'react';
 import AdminPresenter from './AdminPresenter';
-import { horseApi } from '../../../api';
+import { useParams } from "react-router-dom";
+import { adminJockey, adminTrainer, adminHorse } from '../../../api';
 
 const AdminContainer = () => {
+
+  let { dtype } = useParams();
+
+  console.log(dtype);
+
   const [horses, setHorses] = useState({
     loading: true,
-    horseData: [],
+    horseData: null,
     horseError: null
   });
+  const [jockey, setJockey] = useState({
+    loading: true,
+    jockeyData: null,
+    jockeyErr: null
+  });
+  const [trainer, setTrainer] = useState({
+    loading: true,
+    trainerData: null,
+    trainerErr: null
+  });
 
-  const getHData = async () => {
-    const [horseData, horseError] = await horseApi.horses();
-    console.log(horseData);
-    setHorses({
+  // const getHData = async () => {
+  //   const [horseData, horseError] = await horseApi.horses();
+  //   console.log(horseData);
+  //   setHorses({
+  //     loading: false,
+  //     horseData: [],
+  //     horseError: null
+  //   });
+  // }
+
+  const getJData = async () => {
+    const [jockeyData, jockeyErr] = await adminJockey();
+    setJockey({
       loading: false,
-      horseData: [],
-      horseError: null
+      jockeyData,
+      jockeyErr
+    });
+  }
+
+  const getTData = async () => {
+    const [trainerData, trainerErr] = await adminTrainer();
+    setTrainer({
+      loading: false,
+      trainerData,
+      trainerErr
     });
   }
 
   useEffect(() =>{
-    getHData();
+    if (dtype === 'jockey'){
+      getJData();
+    } else if (dtype === 'trainer') {
+      getTData();
+    } else {
+
+    }
   },[]);
 
   const horse_columns = [
@@ -37,25 +77,32 @@ const AdminContainer = () => {
     { id: 'ord2', numeric: true, disablePadding: false, label: '2위' },
     { id: 'ord3', numeric: true, disablePadding: false, label: '3위' },
   ];
-  function parseHorse(hdata) {
-    return {
-      id: hdata.horse.horse_number,
-      name: hdata.horse.name,
-      sex: hdata.horse.name,
-      age: hdata.horse.age,
-      nationality: hdata.horse.nationality,
-      delta_weight: hdata.horse.weight,
-      rating: hdata.horse.rating,
-      total_race_count: hdata.total_race_count,
-      total_win_rate: hdata.total_win_rate,
-      ord1: hdata.total_ord1_count,
-      ord2: hdata.total_ord2_count,
-      ord3: hdata.total_ord3_count
+  const jockey_columns = [
+    { id: 'jk_id', numeric: false, disablePadding: true, label: 'ID' },
+    { id: 'name', numeric: true, disablePadding: false, label: '이름' },
+    { id: 'debut', numeric: true, disablePadding: false, label: '데뷔일' },
+    { id: 'birthdate', numeric: true, disablePadding: false, label: '생일' }
+  ];
+  const trainer_columns = [
+    { id: 'tr_id', numeric: false, disablePadding: true, label: 'ID' },
+    { id: 'name', numeric: true, disablePadding: false, label: '이름' },
+    { id: 'debut', numeric: true, disablePadding: false, label: '데뷔일' },
+    { id: 'birthdate', numeric: true, disablePadding: false, label: '생일' }
+  ]
+
+  const parseProp = () => {
+    switch(dtype){
+      case 'jockey':
+        return {cols:jockey_columns, rows:jockey.jockeyData, title:'기수', loading:jockey.loading};
+      case 'trainer':
+        return {cols:trainer_columns, rows:trainer.trainerData, title:'조교사', loading:trainer.loading};
+      default:
+        return {cols:jockey_columns, rows:jockey.jockeyData, title:'기수', loading:jockey.loading};
     }
   }
 
   return (
-    <AdminPresenter cols={horse_columns} rows={horses.horseData.map(row=>parseHorse(row))} title='말' loading={horses.loading}/>
+    <AdminPresenter {...parseProp()}/>
   );
 }
 
