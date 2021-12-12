@@ -19,7 +19,7 @@ import { AuthGuard } from '@nestjs/passport';
 export class AdministratorController {
   constructor(private administratorService: AdministratorService) {}
 
-  @Get('/signIn')
+  @Post('/signIn')
   logInAdministrator(
     @Body('id') id: string,
     @Body('password') pw: string,
