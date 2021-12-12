@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { 
   Typography,
   TextField,
@@ -31,37 +32,77 @@ const useStyles = makeStyles((theme) => ({
 const Login = () => {
   const classes = useStyles();
 
-  const [ID, SetID] = useState("");
-  const [Password, SetPassword] = useState("");
+  const [Id, SetId] = useState("");
+  const [Pwd, SetPwd] = useState("");
 
-  const onIDHandler = (event) => {
-    SetID(event.currentTarget.value)
+  const onIdHandler = (event) => {
+    SetId(event.target.value)
   };
-  const onPasswordHandler = (event) => {
-    SetPassword(event.currentTarget.value)
+  const onPwdHandler = (event) => {
+    SetPwd(event.target.value)
   };
-  const onSubmitHandler = (event) => {
-    event.preventDefault();
-    
-    console.log('ID', ID)
-    console.log('Password', Password)
+
+  // function onClickLogin(){
+  //   axios({
+  //     method: "GET",
+  //     url: "http://localhost:3000/api/admin/signin",
+  //     data: {
+  //       "id": Id,
+  //       "password": Pwd
+  //     }
+  //   })
+  //   .then((res) => {
+  //     console.log(res.data.token)
+  //     document.location.href = "/admin"
+  //     //로그인 실패 시
+  //     //document.location.href = '/login'
+  //   })
+  //   .catch((error) => {
+  //     console.log(error)
+  //     console.log(Id)
+  //     console.log(Pwd)
+  //   })
+  // }
+
+  const onClickLogin = () => {
+    axios.get("http://localhost:3000/api/admin/signin", 
+    {
+      "id": Id,
+      "password": Pwd
+    })
+    .then(res => {
+      console.log(res)
+      document.location.href = "/admin"
+    })
+    .catch(err => {
+      console.log(err)
+      console.log(Id)
+      console.log(Pwd)
+    });
+  }
+
+  const onKeyPress = (e) => {
+    if(e.key === 'Enter'){
+      onClickLogin();
+    }
   };
 
   return (
     <div className={classes.root}>
       <Typography className={classes.typo}>MJ.RUN</Typography>
       
-      <form className={classes.form} onSubmit={onSubmitHandler}>
-        <TextField id="id" label="ID" variant="outlined" value={ID} onChange={onIDHandler} />
-        <TextField id="pwd" label="PW" type="password" variant="outlined" value={Password} onChange={onPasswordHandler} />
+      <div className={classes.form}>
+        <TextField label="ID" variant="outlined" value={Id} onChange={onIdHandler} onKeyPress={onKeyPress}/>
+        <TextField label="PW" type="password" variant="outlined" value={Pwd} onChange={onPwdHandler} onKeyPress={onKeyPress}/>
 
         <Button 
           type="submit" 
           variant="contained" 
-          color="primary" 
+          color="primary"
+          onClick={onClickLogin} 
           className={classes.button}
         >로그인</Button>
-      </form>
+      </div>
     </div>
   );
 };
