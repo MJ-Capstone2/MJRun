@@ -3,7 +3,10 @@ import HomePresenter from './HomePresenter';
 import { homeApi, getAnything } from '../../../api';
 
 const HomeContainer = () => {
+<<<<<<< HEAD
   // 가짜 data
+=======
+>>>>>>> 8ec544dc06d2759b70140cb5e610a46c4d13a20f
   const races = [
     {
       id: 1,
@@ -147,6 +150,7 @@ const HomeContainer = () => {
   const createdata = (races, race_attendant, predicts, race) => {
     return { races, race_attendant, predicts, race };
   };
+<<<<<<< HEAD
   const getData = async () => {
     const d = await getAnything('horse-race');
     console.log(d);
@@ -154,6 +158,8 @@ const HomeContainer = () => {
   useEffect(() => {
     getData();
   });
+=======
+>>>>>>> 8ec544dc06d2759b70140cb5e610a46c4d13a20f
 
   return (
     <HomePresenter
