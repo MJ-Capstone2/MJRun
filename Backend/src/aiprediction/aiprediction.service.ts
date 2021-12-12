@@ -1,4 +1,4 @@
-import { HttpService } from '@nestjs/axios';
+//import { HttpService } from '@nestjs/axios';
 import { lastValueFrom, map } from 'rxjs';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -16,10 +16,10 @@ export class AIPredictionService {
     @InjectRepository(AIPredictionRepository)
     private aiPredictionRepository: AIPredictionRepository,
     private raceAttendantService: RaceAttendantService, // private mAIModel:AIModelService,
-<<<<<<< HEAD
-    private httpService: HttpService,
-=======
->>>>>>> 8ec544dc06d2759b70140cb5e610a46c4d13a20f
+
+//    private httpService: HttpService,
+
+
   ) {}
   create(createAIPredictionDto: CreateAIPredictionDto) {
     return this.aiPredictionRepository.createAIPrediction(
@@ -28,7 +28,7 @@ export class AIPredictionService {
   }
 
   async pridiction(race_id: number) {
-<<<<<<< HEAD
+
     // const raceAttendants: RaceAttendant[] =
     //   await this.raceAttendantService.findAll(race_id);
     // 전처리
@@ -88,68 +88,19 @@ export class AIPredictionService {
       data: test_data,
     };
     // ai모델에 보내기
-    return await lastValueFrom(
-      this.httpService.post('http://localhost:3002/prediction', req_json).pipe(
-        map((res) => {
-          return res.data;
-        }),
-      ),
-    );
+    // return await lastValueFrom(
+    //   this.httpService.post('http://localhost:3002/prediction', req_json).pipe(
+    //     map((res) => {
+    //       return res.data;
+    //     }),
+    //   ),
+    // );
     // console.log(response_data);
     // 데이터 생성하기
     // await this.create(results);
     // console.log(raceAttendants);
   }
-=======
-    const raceAttendants: RaceAttendant[] =
-      await this.raceAttendantService.findAll(race_id);
-    // 전처리
-    // const preProcessingData: number[][] = this.model.preprocess(raceAttendants);
-    // ai모델에 보내기
-    // const results:createAIPredictionDto = this.model.predict(preProcessingData);
-    // 데이터 생성하기
-    // await this.create(results);
-    console.log(raceAttendants);
-  }
-  /*
-  [
-    RaceAttendant {
-      ra_id: '2016010200101',
-      line_number: 1,
-      result: 8,
-      horseRace: HorseRace {
-        race_id: '20160102001',
-        race_date: 20160102,
-        race_location: '서울',
-        race_number: 1,
-        race_start_time: '10:45:00',
-        race_distance: 1000
-      },
-      horse: Horse {
-        horse_number: 33936,
-        name: '고센',
-        age: 4,
-        sex: '거',
-        nationality: '한국',
-        rating: 27,
-        weight: 478
-      },
-      jockey: Jockey {
-        jk_id: 80499,
-        name: '박현우',
-        debut: 20120607,
-        birthdate: 19901201
-      },
-      trainer: Trainer {
-        tr_id: 70115,
-        name: '박천서',
-        debut: 20030305,
-        birthdate: 19630608
-      }
-    },
-  ]
-   */
->>>>>>> 8ec544dc06d2759b70140cb5e610a46c4d13a20f
+
   async findAll(): Promise<AIPrediction[]> {
     return await this.aiPredictionRepository.find({
       relations: ['HorseRace'],
