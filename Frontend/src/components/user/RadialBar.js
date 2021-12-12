@@ -10,10 +10,10 @@ const useStyles = makeStyles((theme) => ({
   graphContainer: {
     width : '16em',
     height: '16em',
-    marginBottom: '3.2em',
+    margin: '0.5em',
     display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center'
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 }));
 
@@ -27,7 +27,7 @@ function RadialBar(){
         percent={percentage}
         linearGradient={["#4286f4", "#373B44"]}
         animationSmooth="1s ease-out"
-        fontSize="1rem"
+        fontSize="15px"
         speed={180}
         size={200}
         round

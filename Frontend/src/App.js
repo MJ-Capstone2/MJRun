@@ -7,7 +7,7 @@ import Home from './pages/user/Home/index';
 import Login from "./pages/admin/Login";
 import Guide from './pages/user/Guide';
 import Prediction from './pages/user/Prediction/index';
-import Admin from './pages/admin/Admin';
+import Admin from './pages/admin/Admin/index';
 import NotFound from './pages/NotFound';
 
 function App() {
