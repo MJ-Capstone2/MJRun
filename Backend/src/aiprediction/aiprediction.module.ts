@@ -7,10 +7,7 @@ import { HorseRaceRepository } from 'src/horse-race/horse-race.repository';
 import { RaceAttendantModule } from 'src/race-attendant/race-attendant.module';
 import { RaceAttendantRepository } from 'src/race-attendant/race-attendant.repository';
 import { RaceAttendantService } from 'src/race-attendant/race-attendant.service';
-<<<<<<< HEAD
 import { HttpModule } from '@nestjs/axios';
-=======
->>>>>>> 8ec544dc06d2759b70140cb5e610a46c4d13a20f
 
 @Module({
   imports: [
@@ -20,10 +17,7 @@ import { HttpModule } from '@nestjs/axios';
       RaceAttendantRepository,
     ]),
     RaceAttendantModule,
-<<<<<<< HEAD
     HttpModule,
-=======
->>>>>>> 8ec544dc06d2759b70140cb5e610a46c4d13a20f
   ],
   controllers: [AIPredictionController],
   providers: [AIPredictionService, RaceAttendantService],

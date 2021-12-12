@@ -5,7 +5,7 @@ const makeGetRequest = (path, params) =>
     params,
   });
 
-export const getAnything = async (path, params = {}) => {
+export async function getAnything(path, params = {}) {
   try {
     const {
       data: { results },
@@ -15,7 +15,7 @@ export const getAnything = async (path, params = {}) => {
   } catch (e) {
     return [null, e];
   }
-};
+}
 
 export const homeApi = {
   races: () => getAnything('horse-race'),
@@ -23,4 +23,8 @@ export const homeApi = {
   predicts: () => getAnything(''),
 };
 
-export const horseApi = {};
+export const adminHorse = {};
+
+export const adminJockey = () => getAnything('jockey');
+
+export const adminTrainer = () => getAnything('trainer');

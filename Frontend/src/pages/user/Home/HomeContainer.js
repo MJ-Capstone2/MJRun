@@ -3,6 +3,7 @@ import HomePresenter from './HomePresenter';
 import { homeApi, getAnything } from '../../../api';
 
 const HomeContainer = () => {
+  // 가짜 data
   const races = [
     {
       id: 1,
@@ -146,6 +147,13 @@ const HomeContainer = () => {
   const createdata = (races, race_attendant, predicts, race) => {
     return { races, race_attendant, predicts, race };
   };
+  const getData = async () => {
+    const d = await getAnything('horse-race');
+    console.log(d);
+  };
+  useEffect(() => {
+    getData();
+  });
 
   return (
     <HomePresenter
