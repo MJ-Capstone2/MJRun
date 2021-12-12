@@ -7,7 +7,7 @@ export class TrainerAggregation extends BaseEntity {
     primary: true,
     onDelete: 'CASCADE',
   })
-  @JoinColumn({ name: 'jk_id' })
+  @JoinColumn({ name: 'tr_id' })
   trainer: Trainer;
 
   @Column({ type: 'int' })

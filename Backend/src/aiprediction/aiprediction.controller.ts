@@ -16,8 +16,10 @@ export class AIPredictionController {
   constructor(private readonly aiPredictionService: AIPredictionService) {}
 
   @Post('/:race_id')
-  prediction(@Param('race_id', ParseIntPipe) race_id: number) {
-    return this.aiPredictionService.pridiction(race_id);
+  async prediction(
+    @Param('race_id', ParseIntPipe) race_id: number,
+  ): Promise<number[][]> {
+    return await this.aiPredictionService.pridiction(race_id);
   }
 
   @Get()

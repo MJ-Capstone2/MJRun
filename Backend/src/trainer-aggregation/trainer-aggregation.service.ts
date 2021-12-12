@@ -1,6 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { TrainerRepository } from 'src/trainer/trainer.repository';
 import { CreateTrainerAggregationDto } from './dto/create-trainer-aggregation.dto';
 import { UpdateTrainerAggregationDto } from './dto/update-trainer-aggregation.dto';
 import { TrainerAggregation } from './entities/trainer-aggregation.entity';
@@ -9,7 +8,7 @@ import { TrainerAggregationRepository } from './trainer-aggregation.repository';
 @Injectable()
 export class TrainerAggregationService {
   constructor(
-    @InjectRepository(TrainerRepository)
+    @InjectRepository(TrainerAggregationRepository)
     private trainerAggregationRepository: TrainerAggregationRepository,
   ) {}
   async create(createTrainerAggregationDto: CreateTrainerAggregationDto) {
