@@ -34,7 +34,6 @@ export class RaceAttendantService {
     const relations = ['horseRace', 'horse', 'jockey', 'trainer'];
     if (race_id) {
       where['horseRace'] = { race_id };
-      console.log(where);
     }
     return await this.raceAttendantRepository.find({ where, relations });
   }

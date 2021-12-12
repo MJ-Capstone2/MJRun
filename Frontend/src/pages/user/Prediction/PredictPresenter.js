@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-  makeStyles,
-  Typography,
-  Tooltip,
-  IconButton
-} from "@material-ui/core";
+import { makeStyles, Typography, Tooltip, IconButton } from '@material-ui/core';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import RadialBar from '../../../components/user/RadialBar';
 import UserLayout from '../../../layout/UserLayout';
@@ -16,10 +11,10 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     alignItems: 'center',
     marginTop: 10,
-    marginBottom: 10
+    marginBottom: 10,
   },
   title: {
-    marginTop: '0.8em'
+    marginTop: '0.8em',
   },
   predictRatio: {
     margin: '0.8em',
@@ -29,40 +24,48 @@ const useStyles = makeStyles((theme) => ({
     borderTop: 'solid 1px #ccc',
     flexDirection: 'row',
     display: 'flex',
-    alignItems: 'center'
-  }
+    alignItems: 'center',
+  },
 }));
 
-const PredictPresenter = ({predicts}) => {
+const PredictPresenter = ({ predicts }) => {
   const classes = useStyles();
 
   return (
     <UserLayout>
       <div className={classes.root}>
-        <Typography variant="h5" className={classes.title}><b>AI금주 예측률</b></Typography>
+        <Typography variant="h5" className={classes.title}>
+          <b>AI금주 예측률</b>
+        </Typography>
 
         <RadialBar />
 
-        {
-          predicts.map((pre, idx) => (
-            <Typography className={classes.predictRatio}>{idx+1}등: {pre}%</Typography>
-          ))
-        }
+        {predicts.map((pre, idx) => (
+          <Typography className={classes.predictRatio}>
+            {idx + 1}등: {pre}%
+          </Typography>
+        ))}
 
         <div className={classes.total}>
-          <Tooltip title="누적 예측률 = 맞힌 예측횟수/전체 예측횟수">
-            <IconButton size="small" color="#ccc" aria-label="upload picture" component="span">
-              <HelpOutlineIcon fontSize="small" style={{marginRight:'0.6em'}}/>
+          <Tooltip title="누적 예측률 = 전체 예측횟수 / 맞힌 예측횟수">
+            <IconButton
+              size="small"
+              color="#ccc"
+              aria-label="upload picture"
+              component="span"
+            >
+              <HelpOutlineIcon
+                fontSize="small"
+                style={{ marginRight: '0.6em' }}
+              />
             </IconButton>
           </Tooltip>
 
-          <Typography>
-            누적 예측률: 18.5%
-          </Typography>
+          <Typography>누적 예측률: 18.5%</Typography>
         </div>
       </div>
     </UserLayout>
   );
-}
+};
 
 export default PredictPresenter;

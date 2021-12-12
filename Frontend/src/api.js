@@ -1,31 +1,30 @@
-import axios from "axios";
+import axios from 'axios';
 
 const makeGetRequest = (path, params) =>
-  axios.get(`http://localhost:3000/${path}`,{
-    params
-  }
-);
+  axios.get(`http://localhost:3000/${path}`, {
+    params,
+  });
 
-export const getAnything = async (path, params = {}) => {
+export async function getAnything(path, params = {}) {
   try {
     const {
-      data: {results},
-      data
+      data: { results },
+      data,
     } = await makeGetRequest(path, params);
     return [results || data, null];
   } catch (e) {
     return [null, e];
   }
-};
+}
 
 export const homeApi = {
-  races: () => getAnything("horse-race"),
-  race_attendant: () => getAnything("race-attendant"),
-  predicts: () => getAnything("")
+  races: () => getAnything('horse-race'),
+  race_attendant: () => getAnything('race-attendant'),
+  predicts: () => getAnything(''),
 };
 
 export const adminHorse = {};
 
-export const adminJockey = () => getAnything("jockey");
+export const adminJockey = () => getAnything('jockey');
 
-export const adminTrainer = () => getAnything("trainer");
+export const adminTrainer = () => getAnything('trainer');
