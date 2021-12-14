@@ -25,20 +25,20 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function TabPanel({ value }) {
+function TabPanel({ value, attendant }) {
   return (
     <div>
       { value === 0 && (
-        <InfoTable />
+        <InfoTable attendant={attendant} />
       )}
       { value === 1 && (
-        <InfoCard />
+        <InfoCard attendant={attendant} />
       )}
     </div>
   );
 }
 
-function Info(){
+const Info = ({ attendant }) => {
 
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
@@ -65,7 +65,7 @@ function Info(){
           <Tab icon={<ViewAgendaIcon />} className={classes.tab}/>
         </Tabs>
       </div>
-      <TabPanel value={value} />
+      <TabPanel value={value} attendant={attendant}/>
     </div>
   );
 }

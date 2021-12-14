@@ -34,11 +34,7 @@ export async function deleteAnything(path, params = {}) {
   }
 }
 
-export const homeApi = {
-  races: () => getAnything('horse-race'),
-  race_attendant: () => getAnything('race-attendant'),
-  predicts: () => getAnything(''),
-};
+export const homeApi = getAnything('all_info_at_date?race_date=2019-02-24');
 
 export const adminApi = {
   horses : getAnything('horse-aggregation'),
@@ -48,8 +44,8 @@ export const adminApi = {
 
 export const precisionApi = {
   ord1: getAnything('aiprediction/precision',{'period':'week','order':1}),
-  ord2:getAnything('aiprediction/precision',{'period':'week','order':2}),
-  ord3:getAnything('aiprediction/precision',{'period':'week','order':3}),
-  week:getAnything('aiprediction/precision',{'period':'week'}),
-  month:getAnything('aiprediction/precision',{'period':'month'}),
+  ord2: getAnything('aiprediction/precision',{'period':'week','order':2}),
+  ord3: getAnything('aiprediction/precision',{'period':'week','order':3}),
+  week: getAnything('aiprediction/precision',{'period':'week'}),
+  month: getAnything('aiprediction/precision',{'period':'month'}),
 }
