@@ -44,24 +44,23 @@ const AdminLayout = ({children, loading}) => {
     <div>
       <Navbar />
       <div className={classes.root_container}>
-        <div>
-          <div className={classes.nav_container}>
-            <SideNav />
+        {loading?
+          <div className={classes.spiner}>
+            <CircularProgress />
+          </div>:
+          <div>
+            <div className={classes.nav_container}>
+              <SideNav />
+            </div>
+            <div className={classes.content_container}>
+              <CardBox>
+                {children}
+              </CardBox>
+            </div>
           </div>
-          <div className={classes.content_container}>
-            {loading?
-            <div className={classes.spiner}>
-              <CircularProgress />
-            </div>:
-            <CardBox>
-              {children}
-            </CardBox>
-            }
-          </div>
-        </div>
+        }
       </div>
     </div>
-
   )
 }
 

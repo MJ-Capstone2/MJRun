@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const makeGetRequest = (path, params) =>
-  axios.get(`http://localhost:3000/${path}`, {
+  axios.get(`http://localhost:3000/api/${path}`, {
     params,
   });
 
@@ -15,7 +15,7 @@ export async function getAnything(path, params = {}) {
   } catch (e) {
     return [null, e];
   }
-}
+};
 
 export const homeApi = {
   races: () => getAnything('horse-race'),
@@ -23,8 +23,8 @@ export const homeApi = {
   predicts: () => getAnything(''),
 };
 
-export const adminHorse = {};
-
-export const adminJockey = () => getAnything('jockey');
-
-export const adminTrainer = () => getAnything('trainer');
+export const adminApi = {
+  horses : getAnything('horse-aggregation'),
+  jockeys: getAnything('jockey'),
+  trainers: getAnything('trainer')
+}

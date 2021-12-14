@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import AdminPresenter from './AdminPresenter';
 import { useParams } from 'react-router-dom';
-import { adminJockey, adminTrainer, adminHorse } from '../../../api';
+import { adminApi } from '../../../api';
 
 const AdminContainer = () => {
   let { dtype } = useParams();
@@ -24,18 +24,17 @@ const AdminContainer = () => {
     trainerErr: null,
   });
 
-  // const getHData = async () => {
-  //   const [horseData, horseError] = await horseApi.horses();
-  //   console.log(horseData);
-  //   setHorses({
-  //     loading: false,
-  //     horseData: [],
-  //     horseError: null
-  //   });
-  // }
+  const getHData = async () => {
+    const [horseData, horseError] = await adminApi.horses;
+    setHorses({
+      loading: false,
+      horseData: horseData,
+      horseError
+    });
+  }
 
   const getJData = async () => {
-    const [jockeyData, jockeyErr] = await adminJockey();
+    const [jockeyData, jockeyErr] = await adminApi.jockeys;
     setJockey({
       loading: false,
       jockeyData,
@@ -44,7 +43,7 @@ const AdminContainer = () => {
   };
 
   const getTData = async () => {
-    const [trainerData, trainerErr] = await adminTrainer();
+    const [trainerData, trainerErr] = await adminApi.trainers;
     setTrainer({
       loading: false,
       trainerData,
@@ -58,6 +57,7 @@ const AdminContainer = () => {
     } else if (dtype === 'trainer') {
       getTData();
     } else {
+      getHData();
     }
   }, []);
 
@@ -68,7 +68,7 @@ const AdminContainer = () => {
     { id: 'age', numeric: true, disablePadding: false, label: '나이' },
     { id: 'nationality', numeric: true, disablePadding: false, label: '국적' },
     {
-      id: 'delta_weight',
+      id: 'weight',
       numeric: false,
       disablePadding: false,
       label: '무게증감(Kg)',
@@ -86,9 +86,9 @@ const AdminContainer = () => {
       disablePadding: false,
       label: '승률',
     },
-    { id: 'ord1', numeric: true, disablePadding: false, label: '1위' },
-    { id: 'ord2', numeric: true, disablePadding: false, label: '2위' },
-    { id: 'ord3', numeric: true, disablePadding: false, label: '3위' },
+    { id: 'total_ord1_count', numeric: true, disablePadding: false, label: '1위' },
+    { id: 'total_ord2_count', numeric: true, disablePadding: false, label: '2위' },
+    { id: 'total_ord3_count', numeric: true, disablePadding: false, label: '3위' },
   ];
   const jockey_columns = [
     { id: 'jk_id', numeric: false, disablePadding: true, label: 'ID' },
@@ -121,10 +121,10 @@ const AdminContainer = () => {
         };
       default:
         return {
-          cols: jockey_columns,
-          rows: jockey.jockeyData,
-          title: '기수',
-          loading: jockey.loading,
+          cols: horse_columns,
+          rows: horses.horseData,
+          title: '말',
+          loading: horses.loading,
         };
     }
   };
