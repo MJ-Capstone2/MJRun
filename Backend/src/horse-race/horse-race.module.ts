@@ -8,5 +8,6 @@ import { HorseRaceRepository } from './horse-race.repository';
   imports: [TypeOrmModule.forFeature([HorseRaceRepository])],
   controllers: [HorseRaceController],
   providers: [HorseRaceService],
+  exports: [HorseRaceService],
 })
 export class HorseRaceModule {}

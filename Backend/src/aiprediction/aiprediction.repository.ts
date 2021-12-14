@@ -7,7 +7,9 @@ export class AIPredictionRepository extends Repository<AIPrediction> {
   async createAIPrediction(
     createAIPredictionDto: CreateAIPredictionDto,
   ): Promise<AIPrediction> {
-    const newAIPrediction = this.create({ ...createAIPredictionDto });
+    const newAIPrediction = this.create({
+      ...createAIPredictionDto,
+    });
     await this.save(newAIPrediction);
     return newAIPrediction;
   }

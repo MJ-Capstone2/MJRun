@@ -21,5 +21,6 @@ import { HorseRaceService } from 'src/horse-race/horse-race.service';
   ],
   controllers: [RaceAttendantController],
   providers: [RaceAttendantService, HorseRaceService],
+  exports: [RaceAttendantService],
 })
 export class RaceAttendantModule {}

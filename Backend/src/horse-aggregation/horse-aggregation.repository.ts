@@ -8,7 +8,6 @@ export class HorseAggregationRepository extends Repository<HorseAggregation> {
     createHorseAggregationDto: CreateHorseAggregationDto,
   ): Promise<HorseAggregation> {
     const newHorseAggregation = this.create({ ...createHorseAggregationDto });
-    console.log('creat는 됨');
     await this.save(newHorseAggregation);
     return newHorseAggregation;
   }

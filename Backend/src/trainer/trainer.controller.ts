@@ -26,21 +26,21 @@ export class TrainerController {
     return this.trainerService.findAll();
   }
 
-  @Get(':trainer_number')
-  findOne(@Param('trainer_number') trainer_number: string): Promise<Trainer> {
-    return this.trainerService.findOne(+trainer_number);
+  @Get(':id')
+  findOne(@Param('id') id: string): Promise<Trainer> {
+    return this.trainerService.findOne(+id);
   }
 
-  @Patch(':trainer_number')
+  @Patch(':id')
   update(
-    @Param('trainer_number') trainer_number: string,
+    @Param('id') id: string,
     @Body() updateTrainerDto: UpdateTrainerDto,
   ): Promise<Trainer> {
-    return this.trainerService.update(+trainer_number, updateTrainerDto);
+    return this.trainerService.update(+id, updateTrainerDto);
   }
 
-  @Delete(':trainer_number')
-  remove(@Param('trainer_number') trainer_number: string): Promise<void> {
-    return this.trainerService.remove(+trainer_number);
+  @Delete(':id')
+  remove(@Param('id') id: string): Promise<void> {
+    return this.trainerService.remove(+id);
   }
 }

@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { serialize } from 'class-transformer';
 import { CreateHorseAggregationDto } from './dto/create-horse-aggregation.dto';
 import { UpdateHorseAggregationDto } from './dto/update-horse-aggregation.dto';
 import { HorseAggregation } from './entities/horse-aggregation.entity';
@@ -22,21 +23,26 @@ export class HorseAggregationService {
   }
 
   async findAll(): Promise<HorseAggregation[]> {
-    return await this.horseAggregationRepository.find({
+    const horseAggregations = await this.horseAggregationRepository.find({
       relations: ['horse'],
     });
+    horseAggregations.map((horseAggregation) =>
+      horseAggregation.serializeHorse(),
+    );
+    return horseAggregations;
   }
 
   async findOne(horse_number: number): Promise<HorseAggregation> {
     const horseAggreagtion = await this.horseAggregationRepository.findOne(
       horse_number,
+      { relations: ['horse'] },
     );
     if (!horseAggreagtion) {
       throw new NotFoundException(
         `Can't find Hourse with hourse_number : ${horse_number}`,
       );
     }
-    return horseAggreagtion;
+    return horseAggreagtion.serializeHorse();
   }
 
   async update(

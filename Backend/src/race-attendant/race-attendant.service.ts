@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { HorseRaceRepository } from 'src/horse-race/horse-race.repository';
+import { Between } from 'typeorm';
 import { CreateRaceAttendantDto } from './dto/create-race-attendant.dto';
 import { UpdateRaceAttendantDto } from './dto/update-race-attendant.dto';
 import { RaceAttendant } from './entities/race-attendant.entity';

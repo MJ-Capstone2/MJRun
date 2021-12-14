@@ -12,5 +12,6 @@ import { HorseRepository } from 'src/horse/horse.repository';
   ],
   controllers: [HorseAggregationController],
   providers: [HorseAggregationService, HorseService],
+  exports: [HorseAggregationService],
 })
 export class HorseAggregationModule {}

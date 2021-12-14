@@ -4,7 +4,7 @@ import { BaseEntity, Column, Entity, OneToMany, PrimaryColumn } from 'typeorm';
 @Entity('Trainer')
 export class Trainer extends BaseEntity {
   @PrimaryColumn({ type: 'int' })
-  tr_id: number;
+  id: number;
 
   @Column({ type: 'varchar', length: 10 })
   name: string;

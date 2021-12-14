@@ -21,33 +21,29 @@ export class TrainerService {
     return trainers;
   }
 
-  async findOne(trainer_number: number): Promise<Trainer> {
-    const trainer = await this.trainerRepository.findOne(trainer_number);
+  async findOne(id: number): Promise<Trainer> {
+    const trainer = await this.trainerRepository.findOne(id);
     if (!trainer) {
-      throw new NotFoundException(
-        `Can't find trainer with trainer_number : ${trainer_number}`,
-      );
+      throw new NotFoundException(`Can't find trainer with id : ${id}`);
     }
     return trainer;
   }
 
   async update(
-    trainer_number: number,
+    id: number,
     updateTrainerDto: UpdateTrainerDto,
   ): Promise<Trainer> {
-    const trainer = await this.findOne(trainer_number);
+    const trainer = await this.findOne(id);
     const updateTrainer = Object.assign({ ...trainer, ...updateTrainerDto });
     await this.trainerRepository.save(updateTrainer);
     return updateTrainer;
   }
 
-  async remove(trainer_number: number): Promise<void> {
-    const result = await this.trainerRepository.delete(trainer_number);
+  async remove(id: number): Promise<void> {
+    const result = await this.trainerRepository.delete(id);
 
     if (result.affected == 0) {
-      throw new NotFoundException(
-        `Can't find trainer with trainer_number : ${trainer_number}`,
-      );
+      throw new NotFoundException(`Can't find trainer with id : ${id}`);
     }
 
     console.log(result);

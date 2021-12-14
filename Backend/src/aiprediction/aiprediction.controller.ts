@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   ParseIntPipe,
+  Query,
 } from '@nestjs/common';
 import { AIPredictionService } from './aiprediction.service';
 import { UpdateAIPredictionDto } from './dto/update-aiprediction.dto';
@@ -15,19 +16,10 @@ import { UpdateAIPredictionDto } from './dto/update-aiprediction.dto';
 export class AIPredictionController {
   constructor(private readonly aiPredictionService: AIPredictionService) {}
 
-  @Post('/:race_id')
-  prediction(@Param('race_id', ParseIntPipe) race_id: number) {
-    return this.aiPredictionService.pridiction(race_id);
-  }
-
   @Get()
-  findAll() {
+  findAll(@Query() query) {
+    console.log(query);
     return this.aiPredictionService.findAll();
-  }
-
-  @Get(':race_id')
-  findOne(@Param('race_id') id: string) {
-    return this.aiPredictionService.findOne(+id);
   }
 
   @Patch(':id')
@@ -41,5 +33,14 @@ export class AIPredictionController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.aiPredictionService.remove(+id);
+  }
+  @Get('/precision')
+  getPrecision(@Query('period') period: string, @Query('order') order: string) {
+    return this.aiPredictionService.getPrecision(period, +order);
+  }
+
+  @Get(':id')
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.aiPredictionService.findOne(id);
   }
 }

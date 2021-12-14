@@ -21,7 +21,7 @@ export class JockeyAggregationController {
 
   @Post()
   async create(@Body() createJockeyAggregationDto: CreateJockeyAggregationDto) {
-    await this.jockeyService.findOne(createJockeyAggregationDto.jockey.jk_id);
+    await this.jockeyService.findOne(createJockeyAggregationDto.jockey.id);
     return this.jockeyAggregationService.create(createJockeyAggregationDto);
   }
 
@@ -30,24 +30,24 @@ export class JockeyAggregationController {
     return this.jockeyAggregationService.findAll();
   }
 
-  @Get(':jk_id')
-  findOne(@Param('jk_id') jk_id: string) {
-    return this.jockeyAggregationService.findOne(+jk_id);
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return this.jockeyAggregationService.findOne(+id);
   }
 
-  @Patch(':jk_id')
+  @Patch(':id')
   update(
-    @Param('jk_id') jk_id: string,
+    @Param('id') id: string,
     @Body() updateJockeyAggregationDto: UpdateJockeyAggregationDto,
   ) {
     return this.jockeyAggregationService.update(
-      +jk_id,
+      +id,
       updateJockeyAggregationDto,
     );
   }
 
-  @Delete(':jk_id')
-  remove(@Param('jk_id') jk_id: string) {
-    return this.jockeyAggregationService.remove(+jk_id);
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return this.jockeyAggregationService.remove(+id);
   }
 }

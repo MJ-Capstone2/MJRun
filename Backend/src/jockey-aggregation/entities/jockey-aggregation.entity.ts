@@ -7,7 +7,7 @@ export class JockeyAggregation extends BaseEntity {
     primary: true,
     onDelete: 'CASCADE',
   })
-  @JoinColumn({ name: 'jk_id' })
+  @JoinColumn({ name: 'id' })
   jockey: Jockey;
 
   @Column({ type: 'int' })
@@ -24,4 +24,10 @@ export class JockeyAggregation extends BaseEntity {
 
   @Column({ type: 'int' })
   total_ord3_count: number;
+
+  public serializeJockey() {
+    Object.assign(this, this.jockey);
+    delete this.jockey;
+    return this;
+  }
 }

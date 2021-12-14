@@ -24,4 +24,10 @@ export class HorseAggregation extends BaseEntity {
 
   @Column({ type: 'int' })
   total_ord3_count: number;
+
+  public serializeHorse() {
+    Object.assign(this, this.horse);
+    delete this.horse;
+    return this;
+  }
 }
