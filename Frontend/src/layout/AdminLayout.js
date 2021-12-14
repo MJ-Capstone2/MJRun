@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const AdminLayout = ({children, loading}) => {
+const AdminLayout = ({children, loading, dataLoading=false}) => {
 
   const classes = useStyles();
 
@@ -44,7 +44,7 @@ const AdminLayout = ({children, loading}) => {
     <div>
       <Navbar />
       <div className={classes.root_container}>
-        {loading?
+        {loading || dataLoading?
           <div className={classes.spiner}>
             <CircularProgress />
           </div>:

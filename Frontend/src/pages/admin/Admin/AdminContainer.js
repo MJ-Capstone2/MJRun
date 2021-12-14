@@ -4,9 +4,7 @@ import { useParams } from 'react-router-dom';
 import { adminApi } from '../../../api';
 
 const AdminContainer = () => {
-  let { dtype } = useParams();
-
-  console.log(dtype);
+  const { dtype } = useParams();
 
   const [horses, setHorses] = useState({
     loading: true,
@@ -111,6 +109,7 @@ const AdminContainer = () => {
           rows: jockey.jockeyData,
           title: '기수',
           loading: jockey.loading,
+          dtype: 'jockey'
         };
       case 'trainer':
         return {
@@ -118,6 +117,7 @@ const AdminContainer = () => {
           rows: trainer.trainerData,
           title: '조교사',
           loading: trainer.loading,
+          dtype: 'trainer'
         };
       default:
         return {
@@ -125,6 +125,7 @@ const AdminContainer = () => {
           rows: horses.horseData,
           title: '말',
           loading: horses.loading,
+          dtype: 'horse'
         };
     }
   };
