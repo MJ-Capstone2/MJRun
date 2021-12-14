@@ -21,36 +21,37 @@ const useStyles = makeStyles((theme) => ({
   },
   total: {
     padding: '0.8em',
-    borderTop: 'solid 1px #ccc',
+    borderTop: 'solid 1px #777',
     flexDirection: 'row',
     display: 'flex',
     alignItems: 'center',
   },
 }));
 
-const PredictPresenter = ({ predicts }) => {
+const PredictPresenter = ({ loading, ord1, ord2, ord3, week, month }) => {
   const classes = useStyles();
-
+  
   return (
-    <UserLayout>
+    <UserLayout loading={loading}>
       <div className={classes.root}>
         <Typography variant="h5" className={classes.title}>
           <b>AI금주 예측률</b>
         </Typography>
-
-        <RadialBar />
-
-        {predicts.map((pre, idx) => (
-          <Typography className={classes.predictRatio}>
-            {idx + 1}등: {pre}%
-          </Typography>
-        ))}
-
+        <RadialBar week={week}/>
+        <Typography className={classes.predictRatio}>
+          1등: {ord1}%
+        </Typography>
+        <Typography className={classes.predictRatio}>
+          2등: {ord2}%
+        </Typography>
+        <Typography className={classes.predictRatio}>
+          3등: {ord3}%
+        </Typography>
         <div className={classes.total}>
-          <Tooltip title="누적 예측률 = 전체 예측횟수 / 맞힌 예측횟수">
+          <Tooltip title="누적 예측률?\n예측이 맞은 횟수/전체 예측 횟수\n월간을 기준으로 계산되었습니다.">
             <IconButton
               size="small"
-              color="#ccc"
+              color="default"
               aria-label="upload picture"
               component="span"
             >
@@ -61,7 +62,7 @@ const PredictPresenter = ({ predicts }) => {
             </IconButton>
           </Tooltip>
 
-          <Typography>누적 예측률: 18.5%</Typography>
+          <Typography>누적 예측률: {month}%</Typography>
         </div>
       </div>
     </UserLayout>

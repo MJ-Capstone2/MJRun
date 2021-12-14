@@ -27,4 +27,12 @@ export const adminApi = {
   horses : getAnything('horse-aggregation'),
   jockeys: getAnything('jockey'),
   trainers: getAnything('trainer')
+};
+
+export const precisionApi = {
+  ord1: getAnything('aiprediction/precision',{'period':'week','order':1}),
+  ord2:getAnything('aiprediction/precision',{'period':'week','order':2}),
+  ord3:getAnything('aiprediction/precision',{'period':'week','order':3}),
+  week:getAnything('aiprediction/precision',{'period':'week'}),
+  month:getAnything('aiprediction/precision',{'period':'month'}),
 }
