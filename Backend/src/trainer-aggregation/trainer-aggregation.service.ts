@@ -13,7 +13,7 @@ export class TrainerAggregationService {
   ) {}
   async create(createTrainerAggregationDto: CreateTrainerAggregationDto) {
     try {
-      await this.findOne(createTrainerAggregationDto.trainer.tr_id);
+      await this.findOne(createTrainerAggregationDto.trainer.id);
     } catch {
       return this.trainerAggregationRepository.createTrainerAggregation(
         createTrainerAggregationDto,
@@ -27,21 +27,21 @@ export class TrainerAggregationService {
     });
   }
 
-  async findOne(tr_id: number): Promise<TrainerAggregation> {
+  async findOne(id: number): Promise<TrainerAggregation> {
     const TrainerAggreagtion = await this.trainerAggregationRepository.findOne(
-      tr_id,
+      id,
     );
     if (!TrainerAggreagtion) {
-      throw new NotFoundException(`Can't find Trainer with tr_id : ${tr_id}`);
+      throw new NotFoundException(`Can't find Trainer with id : ${id}`);
     }
     return TrainerAggreagtion;
   }
 
   async update(
-    tr_id: number,
+    id: number,
     updateTrainerAggregationDto: UpdateTrainerAggregationDto,
   ): Promise<TrainerAggregation> {
-    const trainerAggregation = await this.findOne(tr_id);
+    const trainerAggregation = await this.findOne(id);
     const updateTrainerAggregation = Object.assign({
       ...trainerAggregation,
       ...updateTrainerAggregationDto,
@@ -51,11 +51,11 @@ export class TrainerAggregationService {
     return updateTrainerAggregation;
   }
 
-  async remove(tr_id: number): Promise<void> {
-    const result = await this.trainerAggregationRepository.delete(tr_id);
+  async remove(id: number): Promise<void> {
+    const result = await this.trainerAggregationRepository.delete(id);
 
     if (result.affected == 0) {
-      throw new NotFoundException(`Can't find Trainer with tr_id : ${tr_id}`);
+      throw new NotFoundException(`Can't find Trainer with id : ${id}`);
     }
 
     console.log(result);

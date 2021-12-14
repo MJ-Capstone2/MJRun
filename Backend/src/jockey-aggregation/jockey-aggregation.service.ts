@@ -13,7 +13,7 @@ export class JockeyAggregationService {
   ) {}
   async create(createJockeyAggregationDto: CreateJockeyAggregationDto) {
     try {
-      await this.findOne(createJockeyAggregationDto.jockey.jk_id);
+      await this.findOne(createJockeyAggregationDto.jockey.id);
     } catch {
       return this.jockeyAggregationRepository.createJockeyAggregation(
         createJockeyAggregationDto,
@@ -27,21 +27,21 @@ export class JockeyAggregationService {
     });
   }
 
-  async findOne(jk_id: number): Promise<JockeyAggregation> {
+  async findOne(id: number): Promise<JockeyAggregation> {
     const jockeyAggreagtion = await this.jockeyAggregationRepository.findOne(
-      jk_id,
+      id,
     );
     if (!jockeyAggreagtion) {
-      throw new NotFoundException(`Can't find Jockey with jk_id : ${jk_id}`);
+      throw new NotFoundException(`Can't find Jockey with id : ${id}`);
     }
     return jockeyAggreagtion;
   }
 
   async update(
-    jk_id: number,
+    id: number,
     updateJockeyAggregationDto: UpdateJockeyAggregationDto,
   ): Promise<JockeyAggregation> {
-    const jockeyAggregation = await this.findOne(jk_id);
+    const jockeyAggregation = await this.findOne(id);
     const updateJockeyAggregation = Object.assign({
       ...jockeyAggregation,
       ...updateJockeyAggregationDto,
@@ -51,11 +51,11 @@ export class JockeyAggregationService {
     return updateJockeyAggregation;
   }
 
-  async remove(jk_id: number): Promise<void> {
-    const result = await this.jockeyAggregationRepository.delete(jk_id);
+  async remove(id: number): Promise<void> {
+    const result = await this.jockeyAggregationRepository.delete(id);
 
     if (result.affected == 0) {
-      throw new NotFoundException(`Can't find Jockey with jk_id : ${jk_id}`);
+      throw new NotFoundException(`Can't find Jockey with id : ${id}`);
     }
 
     console.log(result);

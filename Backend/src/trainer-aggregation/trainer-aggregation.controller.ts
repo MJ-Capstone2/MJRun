@@ -23,9 +23,7 @@ export class TrainerAggregationController {
   async create(
     @Body() createTrainerAggregationDto: CreateTrainerAggregationDto,
   ) {
-    await this.trainerService.findOne(
-      createTrainerAggregationDto.trainer.tr_id,
-    );
+    await this.trainerService.findOne(createTrainerAggregationDto.trainer.id);
     return this.trainerAggregationService.create(createTrainerAggregationDto);
   }
 
@@ -34,24 +32,24 @@ export class TrainerAggregationController {
     return this.trainerAggregationService.findAll();
   }
 
-  @Get(':trainer_id')
-  findOne(@Param('trainer_id') trainer_id: string) {
-    return this.trainerAggregationService.findOne(+trainer_id);
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return this.trainerAggregationService.findOne(+id);
   }
 
-  @Patch(':trainer_id')
+  @Patch(':id')
   update(
-    @Param('trainer_id') trainer_id: string,
+    @Param('id') id: string,
     @Body() updateTrainerAggregationDto: UpdateTrainerAggregationDto,
   ) {
     return this.trainerAggregationService.update(
-      +trainer_id,
+      +id,
       updateTrainerAggregationDto,
     );
   }
 
-  @Delete(':trainer_id')
-  remove(@Param('trainer_id') trainer_id: string) {
-    return this.trainerAggregationService.remove(+trainer_id);
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return this.trainerAggregationService.remove(+id);
   }
 }

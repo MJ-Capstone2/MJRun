@@ -4,7 +4,7 @@ import { BaseEntity, Column, Entity, OneToMany, PrimaryColumn } from 'typeorm';
 @Entity('Jockey')
 export class Jockey extends BaseEntity {
   @PrimaryColumn({ type: 'int' })
-  jk_id: number;
+  id: number;
 
   @Column({ length: 10 })
   name: string;

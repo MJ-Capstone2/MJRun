@@ -1,8 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { MySqlConfigModule } from './config/database/config.module';
 import { MySqlConfigService } from './config/database/config.service';
 import { AdministratorModule } from './administrator/administrator.module';
@@ -15,7 +13,9 @@ import { TrainerAggregationModule } from './trainer-aggregation/trainer-aggregat
 import { HorseRaceModule } from './horse-race/horse-race.module';
 import { AIPredictionModule } from './aiprediction/aiprediction.module';
 import { RaceAttendantModule } from './race-attendant/race-attendant.module';
-import { AIModelModule } from './aimodel/aimodel.module';
+import { RaceInfoModule } from './race-info/race-info.module';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
 
 @Module({
   imports: [
@@ -35,7 +35,7 @@ import { AIModelModule } from './aimodel/aimodel.module';
     HorseRaceModule,
     AIPredictionModule,
     RaceAttendantModule,
-    AIModelModule,
+    RaceInfoModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -3,7 +3,7 @@ import { IsInt, IsNotEmpty, IsPositive, IsString } from 'class-validator';
 export class CreateJockeyDto {
   @IsInt()
   @IsNotEmpty()
-  readonly jk_id: number;
+  readonly id: number;
 
   @IsString()
   @IsNotEmpty()

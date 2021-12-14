@@ -3,7 +3,7 @@ import { IsInt, IsNotEmpty, IsPositive, IsString } from 'class-validator';
 export class CreateTrainerDto {
   @IsInt()
   @IsNotEmpty()
-  readonly tr_id: number;
+  readonly id: number;
 
   @IsString()
   @IsNotEmpty()

@@ -10,14 +10,18 @@ import { AIPrediction } from './entities/aiprediction.entity';
 import { HorseAggregationService } from 'src/horse-aggregation/horse-aggregation.service';
 import { JockeyAggregationService } from 'src/jockey-aggregation/jockey-aggregation.service';
 import { TrainerAggregationService } from 'src/trainer-aggregation/trainer-aggregation.service';
-import { lastValueFrom, map } from 'rxjs';
+import { find, lastValueFrom, map } from 'rxjs';
+import { HorseRaceRepository } from 'src/horse-race/horse-race.repository';
+import { HorseRaceService } from 'src/horse-race/horse-race.service';
 
 @Injectable()
 export class AIPredictionService {
-  private weekPrecision = {};
   constructor(
     @InjectRepository(AIPredictionRepository)
     private aiPredictionRepository: AIPredictionRepository,
+    @InjectRepository(HorseRaceRepository)
+    private horseRaceRepository: HorseRaceRepository,
+    private horseRaceService: HorseRaceService,
     private raceAttendantService: RaceAttendantService, // private mAIModel:AIModelService,
     private horseAggService: HorseAggregationService, // private mAIModel:AIModelService,
     private jockeyAggService: JockeyAggregationService, // private mAIModel:AIModelService,
@@ -29,31 +33,27 @@ export class AIPredictionService {
       createAIPredictionDto,
     );
   }
-  async pridiction(race_id: number) {
-    // 데이터 전처리
-    const race_data = await this.preprocess(race_id);
-    const req_json = {
-      data: race_data,
-    };
-    // ai모델에 보내기
-    return await lastValueFrom(
-      this.httpService.post('http://localhost:3002/prediction', req_json).pipe(
-        map((res) => {
-          return res.data;
-        }),
-      ),
-    );
-  }
-  async findAll(): Promise<AIPrediction[]> {
+  // async findAll(): Promise<AIPrediction[]> {
+  async findAll() {
     return await this.aiPredictionRepository.find({
-      relations: ['HorseRace'],
+      relations: ['horseRace'],
     });
   }
 
   async findOne(id: number): Promise<AIPrediction> {
-    const aiPreidction = await this.aiPredictionRepository.findOne(id);
+    const aiPreidction = await this.aiPredictionRepository.findOne(id, {
+      relations: ['horseRace'],
+    });
     if (!aiPreidction) {
-      throw new NotFoundException(`Can't find AIPreidciont with id : ${id}`);
+      const horseRace = await this.horseRaceRepository.findOne(id);
+      const results = await this.pridiction(id);
+      return await this.aiPredictionRepository.createAIPrediction({
+        horseRace,
+        first_linenumber: results[0],
+        second_linenumber: results[1],
+        third_linenumber: results[2],
+      });
+      // throw new NotFoundException(`Can't find AIPreidciont with id : ${id}`);
     }
     return aiPreidction;
   }
@@ -77,14 +77,30 @@ export class AIPredictionService {
 
     console.log(result);
   }
-
-  async getWeekPre() {
-    // if(weekPrecision['ord1'] && weekPrecision['date'] ) return weekPrecision['ord1']
-    // 이번 주 데이터 불러오기
-    // 계산하기
-    // weekPrecision['ord1'] = 할당
-    // weekPrecision['date'] = 이번주?
-    // 계산값돌려주기
+  async getPrecision(period: string, order: number): Promise<number> {
+    if (!order) order = 1;
+    const results = [];
+    const horseRace_in_period = await this.horseRaceService.findAll(period);
+    for (const horseRace of horseRace_in_period) {
+      const aiPredict = await this.findOne(horseRace.race_id);
+      const raceAttendants = await this.raceAttendantService.findAll(
+        horseRace.race_id,
+      );
+      const predict =
+        order == 1
+          ? aiPredict.first_linenumber
+          : order == 2
+          ? aiPredict.second_linenumber
+          : aiPredict.third_linenumber;
+      for (const raceAttendant of raceAttendants) {
+        if (raceAttendant.result == order) {
+          const isCorrect = predict == raceAttendant.line_number;
+          results.push(isCorrect ? 1 : 0);
+          break;
+        }
+      }
+    }
+    return (results.reduce((prev, cur) => prev + cur) / results.length) * 100;
   }
 
   async preprocess(race_id: number): Promise<number[][]> {
@@ -103,67 +119,85 @@ export class AIPredictionService {
 
     const results = [];
     for (let ra of raceAttendants) {
-      const horse_agg = await this.horseAggService.findOne(
-        ra.horse.horse_number,
-      );
-      const jockey_agg = await this.jockeyAggService.findOne(ra.jockey.jk_id);
-      // console.log('jockey_agg', jockey_agg);
-      const trainer_agg = await this.trainerAggService.findOne(
-        ra.trainer.tr_id,
-      );
-      console.log('tr_agg', trainer_agg);
+      try {
+        const horse_agg = await this.horseAggService.findOne(
+          ra.horse.horse_number,
+        );
+        const jockey_agg = await this.jockeyAggService.findOne(ra.jockey.id);
+        // console.log('jockey_agg', jockey_agg);
+        const trainer_agg = await this.trainerAggService.findOne(ra.trainer.id);
+        // console.log('tr_agg', trainer_agg);
 
-      const year = parseInt((ra.ra_id / 10 ** 9).toString());
-      const month = parseInt(((ra.ra_id / 10 ** 7) % 100).toString());
-      const day = parseInt(((ra.ra_id / 10 ** 5) % 100).toString());
-      const hour = +ra.horseRace.race_start_time.toString().slice(0, 2);
-      const min = +ra.horseRace.race_start_time.toString().slice(3, 5);
+        const year = parseInt((ra.ra_id / 10 ** 9).toString());
+        const month = parseInt(((ra.ra_id / 10 ** 7) % 100).toString());
+        const day = parseInt(((ra.ra_id / 10 ** 5) % 100).toString());
+        const hour = +ra.horseRace.race_start_time.toString().slice(0, 2);
+        const min = +ra.horseRace.race_start_time.toString().slice(3, 5);
 
-      const horse_age = ra.horse.age;
-      const horse_sex = convertSex(ra.horse.sex);
-      const horse_nationality = convertNationality(ra.horse.nationality);
-      const horse_rating = ra.horse.rating;
-      const horse_rc = horse_agg.total_race_count;
-      const horse_oc = horse_agg.total_ord1_count;
+        const horse_age = ra.horse.age;
+        const horse_sex = convertSex(ra.horse.sex);
+        const horse_nationality = convertNationality(ra.horse.nationality);
+        const horse_rating = ra.horse.rating;
+        const horse_rc = horse_agg.total_race_count;
+        const horse_oc = horse_agg.total_ord1_count;
 
-      const jockey_dy = parseInt((ra.jockey.debut / 10 ** 4).toString());
-      const jockey_rc = jockey_agg.total_race_count;
-      const jockey_oc = jockey_agg.total_ord1_count;
+        const jockey_dy = parseInt((ra.jockey.debut / 10 ** 4).toString());
+        const jockey_rc = jockey_agg.total_race_count;
+        const jockey_oc = jockey_agg.total_ord1_count;
 
-      const trainer_dy = parseInt((ra.trainer.debut / 10 ** 4).toString());
-      const trainer_rc = trainer_agg.total_race_count;
-      const trainer_oc = trainer_agg.total_ord1_count;
+        const trainer_dy = parseInt((ra.trainer.debut / 10 ** 4).toString());
+        const trainer_rc = trainer_agg.total_race_count;
+        const trainer_oc = trainer_agg.total_ord1_count;
 
-      const distance = ra.horseRace.race_distance;
-      const location = parseInt(((ra.ra_id / 10 ** 4) % 10).toString());
-      const lineNumber = ra.line_number;
+        const distance = ra.horseRace.race_distance;
+        const location = parseInt(((ra.ra_id / 10 ** 4) % 10).toString());
+        const lineNumber = ra.line_number;
 
-      const result = [
-        year,
-        month,
-        day,
-        hour,
-        min,
-        horse_age,
-        horse_sex,
-        horse_nationality,
-        horse_rating,
-        horse_rc,
-        horse_oc,
-        jockey_dy,
-        jockey_rc,
-        jockey_oc,
-        trainer_dy,
-        trainer_rc,
-        trainer_oc,
-        distance,
-        location,
-        lineNumber,
-      ];
-      results.push(result);
+        const result = [
+          year,
+          month,
+          day,
+          hour,
+          min,
+          horse_age,
+          horse_sex,
+          horse_nationality,
+          horse_rating,
+          horse_rc,
+          horse_oc,
+          jockey_dy,
+          jockey_rc,
+          jockey_oc,
+          trainer_dy,
+          trainer_rc,
+          trainer_oc,
+          distance,
+          location,
+          lineNumber,
+        ];
+        results.push(result);
+      } catch (e) {
+        console.log(`${ra.ra_id} error : ${e.toString()}`);
+        continue;
+      }
     }
-    console.log(results);
+    // console.log(results);
     return results;
+  }
+  async pridiction(race_id: number) {
+    // 데이터 전처리
+    const race_data = await this.preprocess(race_id);
+    const req_json = {
+      data: race_data,
+    };
+    // ai모델에 보내기
+    return await lastValueFrom(
+      this.httpService.post('http://localhost:3002/prediction', req_json).pipe(
+        map((res) => {
+          return res.data;
+        }),
+      ),
+    );
   }
 }
 

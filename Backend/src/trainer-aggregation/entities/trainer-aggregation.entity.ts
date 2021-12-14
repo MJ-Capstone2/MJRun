@@ -7,7 +7,7 @@ export class TrainerAggregation extends BaseEntity {
     primary: true,
     onDelete: 'CASCADE',
   })
-  @JoinColumn({ name: 'tr_id' })
+  @JoinColumn({ name: 'id' })
   trainer: Trainer;
 
   @Column({ type: 'int' })
@@ -24,4 +24,10 @@ export class TrainerAggregation extends BaseEntity {
 
   @Column({ type: 'int' })
   total_ord3_count: number;
+
+  public serializeTrainer() {
+    Object.assign(this, this.trainer);
+    delete this.trainer;
+    return this;
+  }
 }
