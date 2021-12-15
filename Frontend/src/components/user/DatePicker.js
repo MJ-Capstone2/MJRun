@@ -26,11 +26,8 @@ const useStyles = makeStyles((theme) => ({
 const DatePicker = ({ handleDate }) => {
   const classes = useStyles();
 
-  const [selectedDate, setSelectedDate] = useState(new Date());
-
   const handleDateChange = (date) => {
-    setSelectedDate(date);
-    handleDate(parseDate(date));
+    handleDate(date);
   };
 
   return (
@@ -40,7 +37,6 @@ const DatePicker = ({ handleDate }) => {
           margin="normal"
           id="date-picker-dialog"
           format="MM월 dd일"
-          value={selectedDate}
           onChange={handleDateChange}
           className={classes.datepicker}
           invalidDateMessage
