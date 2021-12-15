@@ -44,7 +44,11 @@ const Login = () => {
   };
 
   const onClickLogin = async () => {
-    adminApi.login(Id,Pwd);
+    await adminApi.login(Id,Pwd);
+    const [res, err] = await adminApi.validation;
+    if (res) {
+      window.location.href = '/admin';
+    }
   }
 
   const onKeyPress = (e) => {

@@ -63,7 +63,11 @@ const AdminContainer = () => {
     });
   };
 
-  useEffect(() => {
+  useEffect(async () => {
+    const [res, err] = await adminApi.validation;
+    if(!res){
+      window.location.href = '/admin/login'
+    }
     if (dtype === 'jockey') {
       getJData();
     } else if (dtype === 'trainer') {

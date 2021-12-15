@@ -61,7 +61,8 @@ export const adminApi = {
     const [token, err] = await postAnything('admin/signin', { "id": Id, "password": Pwd });
     localStorage.setItem('jwtToken', token);
     setAuthorizationToken(token);
-  } 
+  },
+  validation: getAnything('admin/validation')
 };
 
 export const precisionApi = {
