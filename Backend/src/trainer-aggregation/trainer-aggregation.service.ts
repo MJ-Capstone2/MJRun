@@ -60,4 +60,15 @@ export class TrainerAggregationService {
 
     console.log(result);
   }
+
+  async addResult(tr_id: number, result: number): Promise<void> {
+    const trainerAgg = await this.findOne(tr_id);
+    trainerAgg.total_race_count += 1;
+    if (result == 1) trainerAgg.total_ord1_count += 1;
+    if (result == 2) trainerAgg.total_ord2_count += 1;
+    if (result == 3) trainerAgg.total_ord3_count += 1;
+    trainerAgg.total_win_rate =
+      trainerAgg.total_ord1_count / trainerAgg.total_race_count;
+    this.trainerAggregationRepository.save(trainerAgg);
+  }
 }

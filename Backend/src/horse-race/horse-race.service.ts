@@ -88,4 +88,11 @@ export class HorseRaceService {
     }
     console.log(result);
   }
+
+  async weeklyUpdate(createHorseRaceDTOs: CreateHorseRaceDto[]) {
+    for (const cDto of createHorseRaceDTOs) {
+      // console.log(cDto);
+      await this.create(cDto);
+    }
+  }
 }
