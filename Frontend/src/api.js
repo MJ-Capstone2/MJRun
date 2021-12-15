@@ -49,7 +49,7 @@ export async function postAnything(path, body = {}) {
 
 
 export const homeApi = (race_date) => {
-  return getAnything('all_info_at_date', { race_date });
+  return getAnything('all-info/at-date', { race_date });
 }
 
 export const adminApi = {
