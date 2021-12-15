@@ -1,7 +1,4 @@
-import 
-  React,
-  { useState }
-from 'react';
+import React from 'react';
 import { 
   Grid,
   makeStyles 
@@ -12,7 +9,6 @@ import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker
 } from '@material-ui/pickers';
-import { parseDate } from '../../utils';
 
 const useStyles = makeStyles((theme) => ({
   root: {

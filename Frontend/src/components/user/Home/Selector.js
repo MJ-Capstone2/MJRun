@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function Selector({ races, race_attendant, predicts, handleDate, raceDate }){
+function Selector({ races, race_attendant, predicts, handleDate, raceDate, ord1, ord2, ord3 }){
   
   const classes = useStyles();
   const [raceIdx, setRaceIdx] = useState(0);
@@ -45,7 +45,16 @@ function Selector({ races, race_attendant, predicts, handleDate, raceDate }){
           }
         </Tabs>
       </AppBar>
-      <Content race={races[raceIdx]} attendant={race_attendant[raceIdx]} predict={predicts[raceIdx]} handleDate={handleDate} raceDate={raceDate} />
+      <Content
+        race={races[raceIdx]}
+        attendant={race_attendant[raceIdx]}
+        predict={predicts[raceIdx]}
+        handleDate={handleDate}
+        raceDate={raceDate}
+        ord1={ord1}
+        ord2={ord2}
+        ord3={ord3}
+      />
     </div>
   );
 }

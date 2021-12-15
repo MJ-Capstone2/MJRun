@@ -48,8 +48,11 @@ export async function postAnything(path, body = {}) {
   }
 }
 
-export const homeApi = (race_date) => {
-  return getAnything('all-info/at-date', { race_date });
+export const homeApi = {
+  raceData: (race_date) => getAnything('all-info/at-date', { race_date }),
+  ord1: getAnything('aiprediction/precision', { period: 'week', order: 1 }),
+  ord2: getAnything('aiprediction/precision', { period: 'week', order: 2 }),
+  ord3: getAnything('aiprediction/precision', { period: 'week', order: 3 }),
 };
 
 export const adminApi = {
@@ -57,8 +60,9 @@ export const adminApi = {
   jockeys: getAnything('jockey'),
   trainers: getAnything('trainer'),
   infos: getAnything('horse-race?race_date=20160102'),
+  results: getAnything('all-info/results'),
   login: async (Id, Pwd) => {
-    const [token, err] = await postAnything('admin/signin', {
+    const [token, ] = await postAnything('admin/signin', {
       id: Id,
       password: Pwd,
     });

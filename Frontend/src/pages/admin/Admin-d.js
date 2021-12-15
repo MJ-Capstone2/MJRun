@@ -52,7 +52,6 @@ const Admin = () => {
 
   const getHData = async () => {
     const [horseData, horseError] = await horseApi.horses();
-    console.log(horseData);
     setHorses({
         horseData,
         horseError

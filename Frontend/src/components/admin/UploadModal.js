@@ -62,6 +62,12 @@ const UploadModal = ({open, handleClose}) => {
     for (let i=0; i < files.length; i ++) {
       formData.append(`file[${i}]`, files[i]);
     }
+    //new Response(formData).text().then(console.log)
+
+  //   const jsonFiles = new FormData();
+  //   for (let i in formData) {
+  //     console.log(JSON.stringify(Object.fromEntries(i)))
+  //   }
   }
   return (
     <Modal

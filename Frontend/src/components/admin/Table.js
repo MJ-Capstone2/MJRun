@@ -130,7 +130,7 @@ const EnhancedTableToolbar = (props) => {
     e.preventDefault();
     setDataLoading(true);
     /* TODO: API바뀌면 파라매터로 날리는 걸로 변경 */
-    const [res, err] = await deleteAnything(`${dtype}/0`);
+    const [res, ] = await deleteAnything(`${dtype}`, {id:selected});
     setDataLoading(false);
     window.location.reload();
   }

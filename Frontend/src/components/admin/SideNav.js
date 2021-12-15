@@ -46,9 +46,9 @@ const SideNav = () => {
         <ListItemLink href="/admin/info">
           <ListItemText primary="경기정보" />
         </ListItemLink>
-        {/* <ListItemLink href="/admin/result">
+        <ListItemLink href="/admin/result">
           <ListItemText primary="경기결과" />
-        </ListItemLink> */}
+        </ListItemLink>
       </List>
     </CardBox>
   );
