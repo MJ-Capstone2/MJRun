@@ -34,7 +34,7 @@ export async function deleteAnything(path, params = {}) {
   }
 }
 
-export const homeApi = getAnything('all_info_at_date?race_date=2019-02-24');
+export const homeApi = (race_date) => getAnything('all_info_at_date', { race_date });
 
 export const adminApi = {
   horses : getAnything('horse-aggregation'),

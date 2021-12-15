@@ -7,7 +7,6 @@ import {
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import DrawerComponent from "./Drawer";
-import DatePicker from "./DatePicker";
 
 const useStyles = makeStyles((theme) => ({
   root:{
@@ -50,7 +49,7 @@ function Navbar() {
           </Typography>
         </Link>
 
-        <DatePicker />
+        <div></div>
       </div>
       </AppBar>
   );

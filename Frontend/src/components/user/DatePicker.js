@@ -12,6 +12,7 @@ import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker
 } from '@material-ui/pickers';
+import { parseDate } from '../../utils';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,13 +23,14 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const DatePicker = () => {
+const DatePicker = ({handleDate}) => {
   const classes = useStyles();
 
   const [selectedDate, setSelectedDate] = useState(new Date());
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
+    handleDate(parseDate(date));
   };
 
   return (
