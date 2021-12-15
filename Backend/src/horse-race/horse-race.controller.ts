@@ -44,11 +44,8 @@ export class HorseRaceController {
     return this.horseRaceService.remove(+race_id);
   }
 
-  @Post('/result/:race_id')
-  addResult(
-    @Param('race_id', ParseIntPipe) race_id: number,
-    @Body() results: JSON,
-  ): Promise<void> {
-    return this.horseRaceService.addResult(race_id, results);
+  @Post('/weekly-update')
+  weeklyUpdate(@Body() data: JSON) {
+    this.horseRaceService.weeklyUpdate(data['data']);
   }
 }
