@@ -1,4 +1,13 @@
-import { Controller, Get, Body, Query } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Body,
+  Query,
+  UploadedFiles,
+  Post,
+  UseInterceptors,
+} from '@nestjs/common';
+import { FilesInterceptor } from '@nestjs/platform-express';
 import { ValidationError } from 'class-validator';
 import { AppService } from './app.service';
 
@@ -26,5 +35,11 @@ export class AppController {
   @Get('results')
   findAllResult() {
     return this.appService.findAllResult();
+  }
+
+  @Post('create')
+  @UseInterceptors(FilesInterceptor('files'))
+  multiCreate(@UploadedFiles() files: Array<Express.Multer.File>) {
+    return this.appService.multiCreate(files);
   }
 }

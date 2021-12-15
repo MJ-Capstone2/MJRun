@@ -20,6 +20,10 @@ export class HorseRaceController {
   create(@Body() createHorseRaceDto: CreateHorseRaceDto) {
     return this.horseRaceService.create(createHorseRaceDto);
   }
+  @Post()
+  multiCreate(@Body() createHorseRaceDtos: CreateHorseRaceDto[]) {
+    return this.horseRaceService.multiCreate(createHorseRaceDtos);
+  }
 
   @Get()
   findAll() {

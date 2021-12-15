@@ -22,12 +22,7 @@ export class AppService {
     const horseAgg = await this.horseAggregationService.findAll();
     const horseAggObj = {};
     for (let ha of horseAgg) {
-      try {
-        horseAggObj[ha.horse.horse_number] = ha.serializeHorse();
-      } catch (e) {
-        console.log(ha);
-        break;
-      }
+      horseAggObj[ha.horse.horse_number] = ha.serializeHorse();
     }
     const jockeyAgg = await this.jockeyAggregationService.findAll();
     const jockeyAggObj = {};
@@ -41,18 +36,34 @@ export class AppService {
     }
     const race_attendant = [];
     const predicts = [];
+    const results = [];
     for (const race of races) {
       const ras = await this.raceAttendantService.findAll(race.race_id);
       const race_result = [];
+      const result = [
+        // { line_number: 0, name: '' },
+        // { line_number: 0, name: '' },
+        // { line_number: 0, name: '' },
+        {},
+        {},
+        {},
+      ];
       for (let ra of ras) {
         const convetObject = {};
         convetObject['num'] = ra.line_number;
         convetObject['horse'] = horseAggObj[ra.horse.horse_number];
         convetObject['jockey'] = jockeyAggObj[ra.jockey.id];
         convetObject['trainer'] = trainerAggObj[ra.trainer.id];
-        if (ra.result) convetObject['result'] = ra.result;
+        if (ra.result) {
+          convetObject['result'] = ra.result;
+          if (0 < ra.result && ra.result < 4) {
+            result[ra.result - 1]['line_number'] = ra.line_number;
+            result[ra.result - 1]['name'] = ra.horse.name;
+          }
+        }
         race_result.push(convetObject);
       }
+      results.push(result);
       race_attendant.push(race_result);
 
       const pred = await this.aiPredictionService.findOne(race.race_id);
@@ -71,12 +82,12 @@ export class AppService {
         },
       ]);
     }
-    return { races, race_attendant, predicts };
+    return { races, race_attendant, predicts, results };
   }
   async findAllResult() {
     const results = [];
     const ras = await this.raceAttendantService.findAll(null, [1, 2, 3]);
-    ras.sort((ra) => ra.ra_id);
+    ras.sort((ra) => ra.horseRace.race_id);
     let prev_race_id = 0;
     let result = {};
     for (const ra of ras) {
@@ -94,6 +105,12 @@ export class AppService {
       }
     }
     results.push(result);
-    return results;
+    return results.slice(1);
+  }
+
+  async multiCreate(files: Array<Express.Multer.File>) {
+    for (let file of files) {
+      console.log(file);
+    }
   }
 }

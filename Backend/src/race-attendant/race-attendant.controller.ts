@@ -20,6 +20,10 @@ export class RaceAttendantController {
   create(@Body() createRaceAttendantDto: CreateRaceAttendantDto) {
     return this.raceAttendantService.create(createRaceAttendantDto);
   }
+  @Post()
+  multiCreate(@Body() createRaceAttendantDtos: CreateRaceAttendantDto[]) {
+    return this.raceAttendantService.multiCreate(createRaceAttendantDtos);
+  }
 
   @Get()
   findAll() {

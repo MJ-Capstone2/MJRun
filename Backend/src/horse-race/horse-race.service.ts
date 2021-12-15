@@ -13,8 +13,12 @@ export class HorseRaceService {
     private horseRaceRepository: HorseRaceRepository,
   ) {}
 
-  create(createHorseRaceDto: CreateHorseRaceDto): Promise<HorseRace> {
-    return this.horseRaceRepository.createHorseRace(createHorseRaceDto);
+  async create(createHorseRaceDto: CreateHorseRaceDto): Promise<HorseRace> {
+    return await this.horseRaceRepository.createHorseRace(createHorseRaceDto);
+  }
+  async multiCreate(createHorseRaceDtos: CreateHorseRaceDto[]): Promise<void> {
+    for (let createHorseRaceDto of createHorseRaceDtos)
+      await this.create(createHorseRaceDto);
   }
 
   async findAll(period?: string): Promise<HorseRace[]> {
