@@ -89,5 +89,10 @@ export class HorseRaceService {
     console.log(result);
   }
 
-  async addResult(race_id: number, results: JSON): Promise<void> {}
+  async weeklyUpdate(createHorseRaceDTOs: CreateHorseRaceDto[]) {
+    for (const cDto of createHorseRaceDTOs) {
+      // console.log(cDto);
+      await this.create(cDto);
+    }
+  }
 }
