@@ -23,7 +23,7 @@ export class TrainerAggregationService {
 
   async findAll(): Promise<TrainerAggregation[]> {
     return await this.trainerAggregationRepository.find({
-      relations: ['Trainer'],
+      relations: ['trainer'],
     });
   }
 

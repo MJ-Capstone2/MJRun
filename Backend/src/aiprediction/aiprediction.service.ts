@@ -81,7 +81,6 @@ export class AIPredictionService {
         horseRace.race_id,
         order_condition,
       );
-      console.log(raceAttendants);
       for (const raceAttendant of raceAttendants) {
         if (raceAttendant.result == 1) {
           const isCorrect =
@@ -126,9 +125,7 @@ export class AIPredictionService {
           ra.horse.horse_number,
         );
         const jockey_agg = await this.jockeyAggService.findOne(ra.jockey.id);
-        // console.log('jockey_agg', jockey_agg);
         const trainer_agg = await this.trainerAggService.findOne(ra.trainer.id);
-        // console.log('tr_agg', trainer_agg);
 
         const year = parseInt((ra.ra_id / 10 ** 9).toString());
         const month = parseInt(((ra.ra_id / 10 ** 7) % 100).toString());
@@ -183,7 +180,6 @@ export class AIPredictionService {
         continue;
       }
     }
-    // console.log(results);
     return results;
   }
   async pridiction(race_id: number) {

@@ -18,6 +18,27 @@ export class AppService {
   ) {}
   async findAll(date: Date) {
     const races = await this.horseRaceService.findAllAtDate(date);
+
+    const horseAgg = await this.horseAggregationService.findAll();
+    const horseAggObj = {};
+    for (let ha of horseAgg) {
+      try {
+        horseAggObj[ha.horse.horse_number] = ha.serializeHorse();
+      } catch (e) {
+        console.log(ha);
+        break;
+      }
+    }
+    const jockeyAgg = await this.jockeyAggregationService.findAll();
+    const jockeyAggObj = {};
+    for (let ja of jockeyAgg) {
+      jockeyAggObj[ja.jockey.id] = ja.serializeJockey();
+    }
+    const trainerAgg = await this.trainerAggregationService.findAll();
+    const trainerAggObj = {};
+    for (let ta of trainerAgg) {
+      jockeyAggObj[ta.trainer.id] = ta.serializeTrainer();
+    }
     const race_attendant = [];
     const predicts = [];
     for (const race of races) {
@@ -26,18 +47,9 @@ export class AppService {
       for (let ra of ras) {
         const convetObject = {};
         convetObject['num'] = ra.line_number;
-        const horseAgg = await this.horseAggregationService.findOne(
-          ra.horse.horse_number,
-        );
-        const jockeyAgg = await this.jockeyAggregationService.findOne(
-          ra.jockey.id,
-        );
-        const trainerAgg = await this.trainerAggregationService.findOne(
-          ra.trainer.id,
-        );
-        convetObject['horse'] = horseAgg.serializeHorse();
-        convetObject['jockey'] = jockeyAgg.serializeJockey();
-        convetObject['trainer'] = trainerAgg.serializeTrainer();
+        convetObject['horse'] = horseAggObj[ra.horse.horse_number];
+        convetObject['jockey'] = jockeyAggObj[ra.jockey.id];
+        convetObject['trainer'] = trainerAggObj[ra.trainer.id];
         if (ra.result) convetObject['result'] = ra.result;
         race_result.push(convetObject);
       }
