@@ -1,6 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { serialize } from 'class-transformer';
 import { CreateHorseAggregationDto } from './dto/create-horse-aggregation.dto';
 import { UpdateHorseAggregationDto } from './dto/update-horse-aggregation.dto';
 import { HorseAggregation } from './entities/horse-aggregation.entity';
@@ -26,9 +25,12 @@ export class HorseAggregationService {
     const horseAggregations = await this.horseAggregationRepository.find({
       relations: ['horse'],
     });
-    horseAggregations.map((horseAggregation) =>
-      horseAggregation.serializeHorse(),
-    );
+    horseAggregations.map((horseAggregation) => {
+      const serialHorseAgg = horseAggregation.serializeHorse();
+      serialHorseAgg['id'] = serialHorseAgg['horse_number'];
+      delete serialHorseAgg['horse_number'];
+      return serialHorseAgg;
+    });
     return horseAggregations;
   }
 

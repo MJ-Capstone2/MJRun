@@ -20,7 +20,7 @@ export class RaceAttendantController {
     return this.raceAttendantService.create(createRaceAttendantDto);
   }
 
-  @Get('')
+  @Get()
   findAll() {
     return this.raceAttendantService.findAll();
   }
