@@ -26,6 +26,11 @@ const AdminContainer = () => {
     infoData: null,
     infoErr: null,
   });
+  const [result, setResult] = useState({
+    loading: true,
+    resultData: null,
+    resultErr: null,
+  });
 
   const getHData = async () => {
     const [horseData, horseError] = await adminApi.horses;
@@ -63,25 +68,37 @@ const AdminContainer = () => {
     });
   };
 
+  const getRData = async () => {
+    const [resultData, resultErr] = await adminApi.results;
+    setResult({
+      loading: false,
+      resultData,
+      resultErr,
+    });
+  };
+
   useEffect(async () => {
     const [res, err] = await adminApi.validation;
     if(!res){
-      window.location.href = '/admin/login'
+      window.location.href = '/admin/login';
     }
+
     if (dtype === 'jockey') {
       getJData();
     } else if (dtype === 'trainer') {
       getTData();
     } else if (dtype === 'info') {
       getIData();
-    } else {
+    } else if (dtype === 'result') {
+      getRData();
+    }else {
       getHData();
     }
   }, []);
 
   const horse_columns = [
-    { id: 'id', numeric: false, disablePadding: true, label: '마번' },
-    { id: 'name', numeric: true, disablePadding: false, label: '마명' },
+    { id: 'horse.horse_number', numeric: false, disablePadding: true, label: '마번' },
+    { id: 'horse.name', numeric: true, disablePadding: false, label: '마명' },
     { id: 'sex', numeric: true, disablePadding: false, label: '성별' },
     { id: 'age', numeric: true, disablePadding: false, label: '나이' },
     { id: 'nationality', numeric: true, disablePadding: false, label: '국적' },
@@ -113,6 +130,15 @@ const AdminContainer = () => {
     { id: 'race_start_time', numeric: true, disablePadding: false, label: '시작시간' },
     { id: 'race_distance', numeric: true, disablePadding: false, label: '거리' },
   ];
+  const result_columns = [
+    { id: 'id', numeric: false, disablePadding: true, label: 'ID' },
+    { id: 'ord1_num', numeric: true, disablePadding: false, label: '1등 마번' },
+    { id: 'ord1_name', numeric: true, disablePadding: false, label: '1등 마명' },
+    { id: 'ord2_num', numeric: true, disablePadding: false, label: '2등 마번' },
+    { id: 'ord2_name', numeric: true, disablePadding: false, label: '2등 마명' },
+    { id: 'ord3_num', numeric: true, disablePadding: false, label: '3등 마번' },
+    { id: 'ord3_name', numeric: true, disablePadding: false, label: '3등 마명' }
+  ];
 
   const parseProp = () => {
     switch (dtype) {
@@ -140,6 +166,14 @@ const AdminContainer = () => {
           loading: info.loading,
           dtype: 'info'
         }
+        case 'result':
+          return {
+            cols: result_columns,
+            rows: result.resultData,
+            title: '경기결과',
+            loading: result.loading,
+            dtype: 'result'
+          }
       default:
         return {
           cols: horse_columns,

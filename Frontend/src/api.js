@@ -57,6 +57,7 @@ export const adminApi = {
   jockeys: getAnything('jockey'),
   trainers: getAnything('trainer'),
   infos: getAnything('horse-race?race_date=20160102'),
+  results: getAnything('all-info/results'),
   login: async (Id, Pwd) => {
     const [token, err] = await postAnything('admin/signin', {
       id: Id,
