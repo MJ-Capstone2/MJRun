@@ -49,4 +49,7 @@ export class HorseService {
 
     console.log(result);
   }
+  async removeAll(ids: string[]): Promise<void> {
+    for (const horse_number of ids) await this.remove(+horse_number);
+  }
 }

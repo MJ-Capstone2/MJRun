@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { JockeyService } from './jockey.service';
 import { CreateJockeyDto } from './dto/create-jockey.dto';
@@ -38,5 +39,9 @@ export class JockeyController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.jockeyService.remove(+id);
+  }
+  @Delete()
+  removeAll(@Query('id') ids: string[]) {
+    return this.jockeyService.removeAll(ids);
   }
 }

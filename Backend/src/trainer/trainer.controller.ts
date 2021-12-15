@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { TrainerService } from './trainer.service';
 import { CreateTrainerDto } from './dto/create-trainer.dto';
@@ -42,5 +43,9 @@ export class TrainerController {
   @Delete(':id')
   remove(@Param('id') id: string): Promise<void> {
     return this.trainerService.remove(+id);
+  }
+  @Delete()
+  removeAll(@Query('id') ids: string[]): Promise<void> {
+    return this.trainerService.removeAll(ids);
   }
 }
