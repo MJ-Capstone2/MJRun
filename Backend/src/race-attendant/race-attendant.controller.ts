@@ -56,4 +56,9 @@ export class RaceAttendantController {
   ): Promise<void> {
     return this.raceAttendantService.addResult(race_id, results);
   }
+
+  // @Post('/weekly-update')
+  // weeklyUpdate(@Body() data: JSON) {
+  //   this.raceAttendantService.weeklyUpdate(data['data']);
+  // }
 }

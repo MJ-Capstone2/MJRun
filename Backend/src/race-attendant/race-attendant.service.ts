@@ -1,13 +1,13 @@
+import { HttpService } from '@nestjs/axios';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { UpdateHorseAggregationDto } from 'src/horse-aggregation/dto/update-horse-aggregation.dto';
 import { HorseAggregationService } from 'src/horse-aggregation/horse-aggregation.service';
 import { HorseRaceRepository } from 'src/horse-race/horse-race.repository';
 import { JockeyAggregationService } from 'src/jockey-aggregation/jockey-aggregation.service';
 import { TrainerAggregationService } from 'src/trainer-aggregation/trainer-aggregation.service';
-import { Between } from 'typeorm';
 import { CreateRaceAttendantDto } from './dto/create-race-attendant.dto';
 import { UpdateRaceAttendantDto } from './dto/update-race-attendant.dto';
+import { WeeklyUpdateRaceAttendantDto } from './dto/weekly-update-race-attendant.dto';
 import { RaceAttendant } from './entities/race-attendant.entity';
 import { RaceAttendantRepository } from './race-attendant.repository';
 
@@ -18,6 +18,7 @@ export class RaceAttendantService {
     private raceAttendantRepository: RaceAttendantRepository,
     @InjectRepository(HorseRaceRepository)
     private horseRaceRepository: HorseRaceRepository,
+    private httpService: HttpService,
     private horseAS: HorseAggregationService,
     private jockeyAS: JockeyAggregationService,
     private trainerAS: TrainerAggregationService,
@@ -84,20 +85,20 @@ export class RaceAttendantService {
     // const resultsObj = JSON.parse(JSON.stringify(results));
 
     const resultsObj = {
-      results: [
+      data: [
         {
           race_id: 20202020,
           linenumber: 1,
           result: 2,
         },
         {
-          race_id: 20202020,
+          race_id: 2020202,
           linenumber: 1,
           result: 2,
         },
       ],
     };
-    for (const result of resultsObj.results) {
+    for (const result of resultsObj.data) {
       const ra_id = parseInt(
         `${result.race_id}${result.linenumber.toString().padStart(2, '0')}`,
       );
@@ -121,4 +122,26 @@ export class RaceAttendantService {
       );
     }
   }
+  // async weeklyUpdate(wuraDTOs: Object[]) {
+  //   const updateRaces: Object = {};
+  //   for (const weekly_update_data of wuraDTOs) {
+  //     console.log(Object.values(weekly_update_data).((value)=>parseInt(value)));
+  //     const cDto = new CreateRaceAttendantDto();
+  //     Object.assign(cDto, weekly_update_data);
+  //     // cDto.ra_id = parseInt(
+  //     //   `${weekly_update_data.race_id}${weekly_update_data.line_number
+  //     //     .toString()
+  //     //     .padStart(2, '0')}`,
+  //     // );
+  //     console.log(cDto);
+  //     console.log(typeof cDto);
+  //     // await this.create(cDto);
+  //     if (!updateRaces.hasOwnProperty(cDto.ra_id)) updateRaces[cDto.ra_id] = 1;
+  //     break;
+  //   }
+  //   console.log(updateRaces);
+  //   // for (const id in updateRaces) {
+  //   //   this.httpService.post(`http://localhost:3000/aiprediction/${id}`);
+  //   // }
+  // }
 }

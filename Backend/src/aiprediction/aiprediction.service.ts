@@ -4,7 +4,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { RaceAttendant } from 'src/race-attendant/entities/race-attendant.entity';
 import { RaceAttendantService } from 'src/race-attendant/race-attendant.service';
 import { AIPredictionRepository } from './aiprediction.repository';
-import { CreateAIPredictionDto } from './dto/create-aiprediction.dto';
 import { UpdateAIPredictionDto } from './dto/update-aiprediction.dto';
 import { AIPrediction } from './entities/aiprediction.entity';
 import { HorseAggregationService } from 'src/horse-aggregation/horse-aggregation.service';
@@ -28,12 +27,17 @@ export class AIPredictionService {
     private trainerAggService: TrainerAggregationService, // private mAIModel:AIModelService,
     private httpService: HttpService,
   ) {}
-  create(createAIPredictionDto: CreateAIPredictionDto) {
-    return this.aiPredictionRepository.createAIPrediction(
-      createAIPredictionDto,
-    );
+  async create(id: number) {
+    const horseRace = await this.horseRaceRepository.findOne(+id);
+    const results = await this.pridiction(+id);
+    await this.aiPredictionRepository.createAIPrediction({
+      horseRace,
+      first_linenumber: results[0],
+      second_linenumber: results[1],
+      third_linenumber: results[2],
+    });
   }
-  // async findAll(): Promise<AIPrediction[]> {
+
   async findAll() {
     return await this.aiPredictionRepository.find({
       relations: ['horseRace'],
@@ -41,21 +45,9 @@ export class AIPredictionService {
   }
 
   async findOne(id: number): Promise<AIPrediction> {
-    const aiPreidction = await this.aiPredictionRepository.findOne(id, {
+    return await this.aiPredictionRepository.findOne(id, {
       relations: ['horseRace'],
     });
-    if (!aiPreidction) {
-      const horseRace = await this.horseRaceRepository.findOne(id);
-      const results = await this.pridiction(id);
-      return await this.aiPredictionRepository.createAIPrediction({
-        horseRace,
-        first_linenumber: results[0],
-        second_linenumber: results[1],
-        third_linenumber: results[2],
-      });
-      // throw new NotFoundException(`Can't find AIPreidciont with id : ${id}`);
-    }
-    return aiPreidction;
   }
 
   async update(id: number, updateAIPredictionDto: UpdateAIPredictionDto) {
@@ -83,6 +75,7 @@ export class AIPredictionService {
     const horseRace_in_period = await this.horseRaceService.findAll(period);
     for (const horseRace of horseRace_in_period) {
       const aiPredict = await this.findOne(horseRace.race_id);
+      if (!aiPredict) continue;
       const raceAttendants = await this.raceAttendantService.findAll(
         horseRace.race_id,
       );
