@@ -19,10 +19,9 @@ const makeRequest = {
 async function getAnything(path, params = {}) {
   try {
     const {
-      data: { results },
       data,
     } = await makeRequest.get(path, params);
-    return [results || data, null];
+    return [data, null];
   } catch (e) {
     return [null, e];
   }
@@ -49,10 +48,10 @@ export async function postAnything(path, body = {}) {
 }
 
 export const homeApi = {
-  raceData: (race_date) => getAnything('all-info/at-date', { race_date }),
-  ord1: getAnything('aiprediction/precision', { period: 'week', order: 1 }),
-  ord2: getAnything('aiprediction/precision', { period: 'week', order: 2 }),
-  ord3: getAnything('aiprediction/precision', { period: 'week', order: 3 }),
+  raceDatas: (race_date) => getAnything('all-info/at-date', { race_date }),
+  ord1: getAnything('aiprediction/precision', { period: 'month', order: 1 }),
+  ord2: getAnything('aiprediction/precision', { period: 'month', order: 2 }),
+  ord3: getAnything('aiprediction/precision', { period: 'month', order: 3 }),
 };
 
 export const adminApi = {

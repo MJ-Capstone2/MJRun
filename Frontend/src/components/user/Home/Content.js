@@ -53,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Content = ({ race, attendant, predict, handleDate, raceDate, ord1, ord2, ord3 }) => {
+const Content = ({ race, attendant, predict, result, handleDate, raceDate, ord1, ord2, ord3 }) => {
 
   const classes = useStyles();
 
@@ -108,6 +108,34 @@ const Content = ({ race, attendant, predict, handleDate, raceDate, ord1, ord2, o
           </div>
         </div>
       </div>
+            {
+              result &&
+              <div className={classes.card_container}>
+                <div className={classes.content_wrap}>
+                  <Typography variant="h6"><b>경기결과</b></Typography>
+                  <div className={classes.order_wrap}>
+                    <div className={classes.root}>
+                      <div className={classes.order_title}>
+                        1위
+                      </div>
+                      <Typography>{result[0].line_number} ({result[0].name})</Typography>
+                    </div>
+                    <div className={classes.root}>
+                      <div className={classes.order_title}>
+                        2위
+                      </div>
+                      <Typography>{result[1].line_number} ({result[1].name})</Typography>
+                    </div>
+                    <div className={classes.root}>
+                      <div className={classes.order_title}>
+                        3위
+                      </div>
+                      <Typography>{result[2].line_number} ({result[2].name})</Typography>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            }
       <div className={classes.card_container}>
         <div className={classes.content_wrap}>
           <Typography variant="h6"><b>말/기수/조교사 정보</b></Typography>

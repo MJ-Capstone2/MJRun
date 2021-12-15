@@ -23,10 +23,12 @@ import { parseDate } from '../../../utils';
     }
 
     const getData = async () => {
-      const [raceData, raceErr] = await homeApi.raceData(raceDate);
+      const [raceData, raceErr] = await homeApi.raceDatas(raceDate);
       const [ord1, ord1Err] = await homeApi.ord1;
       const [ord2, ord2Err] = await homeApi.ord2;
       const [ord3, ord3Err] = await homeApi.ord3;
+
+      console.log(raceData.predicts);
 
       setHomeData({
         raceData,

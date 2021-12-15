@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function Selector({ races, race_attendant, predicts, handleDate, raceDate, ord1, ord2, ord3 }){
+function Selector({ races, race_attendant, predicts, results, handleDate, raceDate, ord1, ord2, ord3 }){
   
   const classes = useStyles();
   const [raceIdx, setRaceIdx] = useState(0);
@@ -49,6 +49,7 @@ function Selector({ races, race_attendant, predicts, handleDate, raceDate, ord1,
         race={races[raceIdx]}
         attendant={race_attendant[raceIdx]}
         predict={predicts[raceIdx]}
+        result={results[raceIdx]}
         handleDate={handleDate}
         raceDate={raceDate}
         ord1={ord1}

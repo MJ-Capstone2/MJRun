@@ -3,7 +3,7 @@ import UserLayout from '../../../layout/UserLayout';
 import Selector from '../../../components/user/Home/Selector';
 import HomeNoRace from '../../../components/user/Home/HomeNoRace';
 
-const HomePresenter = ({ handleDate, raceDate, loading, races, race_attendant, predicts, ord1, ord2, ord3 }) => {
+const HomePresenter = ({ handleDate, raceDate, loading, races, race_attendant, predicts, results, ord1, ord2, ord3 }) => {
   return(
     <UserLayout loading={loading}>
       {
@@ -16,6 +16,7 @@ const HomePresenter = ({ handleDate, raceDate, loading, races, race_attendant, p
             races={races}
             race_attendant={race_attendant}
             predicts={predicts}
+            results={results}
             ord1={ord1}
             ord2={ord2}
             ord3={ord3}
