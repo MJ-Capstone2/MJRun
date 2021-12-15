@@ -5,6 +5,7 @@ import {
   TextField,
   Button
 } from "@material-ui/core";
+import { adminApi } from '../../api';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -42,19 +43,8 @@ const Login = () => {
     SetPwd(event.target.value)
   };
 
-  const onClickLogin = () => {
-    axios.post("http://localhost:3000/api/admin/signin", 
-    {
-      "id": Id,
-      "password": Pwd
-    })
-    .then(res => {
-      console.log(res)
-      document.location.href = "/admin"
-    })
-    .catch(err => {
-      console.log(err)
-    });
+  const onClickLogin = async () => {
+    adminApi.login(Id,Pwd);
   }
 
   const onKeyPress = (e) => {

@@ -1,19 +1,23 @@
 import axios from 'axios';
+import { setAuthorizationToken } from './utils';
 
-const API_URL = 'http://localhost:3000/api/';
+axios.defaults.baseURL = 'http://localhost:3000/api/';
+setAuthorizationToken(localStorage.jwtToken);
 
 const makeRequest = {
   get: (path, params) => 
-  axios.get(`${API_URL}${path}`, {
+  axios.get(`${path}`, {
     params,
   }),
   delete: (path, params) => 
-  axios.delete(`${API_URL}${path}`, {
+  axios.delete(`${path}`, {
     params,
   }),
+  post: (path, body) =>
+  axios.post(`${path}`, body)
 }
 
-export async function getAnything(path, params = {}) {
+async function getAnything(path, params = {}) {
   try {
     const {
       data: { results },
@@ -34,6 +38,16 @@ export async function deleteAnything(path, params = {}) {
   }
 }
 
+export async function postAnything(path, body = {}) {
+  try{
+    const { data: { accessToken } } = await makeRequest.post(path, body);
+    return [accessToken, null];
+  } catch (e) {
+    return [null, e];
+  }
+}
+
+
 export const homeApi = (race_date) => {
   return getAnything('all_info_at_date', { race_date });
 }
@@ -42,7 +56,12 @@ export const adminApi = {
   horses : getAnything('horse-aggregation'),
   jockeys: getAnything('jockey'),
   trainers: getAnything('trainer'),
-  infos: getAnything('horse-race?race_date=20160102')
+  infos: getAnything('horse-race?race_date=20160102'),
+  login: async (Id, Pwd) => {
+    const [token, err] = await postAnything('admin/signin', { "id": Id, "password": Pwd });
+    localStorage.setItem('jwtToken', token);
+    setAuthorizationToken(token);
+  } 
 };
 
 export const precisionApi = {
