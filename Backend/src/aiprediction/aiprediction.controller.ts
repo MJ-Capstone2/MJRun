@@ -21,6 +21,20 @@ export class AIPredictionController {
     return this.aiPredictionService.findAll();
   }
 
+  @Get('/precision')
+  getPrecision(@Query('period') period: string, @Query('order') order: string) {
+    return this.aiPredictionService.getPrecision(period, +order);
+  }
+
+  @Get(':id')
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.aiPredictionService.findOne(id);
+  }
+  @Post(':id')
+  create(@Param('id', ParseIntPipe) id: number) {
+    this.aiPredictionService.create(id);
+  }
+
   @Patch(':id')
   update(
     @Param('id') id: string,
@@ -32,14 +46,5 @@ export class AIPredictionController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.aiPredictionService.remove(+id);
-  }
-  @Get('/precision')
-  getPrecision(@Query('period') period: string, @Query('order') order: string) {
-    return this.aiPredictionService.getPrecision(period, +order);
-  }
-
-  @Get(':id')
-  findOne(@Param('id', ParseIntPipe) id: number) {
-    return this.aiPredictionService.findOne(id);
   }
 }

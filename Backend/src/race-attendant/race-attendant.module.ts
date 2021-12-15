@@ -11,6 +11,8 @@ import { HorseRaceService } from 'src/horse-race/horse-race.service';
 import { HorseAggregationModule } from 'src/horse-aggregation/horse-aggregation.module';
 import { JockeyAggregationModule } from 'src/jockey-aggregation/jockey-aggregation.module';
 import { TrainerAggregationModule } from 'src/trainer-aggregation/trainer-aggregation.module';
+import { HttpModule } from '@nestjs/axios';
+// import { AIPredictionModule } from 'src/aiprediction/aiprediction.module';
 
 @Module({
   imports: [
@@ -24,6 +26,7 @@ import { TrainerAggregationModule } from 'src/trainer-aggregation/trainer-aggreg
     HorseAggregationModule,
     JockeyAggregationModule,
     TrainerAggregationModule,
+    HttpModule,
   ],
   controllers: [RaceAttendantController],
   providers: [RaceAttendantService, HorseRaceService],
