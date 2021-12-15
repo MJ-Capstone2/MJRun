@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  Headers,
   Param,
   Patch,
   Post,
@@ -13,7 +14,6 @@ import {
 import { AdministratorService } from './administrator.service';
 import { Administrator } from './entities/administrator.entity';
 import { CreateAdministratorDto } from './dto/create-administrator.dto';
-import { AuthGuard } from '@nestjs/passport';
 
 @Controller('admin')
 export class AdministratorController {
@@ -25,6 +25,11 @@ export class AdministratorController {
     @Body('password') pw: string,
   ): Promise<{ accessToken: string }> {
     return this.administratorService.signIn(id, pw);
+  }
+
+  @Get('/validation')
+  getValidation(@Headers('Authorization') token: string) {
+    return this.administratorService.verify(token.split(' ')[1]);
   }
 
   @Get('/:id')
