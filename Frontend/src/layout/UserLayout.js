@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const UserLayout = ({children, loading=false}) => {
+const UserLayout = ({children, loading}) => {
 
   const classes = useStyles();
 

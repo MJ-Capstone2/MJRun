@@ -34,7 +34,9 @@ export async function deleteAnything(path, params = {}) {
   }
 }
 
-export const homeApi = (race_date) => getAnything('all_info_at_date', { race_date });
+export const homeApi = (race_date) => {
+  return getAnything('all_info_at_date', { race_date });
+}
 
 export const adminApi = {
   horses : getAnything('horse-aggregation'),

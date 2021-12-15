@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   makeStyles,
   AppBar,
   Tabs,
   Tab
 } from '@material-ui/core';
-import { getLabel } from '../../utils';
+import Content from './Content';
+import { getLabel } from '../../../utils';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,9 +18,14 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function Selector({ races, raceIdx, handleChange }){
+function Selector({ races, race_attendant, predicts }){
   
   const classes = useStyles();
+  const [raceIdx, setRaceIdx] = useState(0);
+
+  const handleChange = (e, newValue) => {
+    setRaceIdx(newValue);
+  };
 
   return (
     <div className={classes.root}>
@@ -31,15 +37,16 @@ function Selector({ races, raceIdx, handleChange }){
           scrollButtons="on"
           indicatorColor="primary"
           textColor="primary"
-          aria-label="scrollable force tabs example"
+          aria-label="scrollable force tabs"
         >
           {
-            races.map((race, idx)=>(
-              <Tab key={idx} label={getLabel(race)}/>
+            races.map((race)=>(
+              <Tab key={getLabel(race)} label={getLabel(race)}/>
             ))
           }
         </Tabs>
       </AppBar>
+      <Content race={races[raceIdx]} attendant={race_attendant[raceIdx]} predict={predicts[raceIdx]}/>
     </div>
   );
 }

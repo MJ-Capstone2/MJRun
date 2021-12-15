@@ -1,6 +1,5 @@
 import React from 'react';
 import { 
-  Button,
   Typography,
   makeStyles 
 } from '@material-ui/core';
@@ -33,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const HomeNoRace = ({ handleDate }) => {
+const HomeNoRace = () => {
   const classes = useStyles();
 
   return (
@@ -44,7 +43,7 @@ const HomeNoRace = ({ handleDate }) => {
 
       <div className={classes.wrap_date}>
         <Typography> 이전경기 보러가기</Typography>
-        <DatePicker handleDate={handleDate}/>
+        <DatePicker />
       </div>
     </div>
   );

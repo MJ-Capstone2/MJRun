@@ -23,14 +23,14 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const DatePicker = ({handleDate}) => {
+const DatePicker = () => {
   const classes = useStyles();
 
   const [selectedDate, setSelectedDate] = useState(new Date());
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
-    handleDate(parseDate(date));
+    // handleDate(parseDate(date));
   };
 
   return (
