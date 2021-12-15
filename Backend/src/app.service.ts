@@ -37,7 +37,7 @@ export class AppService {
     const trainerAgg = await this.trainerAggregationService.findAll();
     const trainerAggObj = {};
     for (let ta of trainerAgg) {
-      jockeyAggObj[ta.trainer.id] = ta.serializeTrainer();
+      trainerAggObj[ta.trainer.id] = ta.serializeTrainer();
     }
     const race_attendant = [];
     const predicts = [];
