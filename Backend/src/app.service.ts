@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { AIPredictionService } from './aiprediction/aiprediction.service';
 import { HorseAggregationService } from './horse-aggregation/horse-aggregation.service';
 import { HorseRaceService } from './horse-race/horse-race.service';
@@ -40,14 +40,7 @@ export class AppService {
     for (const race of races) {
       const ras = await this.raceAttendantService.findAll(race.race_id);
       const race_result = [];
-      const result = [
-        // { line_number: 0, name: '' },
-        // { line_number: 0, name: '' },
-        // { line_number: 0, name: '' },
-        {},
-        {},
-        {},
-      ];
+      const result = [{}, {}, {}];
       for (let ra of ras) {
         const convetObject = {};
         convetObject['num'] = ra.line_number;
@@ -112,5 +105,6 @@ export class AppService {
     for (let file of files) {
       console.log(file);
     }
+    return files.length;
   }
 }
