@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const HomeNoRace = () => {
+const HomeNoRace = ({ handleDate }) => {
   const classes = useStyles();
 
   return (
@@ -43,7 +43,7 @@ const HomeNoRace = () => {
 
       <div className={classes.wrap_date}>
         <Typography> 이전경기 보러가기</Typography>
-        <DatePicker />
+        <DatePicker handleDate={handleDate}/>
       </div>
     </div>
   );

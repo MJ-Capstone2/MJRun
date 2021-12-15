@@ -4,7 +4,7 @@ import { homeApi } from '../../../api';
 import { getYYYYMMDD } from '../../../utils';
 
  const HomeContainer = () => {
-    const [raceDatas, setRaceDatas] = useState('2019-02-24');
+    const [raceDate, setRaceDate] = useState('2019-02-24');
     const [HomeData, setHomeData] = useState({
       loading: true,
       raceData: null,
@@ -12,7 +12,8 @@ import { getYYYYMMDD } from '../../../utils';
     });
 
     const getData = async () => {
-      const [raceData, raceErr] = await homeApi('2019-02-24');
+      const [raceData, raceErr] = await homeApi(raceDate);
+      console.log("Date: ", raceDate);
       setHomeData({
         loading: false,
         raceData,
@@ -22,10 +23,10 @@ import { getYYYYMMDD } from '../../../utils';
 
     useEffect(() => {
       getData();
-    }, []);
+    }, [raceDate]);
 
   return (
-    <HomePresenter loading={HomeData.loading} {...HomeData.raceData}/>
+    <HomePresenter loading={HomeData.loading} handleDate={setRaceDate} {...HomeData.raceData} raceDate={raceDate}/>
   );
 }
 

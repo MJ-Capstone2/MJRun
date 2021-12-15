@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Content = ({race, attendant, predict}) => {
+const Content = ({ race, attendant, predict, handleDate, raceDate }) => {
 
   const classes = useStyles();
 
@@ -46,8 +46,8 @@ const Content = ({race, attendant, predict}) => {
         <div className={classes.title_wrap}>
           <Typography variant="h5"><b>{getLabel(race)} {race.start_time}</b></Typography>
           <div className={classes.order_wrap}>
-            {/* <Typography><b>{raceDate}</b></Typography> */}
-            <DatePicker />
+            <Typography><b>{raceDate}</b></Typography>
+            <DatePicker handleDate={handleDate}/>
           </div>
         </div>
       </div>

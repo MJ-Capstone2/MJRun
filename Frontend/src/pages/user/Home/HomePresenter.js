@@ -5,14 +5,14 @@ import HomeNoRace from '../../../components/user/Home/HomeNoRace';
 
 
 
-const HomePresenter = ({ loading, races, race_attendant, predicts }) => {
+const HomePresenter = ({ handleDate, raceDate, loading, races, race_attendant, predicts }) => {
   return(
     <UserLayout loading={loading}>
       {
         !races || races.length === 0?
-        <HomeNoRace/>:
+        <HomeNoRace handleDate={handleDate}/>:
         <>
-          <Selector races={races} race_attendant={race_attendant} predicts={predicts}/>
+          <Selector handleDate={handleDate} raceDate={raceDate} races={races} race_attendant={race_attendant} predicts={predicts}/>
         </>
       }
     </UserLayout>
