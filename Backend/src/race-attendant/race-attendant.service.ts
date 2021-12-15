@@ -38,16 +38,24 @@ export class RaceAttendantService {
     );
   }
 
-  async findAll(race_id?: number, order?: number[]): Promise<RaceAttendant[]> {
+  async findAll(
+    race_id?: number,
+    order_array?: number[],
+  ): Promise<RaceAttendant[]> {
     const where = [];
     const relations = ['horseRace', 'horse', 'jockey', 'trainer'];
     const horseRace = race_id;
-    if (order) {
-      for (const result of order) where.push({ horseRace, result });
-    } else if (race_id) {
-      where.push({ horseRace });
+    if (race_id) {
+      if (order_array) {
+        for (const result of order_array) where.push({ horseRace, result });
+      } else {
+        where.push({ horseRace });
+      }
     }
-    return await this.raceAttendantRepository.find({ where, relations });
+    return await this.raceAttendantRepository.find({
+      where,
+      relations,
+    });
   }
 
   async findOne(ra_id: number): Promise<RaceAttendant> {

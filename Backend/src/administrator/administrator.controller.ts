@@ -29,7 +29,7 @@ export class AdministratorController {
 
   @Get('/validation')
   getValidation(@Headers('Authorization') token: string) {
-    return this.administratorService.verify(token.split(' ')[1]);
+    return this.administratorService.verify(token.split(' ').reverse()[0]);
   }
 
   @Get('/:id')

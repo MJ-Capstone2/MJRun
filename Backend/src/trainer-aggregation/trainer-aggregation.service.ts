@@ -30,6 +30,7 @@ export class TrainerAggregationService {
   async findOne(id: number): Promise<TrainerAggregation> {
     const TrainerAggreagtion = await this.trainerAggregationRepository.findOne(
       id,
+      { relations: ['trainer'] },
     );
     if (!TrainerAggreagtion) {
       throw new NotFoundException(`Can't find Trainer with id : ${id}`);
