@@ -76,6 +76,14 @@ export class AdministratorService {
 
     return administrator;
   }
+  async verify(token: any) {
+    try {
+      this.jwtService.verify(token).id;
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
 
   async signIn(id: string, password: string): Promise<{ accessToken: string }> {
     const hashPassword = (
