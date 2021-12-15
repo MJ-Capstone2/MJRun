@@ -38,6 +38,7 @@ export class AppService {
         convetObject['horse'] = horseAgg.serializeHorse();
         convetObject['jockey'] = jockeyAgg.serializeJockey();
         convetObject['trainer'] = trainerAgg.serializeTrainer();
+        if (ra.result) convetObject['result'] = ra.result;
         ra_convert.push(convetObject);
       }
       race_attendant.push(ra_convert);
