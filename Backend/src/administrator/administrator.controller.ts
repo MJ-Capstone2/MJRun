@@ -45,12 +45,6 @@ export class AdministratorController {
     );
   }
 
-  @Post('/Test')
-  @UseGuards(AuthGuard())
-  test(@Req() req) {
-    console.log('req', req);
-  }
-
   @Delete('/:id')
   deleteAdministrator(@Param('id') id: string): Promise<void> {
     return this.administratorService.deleteAdministrator(id);

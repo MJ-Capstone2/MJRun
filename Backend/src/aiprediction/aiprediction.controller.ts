@@ -17,8 +17,7 @@ export class AIPredictionController {
   constructor(private readonly aiPredictionService: AIPredictionService) {}
 
   @Get()
-  findAll(@Query() query) {
-    console.log(query);
+  findAll() {
     return this.aiPredictionService.findAll();
   }
 

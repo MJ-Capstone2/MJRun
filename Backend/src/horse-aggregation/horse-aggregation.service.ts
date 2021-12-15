@@ -1,6 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { serialize } from 'class-transformer';
 import { CreateHorseAggregationDto } from './dto/create-horse-aggregation.dto';
 import { UpdateHorseAggregationDto } from './dto/update-horse-aggregation.dto';
 import { HorseAggregation } from './entities/horse-aggregation.entity';
@@ -26,9 +25,12 @@ export class HorseAggregationService {
     const horseAggregations = await this.horseAggregationRepository.find({
       relations: ['horse'],
     });
-    horseAggregations.map((horseAggregation) =>
-      horseAggregation.serializeHorse(),
-    );
+    horseAggregations.map((horseAggregation) => {
+      const serialHorseAgg = horseAggregation.serializeHorse();
+      serialHorseAgg['id'] = serialHorseAgg['horse_number'];
+      delete serialHorseAgg['horse_number'];
+      return serialHorseAgg;
+    });
     return horseAggregations;
   }
 
@@ -68,5 +70,16 @@ export class HorseAggregationService {
     }
 
     console.log(result);
+  }
+
+  async addResult(horse_number: number, result: number): Promise<void> {
+    const horseAgg = await this.findOne(horse_number);
+    horseAgg.total_race_count += 1;
+    if (result == 1) horseAgg.total_ord1_count += 1;
+    if (result == 2) horseAgg.total_ord2_count += 1;
+    if (result == 3) horseAgg.total_ord3_count += 1;
+    horseAgg.total_win_rate =
+      horseAgg.total_ord1_count / horseAgg.total_race_count;
+    this.horseAggregationRepository.save(horseAgg);
   }
 }
