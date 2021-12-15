@@ -30,6 +30,7 @@ export class JockeyAggregationService {
   async findOne(id: number): Promise<JockeyAggregation> {
     const jockeyAggreagtion = await this.jockeyAggregationRepository.findOne(
       id,
+      { relations: ['jockey'] },
     );
     if (!jockeyAggreagtion) {
       throw new NotFoundException(`Can't find Jockey with id : ${id}`);

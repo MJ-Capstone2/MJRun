@@ -2,7 +2,7 @@ import { Controller, Get, Body, Query } from '@nestjs/common';
 import { ValidationError } from 'class-validator';
 import { AppService } from './app.service';
 
-@Controller('all_info_at_date')
+@Controller('all-info')
 export class AppController {
   constructor(private appService: AppService) {}
 
@@ -15,11 +15,16 @@ export class AppController {
     return d.toISOString().slice(0, 10) === dateString;
   }
 
-  @Get()
+  @Get('at-date')
   findAll(@Query('race_date') date: string) {
     if (!this.isValidDate(date)) {
       throw new ValidationError();
     }
     return this.appService.findAll(new Date(date));
+  }
+
+  @Get('results')
+  findAllResult() {
+    return this.appService.findAllResult();
   }
 }
