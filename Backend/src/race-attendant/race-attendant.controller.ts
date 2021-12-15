@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { RaceAttendantService } from './race-attendant.service';
 import { CreateRaceAttendantDto } from './dto/create-race-attendant.dto';
@@ -35,7 +36,7 @@ export class RaceAttendantController {
     return this.raceAttendantService.findOne(+ra_id);
   }
 
-  @Patch(':ra_id')
+  @Patch(':ra_id') // - 경기 id - 일자 + 지역 + round / linenumber / ord
   update(
     @Param('ra_id') ra_id: string,
     @Body() updateRaceAttendantDto: UpdateRaceAttendantDto,
@@ -46,5 +47,13 @@ export class RaceAttendantController {
   @Delete(':ra_id')
   remove(@Param('ra_id') ra_id: string) {
     return this.raceAttendantService.remove(+ra_id);
+  }
+
+  @Post('/result/:race_id')
+  addResult(
+    @Param('race_id', ParseIntPipe) race_id: number,
+    @Body() results: JSON,
+  ): Promise<void> {
+    return this.raceAttendantService.addResult(race_id, results);
   }
 }

@@ -88,4 +88,6 @@ export class HorseRaceService {
     }
     console.log(result);
   }
+
+  async addResult(race_id: number, results: JSON): Promise<void> {}
 }

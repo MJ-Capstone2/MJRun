@@ -15,6 +15,7 @@ import { AIPredictionModule } from './aiprediction/aiprediction.module';
 import { RaceAttendantModule } from './race-attendant/race-attendant.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { AggregationsModule } from './aggregations/aggregations.module';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { AppService } from './app.service';
     HorseRaceModule,
     AIPredictionModule,
     RaceAttendantModule,
+    AggregationsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -71,4 +71,15 @@ export class HorseAggregationService {
 
     console.log(result);
   }
+
+  async addResult(horse_number: number, result: number): Promise<void> {
+    const horseAgg = await this.findOne(horse_number);
+    horseAgg.total_race_count += 1;
+    if (result == 1) horseAgg.total_ord1_count += 1;
+    if (result == 2) horseAgg.total_ord2_count += 1;
+    if (result == 3) horseAgg.total_ord3_count += 1;
+    horseAgg.total_win_rate =
+      horseAgg.total_ord1_count / horseAgg.total_race_count;
+    this.horseAggregationRepository.save(horseAgg);
+  }
 }

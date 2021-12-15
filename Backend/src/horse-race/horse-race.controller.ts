@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { HorseRaceService } from './horse-race.service';
 import { CreateHorseRaceDto } from './dto/create-horse-race.dto';
@@ -41,5 +42,13 @@ export class HorseRaceController {
   @Delete(':race_id')
   remove(@Param('race_id') race_id: string) {
     return this.horseRaceService.remove(+race_id);
+  }
+
+  @Post('/result/:race_id')
+  addResult(
+    @Param('race_id', ParseIntPipe) race_id: number,
+    @Body() results: JSON,
+  ): Promise<void> {
+    return this.horseRaceService.addResult(race_id, results);
   }
 }

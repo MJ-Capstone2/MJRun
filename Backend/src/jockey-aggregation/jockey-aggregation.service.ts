@@ -60,4 +60,14 @@ export class JockeyAggregationService {
 
     console.log(result);
   }
+  async addResult(jk_id: number, result: number): Promise<void> {
+    const jockeyAgg = await this.findOne(jk_id);
+    jockeyAgg.total_race_count += 1;
+    if (result == 1) jockeyAgg.total_ord1_count += 1;
+    if (result == 2) jockeyAgg.total_ord2_count += 1;
+    if (result == 3) jockeyAgg.total_ord3_count += 1;
+    jockeyAgg.total_win_rate =
+      jockeyAgg.total_ord1_count / jockeyAgg.total_race_count;
+    this.jockeyAggregationRepository.save(jockeyAgg);
+  }
 }
