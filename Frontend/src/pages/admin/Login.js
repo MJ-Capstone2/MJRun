@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { 
   Typography,
   TextField,
@@ -45,7 +44,7 @@ const Login = () => {
 
   const onClickLogin = async () => {
     await adminApi.login(Id,Pwd);
-    const [res, err] = await adminApi.validation;
+    const [res, ] = await adminApi.validation;
     if (res) {
       window.location.href = '/admin';
     }
