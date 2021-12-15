@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { HorseService } from './horse.service';
 import { CreateHorseDto } from './dto/create-horse.dto';
@@ -42,5 +43,9 @@ export class HorseController {
   @Delete(':horse_number')
   remove(@Param('horse_number') horse_number: string) {
     return this.horseService.remove(+horse_number);
+  }
+  @Delete()
+  removeAll(@Query('id') ids: string[]) {
+    return this.horseService.removeAll(ids);
   }
 }

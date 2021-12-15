@@ -70,7 +70,8 @@ export class AIPredictionService {
     console.log(result);
   }
   async getPrecision(period: string, order: number): Promise<number> {
-    if (!order) order = 1;
+    if (!order) order = 0;
+    const order_condition = order ? [order] : [1, 2, 3];
     const results = [];
     const horseRace_in_period = await this.horseRaceService.findAll(period);
     for (const horseRace of horseRace_in_period) {
@@ -78,22 +79,30 @@ export class AIPredictionService {
       if (!aiPredict) continue;
       const raceAttendants = await this.raceAttendantService.findAll(
         horseRace.race_id,
+        order_condition,
       );
-      const predict =
-        order == 1
-          ? aiPredict.first_linenumber
-          : order == 2
-          ? aiPredict.second_linenumber
-          : aiPredict.third_linenumber;
+      console.log(raceAttendants);
       for (const raceAttendant of raceAttendants) {
-        if (raceAttendant.result == order) {
-          const isCorrect = predict == raceAttendant.line_number;
+        if (raceAttendant.result == 1) {
+          const isCorrect =
+            aiPredict.first_linenumber == raceAttendant.line_number;
           results.push(isCorrect ? 1 : 0);
-          break;
+        }
+        if (raceAttendant.result == 2) {
+          const isCorrect =
+            aiPredict.second_linenumber == raceAttendant.line_number;
+          results.push(isCorrect ? 1 : 0);
+        }
+        if (raceAttendant.result == 3) {
+          const isCorrect =
+            aiPredict.third_linenumber == raceAttendant.line_number;
+          results.push(isCorrect ? 1 : 0);
         }
       }
     }
-    return (results.reduce((prev, cur) => prev + cur) / results.length) * 100;
+    return results.length
+      ? (results.reduce((prev, cur) => prev + cur) / results.length) * 100
+      : 0;
   }
 
   async preprocess(race_id: number): Promise<number[][]> {

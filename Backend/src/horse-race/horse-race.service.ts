@@ -20,7 +20,7 @@ export class HorseRaceService {
   async findAll(period?: string): Promise<HorseRace[]> {
     if (period) {
       const today = new Date('2019-03-01');
-      const dayoff = period == 'week' ? 7 : 30;
+      const dayoff = period == 'week' ? 7 : 'month' ? 30 : 365;
       const start_date = new Date(
         today.getTime() - dayoff * 24 * 60 * 60 * 1000,
       );

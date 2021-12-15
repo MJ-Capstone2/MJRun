@@ -44,4 +44,7 @@ export class JockeyService {
 
     console.log(result);
   }
+  async removeAll(ids: string[]) {
+    for (const id of ids) await this.remove(+id);
+  }
 }

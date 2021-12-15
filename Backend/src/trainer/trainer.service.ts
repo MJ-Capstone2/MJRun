@@ -48,4 +48,7 @@ export class TrainerService {
 
     console.log(result);
   }
+  async removeAll(ids: string[]): Promise<void> {
+    for (const id of ids) await this.remove(+id);
+  }
 }
