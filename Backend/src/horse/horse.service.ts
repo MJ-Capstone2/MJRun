@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { HorseAggregationService } from 'src/horse-aggregation/horse-aggregation.service';
 import { CreateHorseDto } from './dto/create-horse.dto';
 import { UpdateHorseDto } from './dto/update-horse.dto';
 import { Horse } from './entities/horse.entity';
@@ -10,10 +11,24 @@ export class HorseService {
   constructor(
     @InjectRepository(HorseRepository)
     private horseRepository: HorseRepository,
+    private horseAggregaionService: HorseAggregationService,
   ) {}
 
-  create(createHorseDto: CreateHorseDto): Promise<Horse> {
-    return this.horseRepository.createHorse(createHorseDto);
+  async create(createHorseDto: CreateHorseDto): Promise<Horse> {
+    const newHorse = await this.horseRepository.createHorse(createHorseDto);
+    await this.horseAggregaionService.create({
+      horse: newHorse,
+      total_race_count: 0,
+      total_win_rate: 0,
+      total_ord1_count: 0,
+      total_ord2_count: 0,
+      total_ord3_count: 0,
+    });
+    return newHorse;
+  }
+  async multiCreate(createHorseDtos: CreateHorseDto[]): Promise<void> {
+    for (let createHorseDto of createHorseDtos)
+      await this.horseRepository.createHorse(createHorseDto);
   }
 
   async findAll(): Promise<Horse[]> {

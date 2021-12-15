@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { TrainerAggregationService } from 'src/trainer-aggregation/trainer-aggregation.service';
 import { CreateTrainerDto } from './dto/create-trainer.dto';
 import { UpdateTrainerDto } from './dto/update-trainer.dto';
 import { Trainer } from './entities/trainer.entity';
@@ -10,10 +11,27 @@ export class TrainerService {
   constructor(
     @InjectRepository(TrainerRepository)
     private trainerRepository: TrainerRepository,
+    private trainerAggregationService: TrainerAggregationService,
   ) {}
 
-  create(createTrainerDto: CreateTrainerDto): Promise<Trainer> {
-    return this.trainerRepository.createTrainer(createTrainerDto);
+  async create(createTrainerDto: CreateTrainerDto): Promise<Trainer> {
+    const newTrainer = await this.trainerRepository.createTrainer(
+      createTrainerDto,
+    );
+    await this.trainerAggregationService.create({
+      trainer: newTrainer,
+      total_race_count: 0,
+      total_ord1_count: 0,
+      total_ord2_count: 0,
+      total_ord3_count: 0,
+      total_win_rate: 0,
+    });
+    return newTrainer;
+  }
+  async multiCreate(createTrainerDtos: CreateTrainerDto[]): Promise<void> {
+    for (let createTrainerDto of createTrainerDtos) {
+      await this.create(createTrainerDto);
+    }
   }
 
   async findAll(): Promise<Trainer[]> {

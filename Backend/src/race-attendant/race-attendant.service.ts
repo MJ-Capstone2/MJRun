@@ -37,6 +37,13 @@ export class RaceAttendantService {
       updatedCreateRaceAttendantDto,
     );
   }
+  async multiCreate(
+    createRaceAttendantDtos: CreateRaceAttendantDto[],
+  ): Promise<void> {
+    for (let createRaceAttendantDto of createRaceAttendantDtos) {
+      await this.create(createRaceAttendantDto);
+    }
+  }
 
   async findAll(
     race_id?: number,

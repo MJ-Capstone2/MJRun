@@ -21,6 +21,10 @@ export class TrainerController {
   create(@Body() createTrainerDto: CreateTrainerDto): Promise<Trainer> {
     return this.trainerService.create(createTrainerDto);
   }
+  @Post()
+  multiCreate(@Body() createTrainerDtos: CreateTrainerDto[]): Promise<void> {
+    return this.trainerService.multiCreate(createTrainerDtos);
+  }
 
   @Get()
   findAll(): Promise<Trainer[]> {

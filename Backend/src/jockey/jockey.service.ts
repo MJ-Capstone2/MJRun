@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { JockeyAggregationService } from 'src/jockey-aggregation/jockey-aggregation.service';
 import { CreateJockeyDto } from './dto/create-jockey.dto';
 import { UpdateJockeyDto } from './dto/update-jockey.dto';
 import { Jockey } from './entities/jockey.entity';
@@ -10,10 +11,25 @@ export class JockeyService {
   constructor(
     @InjectRepository(JockeyRepository)
     private jockeyRepository: JockeyRepository,
+    private jockeyAggregationService: JockeyAggregationService,
   ) {}
 
-  create(createJockeyDto: CreateJockeyDto): Promise<Jockey> {
-    return this.jockeyRepository.createJockey(createJockeyDto);
+  async create(createJockeyDto: CreateJockeyDto): Promise<Jockey> {
+    const newJockey = await this.jockeyRepository.createJockey(createJockeyDto);
+
+    await this.jockeyAggregationService.create({
+      jockey: newJockey,
+      total_race_count: 0,
+      total_win_rate: 0,
+      total_ord1_count: 0,
+      total_ord2_count: 0,
+      total_ord3_count: 0,
+    });
+    return newJockey;
+  }
+  async multiCreate(createJockeyDtos: CreateJockeyDto[]): Promise<void> {
+    for (let createJockeyDto of createJockeyDtos)
+      await this.create(createJockeyDto);
   }
 
   async findAll() {
