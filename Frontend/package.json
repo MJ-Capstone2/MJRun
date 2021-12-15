@@ -13,7 +13,6 @@
     "@testing-library/user-event": "^12.1.10",
     "@tomik23/react-circular-progress-bar": "^0.1.25",
     "axios": "^0.24.0",
-    "http-proxy-middleware": "^2.0.1",
     "moment": "^2.29.1",
     "react": "^17.0.2",
     "react-datepicker": "^4.3.0",
@@ -27,7 +26,7 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "set PORT=3002 && react-scripts start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

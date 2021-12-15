@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { 
   Button,
   makeStyles,
@@ -47,186 +47,15 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function InfoCard(){
+const InfoCard = ({ attendant }) => {
   const classes = useStyles();
 
-  const [num, setNum] = React.useState(0);
+  const [num, setNum] = useState(0);
   const handleOnClick = (e,idx) => {
     setNum(idx);
   }
 
-  const infos = [
-    {
-      horse: {
-        name: '생각대로',
-        sex: '암',
-        age: '5세',
-        weight: '+2.0',
-        history: [22,0,0]
-      },
-      jockey: {
-        name: '우성',
-        history: [22,0,0]
-      },
-      trainer: {
-        name: '유재길',
-        history: [22,0,0]
-      }
-    },
-    {
-      horse: {
-        name: '생각대로',
-        sex: '암',
-        age: '5세',
-        weight: '+2.0',
-        history: [22,0,0]
-      },
-      jockey: {
-        name: '히히',
-        history: [22,0,0]
-      },
-      trainer: {
-        name: '테스트',
-        history: [22,0,0]
-      }
-    },
-    {
-      horse: {
-        name: '생각대로',
-        sex: '암',
-        age: '5세',
-        weight: '+2.0',
-        history: [22,0,0]
-      },
-      jockey: {
-        name: '우성',
-        history: [22,0,0]
-      },
-      trainer: {
-        name: '유재길',
-        history: [22,0,0]
-      }
-    },
-    {
-      horse: {
-        name: '아무거나',
-        sex: '암',
-        age: '5세',
-        weight: '+2.0',
-        history: [22,0,0]
-      },
-      jockey: {
-        name: '우성',
-        history: [22,0,0]
-      },
-      trainer: {
-        name: '난몰라',
-        history: [22,0,0]
-      }
-    },
-    {
-      horse: {
-        name: '생각대로',
-        sex: '암',
-        age: '5세',
-        weight: '+2.0',
-        history: [22,0,0]
-      },
-      jockey: {
-        name: '우성',
-        history: [22,0,0]
-      },
-      trainer: {
-        name: '유재길',
-        history: [22,0,0]
-      }
-    },
-    {
-      horse: {
-        name: '생각대로',
-        sex: '암',
-        age: '5세',
-        weight: '+2.0',
-        history: [22,0,0]
-      },
-      jockey: {
-        name: '우성',
-        history: [22,0,0]
-      },
-      trainer: {
-        name: '유재길',
-        history: [22,0,0]
-      }
-    },
-    {
-      horse: {
-        name: '으어어어',
-        sex: '암',
-        age: '5세',
-        weight: '+2.0',
-        history: [22,0,0]
-      },
-      jockey: {
-        name: '이익',
-        history: [22,0,0]
-      },
-      trainer: {
-        name: '으어어',
-        history: [22,0,0]
-      }
-    },
-    {
-      horse: {
-        name: '생각대로',
-        sex: '암',
-        age: '5세',
-        weight: '+2.0',
-        history: [22,0,0]
-      },
-      jockey: {
-        name: '우성',
-        history: [22,0,0]
-      },
-      trainer: {
-        name: '유재길',
-        history: [22,0,0]
-      }
-    },
-    {
-      horse: {
-        name: '생각대로',
-        sex: '암',
-        age: '5세',
-        weight: '+2.0',
-        history: [22,0,0]
-      },
-      jockey: {
-        name: '우성',
-        history: [22,0,0]
-      },
-      trainer: {
-        name: '유재길',
-        history: [22,0,0]
-      }
-    },
-    {
-      horse: {
-        name: '생각대로',
-        sex: '암',
-        age: '5세',
-        weight: '+2.0',
-        history: [22,0,0]
-      },
-      jockey: {
-        name: '우성',
-        history: [22,0,0]
-      },
-      trainer: {
-        name: '유재길',
-        history: [22,0,0]
-      }
-    }
-  ]
+  const infos = attendant;
 
   return (
     <div className={classes.root_container}>
@@ -254,17 +83,17 @@ function InfoCard(){
           <Typography>성별: {infos[num].horse.sex}</Typography>
           <Typography>나이: {infos[num].horse.age}</Typography>
           <Typography>무게증감: {infos[num].horse.weight}</Typography>
-          <Typography>전적: {infos[num].horse.history[1]}/{infos[num].horse.history[2]} ({infos[num].horse.history[0]})</Typography>
+          <Typography>전적: {infos[num].horse.total_ord1_count}/{infos[num].horse.total_ord2_count} ({infos[num].horse.total_race_count})</Typography>
         </div>
         <div className={classes.divider}></div>
         <div className={classes.content_box}>
           <Typography>기수-{infos[num].jockey.name}</Typography>
-          <Typography>전적: {infos[num].jockey.history[1]}/{infos[num].jockey.history[2]} ({infos[num].jockey.history[0]})</Typography>
+          <Typography>전적: {infos[num].jockey.total_ord1_count}/{infos[num].jockey.total_ord2_count} ({infos[num].jockey.total_race_count})</Typography>
         </div>
         <div className={classes.divider}></div>
         <div className={classes.content_box} style={{borderRight:'none'}}>
           <Typography>조교사-{infos[num].trainer.name}</Typography>
-          <Typography>전적: {infos[num].trainer.history[1]}/{infos[num].trainer.history[2]} ({infos[num].trainer.history[0]})</Typography>
+          <Typography>전적: {infos[num].trainer.total_ord1_count}/{infos[num].trainer.total_ord2_count} ({infos[num].trainer.total_race_count})</Typography>
         </div>
       </div>
     </div>

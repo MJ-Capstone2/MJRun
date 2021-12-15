@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'flex-end',
     justifyContent: 'center',
-    minWidth: 100,
+    minWidth: 120,
     minHeight: 50
   },
   colbox1: {
@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     left: 0,
     zIndex: 99,
-    minWidth: 150,
+    minWidth: 170,
     minHeight: 50,
     backgroundColor: 'white'
   },
@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    minWidth: 100,
+    minWidth: 120,
     minHeight: 55
   },
   rowbox1: {
@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     left: 0,
     zIndex: 99,
-    minWidth: 150,
+    minWidth: 170,
     minHeight: 55,
   },
   evenbox: {
@@ -65,182 +65,11 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const InfoTable = () => {
+const InfoTable = ({ attendant }) => {
   const classes = useStyles();
 
   const columns = ['말전적', '기수명', '기수전적', '조교사명', '조교사전적']
-  const infos = [
-    {
-      horse: {
-        name: '생각대로',
-        sex: '암',
-        age: '5',
-        weight: '+2.0',
-        history: [22,0,0]
-      },
-      jockey: {
-        name: '우성',
-        history: [22,0,0]
-      },
-      trainer: {
-        name: '유재길',
-        history: [22,0,0]
-      }
-    },
-    {
-      horse: {
-        name: '생각대로',
-        sex: '암',
-        age: '5',
-        weight: '+2.0',
-        history: [22,0,0]
-      },
-      jockey: {
-        name: '히히',
-        history: [22,0,0]
-      },
-      trainer: {
-        name: '테스트',
-        history: [22,0,0]
-      }
-    },
-    {
-      horse: {
-        name: '생각대로',
-        sex: '암',
-        age: '5',
-        weight: '+2.0',
-        history: [22,0,0]
-      },
-      jockey: {
-        name: '우성',
-        history: [22,0,0]
-      },
-      trainer: {
-        name: '유재길',
-        history: [22,0,0]
-      }
-    },
-    {
-      horse: {
-        name: '아무거나',
-        sex: '암',
-        age: '5',
-        weight: '+2.0',
-        history: [22,0,0]
-      },
-      jockey: {
-        name: '우성',
-        history: [22,0,0]
-      },
-      trainer: {
-        name: '난몰라',
-        history: [22,0,0]
-      }
-    },
-    {
-      horse: {
-        name: '생각대로',
-        sex: '암',
-        age: '5',
-        weight: '+2.0',
-        history: [22,0,0]
-      },
-      jockey: {
-        name: '우성',
-        history: [22,0,0]
-      },
-      trainer: {
-        name: '유재길',
-        history: [22,0,0]
-      }
-    },
-    {
-      horse: {
-        name: '생각대로',
-        sex: '암',
-        age: '5',
-        weight: '+2.0',
-        history: [22,0,0]
-      },
-      jockey: {
-        name: '우성',
-        history: [22,0,0]
-      },
-      trainer: {
-        name: '유재길',
-        history: [22,0,0]
-      }
-    },
-    {
-      horse: {
-        name: '으어어어',
-        sex: '암',
-        age: '5',
-        weight: '+2.0',
-        history: [22,0,0]
-      },
-      jockey: {
-        name: '이익',
-        history: [22,0,0]
-      },
-      trainer: {
-        name: '으어어',
-        history: [22,0,0]
-      }
-    },
-    {
-      horse: {
-        name: '생각대로',
-        sex: '암',
-        age: '5',
-        weight: '+2.0',
-        history: [22,0,0]
-      },
-      jockey: {
-        name: '우성',
-        history: [22,0,0]
-      },
-      trainer: {
-        name: '유재길',
-        history: [22,0,0]
-      }
-    },
-    {
-      horse: {
-        name: '생각대로',
-        sex: '암',
-        age: '5',
-        weight: '+2.0',
-        history: [22,0,0]
-      },
-      jockey: {
-        name: '우성',
-        history: [22,0,0]
-      },
-      trainer: {
-        name: '유재길',
-        history: [22,0,0]
-      }
-    },
-    {
-      horse: {
-        name: '생각대로',
-        sex: '암',
-        age: '5',
-        weight: '+2.0',
-        history: [22,0,0]
-      },
-      jockey: {
-        name: '우성',
-        history: [22,0,0]
-      },
-      trainer: {
-        name: '유재길',
-        history: [22,0,0]
-      }
-    }
-  ]
+  const infos = attendant;
 
   return(
     <TableContainer className={classes.root}>
@@ -260,26 +89,28 @@ const InfoTable = () => {
 
         <div className={classes.body}>
           {
-            infos.map((info, idx) => (
+            infos && infos.map((info, idx) => (
               <div className={classes.row} key={idx}>
                 <Box borderRadius={5} m={1} className={`${classes.rowbox1} ${idx%2===0 ? classes.evenbox : classes.oddbox}`}>
                   <Typography><b>{idx+1} {info.horse.name}</b> ({info.horse.sex}/{info.horse.age})</Typography>
                   <Typography>무게증감 {info.horse.weight} </Typography>
                 </Box>
                 <Box borderRadius={5} m={1} className={`${classes.rowbox} ${idx%2===0 ? classes.evenbox : classes.oddbox}`}>
-                  <Typography className={classes.rowtypo}>{info.horse.history[1]}/{info.horse.history[2]} ({info.horse.history[0]})</Typography>
+                  <Typography className={classes.rowtypo}>{info.horse.total_ord1_count}/{info.horse.total_ord2_count} ({info.horse.total_race_count})</Typography>
                 </Box>
                 <Box borderRadius={5} m={1} className={`${classes.rowbox} ${idx%2===0 ? classes.evenbox : classes.oddbox}`}>
-                  <Typography>{info.jockey.name}</Typography>
+                  {/* <Typography>{info.jockey.name}</Typography> */}
+                  <Typography>조키</Typography>
                 </Box>
                 <Box borderRadius={5} m={1} className={`${classes.rowbox} ${idx%2===0 ? classes.evenbox : classes.oddbox}`}>
-                  <Typography>{info.jockey.history[1]}/{info.jockey.history[2]} ({info.jockey.history[0]})</Typography>
+                  <Typography>{info.jockey.total_ord1_count}/{info.jockey.total_ord2_count} ({info.jockey.total_race_count})</Typography>
                 </Box>
                 <Box borderRadius={5} m={1} className={`${classes.rowbox} ${idx%2===0 ? classes.evenbox : classes.oddbox}`}>
-                  <Typography>{info.trainer.name}</Typography>
+                  {/* <Typography>{info.trainer.name}</Typography> */}
+                  <Typography>트레</Typography>
                 </Box>
                 <Box borderRadius={5} m={1} className={`${classes.rowbox} ${idx%2===0 ? classes.evenbox : classes.oddbox}`}>
-                  <Typography>{info.trainer.history[1]}/{info.trainer.history[2]} ({info.trainer.history[0]})</Typography>
+                  <Typography>{info.trainer.total_ord1_count}/{info.trainer.total_ord2_count} ({info.trainer.total_race_count})</Typography>
                 </Box>
               </div>
             ))

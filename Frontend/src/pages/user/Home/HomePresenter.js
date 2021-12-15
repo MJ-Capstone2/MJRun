@@ -36,10 +36,8 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const HomePresenter = ({ races, raceIdx, handleChange, race_attendant, predicts, race }) => {
-
+const HomePresenter = ({ races, raceIdx, handleChange, attendant, predict, race }) => {
   const classes = useStyles();
-
   return(
     <UserLayout>
       <Selector races={races} raceIdx={raceIdx} handleChange={handleChange}/>
@@ -53,8 +51,8 @@ const HomePresenter = ({ races, raceIdx, handleChange, race_attendant, predicts,
           <Typography variant="h6"><b>예측번호</b></Typography>
           <div className={classes.order_wrap}>
             {
-             predicts.map((pre, idx)=>(
-              <PredictOrder key={idx} order={idx+1} name={race_attendant[pre-1].horse.name} age={race_attendant[pre-1].num}/>
+             predict.map((pre, idx)=>(
+              <PredictOrder key={idx} order={idx+1} name={pre.name} age={pre.no}/>
              ))
             }
           </div>
@@ -63,7 +61,7 @@ const HomePresenter = ({ races, raceIdx, handleChange, race_attendant, predicts,
       <div className={classes.card_container}>
         <div className={classes.content_wrap}>
           <Typography variant="h6"><b>말/기수/조교사 정보</b></Typography>
-          <Info />
+          <Info attendant={attendant}/>
         </div>
       </div>
     </UserLayout>

@@ -4,8 +4,6 @@ import {
 } from "@material-ui/core";
 import { CircularProgressBar } from "@tomik23/react-circular-progress-bar";
 
-const percentage = 66;
-
 const useStyles = makeStyles((theme) => ({
   graphContainer: {
     width : '16em',
@@ -17,14 +15,14 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function RadialBar(){
+function RadialBar({week}){
 
   const classes = useStyles();
 
   return(
     <div className={classes.graphContainer}>
       <CircularProgressBar
-        percent={percentage}
+        percent={week}
         linearGradient={["#4286f4", "#373B44"]}
         animationSmooth="1s ease-out"
         fontSize="15px"

@@ -20,6 +20,7 @@ import {
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/Add';
 import UploadModal from './UploadModal';
+import { deleteAnything } from '../../api';
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -114,7 +115,7 @@ const useToolbarStyles = makeStyles((theme) => ({
 /* 테이블 제목부분 */
 const EnhancedTableToolbar = (props) => {
   const classes = useToolbarStyles();
-  const { numSelected, title } = props;
+  const { numSelected, title, dtype, selected, setDataLoading } = props;
   const [open, setOpen] = React.useState(false);
 
   const handleOpen = () => {
@@ -124,6 +125,15 @@ const EnhancedTableToolbar = (props) => {
   const handleClose = () => {
     setOpen(false);
   };
+
+  const handleDelete = async (e) => {
+    e.preventDefault();
+    setDataLoading(true);
+    /* TODO: API바뀌면 파라매터로 날리는 걸로 변경 */
+    const [res, err] = await deleteAnything(`${dtype}/0`);
+    setDataLoading(false);
+    window.location.reload();
+  }
 
   return (
     <Toolbar
@@ -142,7 +152,7 @@ const EnhancedTableToolbar = (props) => {
       )}
       {numSelected > 0 ? (
         <Tooltip title="삭제">
-          <IconButton aria-label="delete">
+          <IconButton aria-label="delete" onClick={handleDelete}>
             <DeleteIcon />
           </IconButton>
         </Tooltip>
@@ -185,7 +195,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 /* 테이블 */
-export default function EnhancedTable({rows, columns, title}) {
+export default function EnhancedTable({rows, columns, title, dtype, setDataLoading}) {
   const classes = useStyles();
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('calories');
@@ -244,7 +254,7 @@ export default function EnhancedTable({rows, columns, title}) {
   return (
     <div className={classes.root}>
       <Paper className={classes.paper} elevation={0}>
-        <EnhancedTableToolbar numSelected={selected.length} title={title}/>
+        <EnhancedTableToolbar numSelected={selected.length} title={title} dtype={dtype} selected={selected} setDataLoading={setDataLoading}/>
         <TableContainer>
           <Table
             className={classes.table}
@@ -267,6 +277,7 @@ export default function EnhancedTable({rows, columns, title}) {
                 .map((row, index) => {
                   const isItemSelected = isSelected(row.id);
                   const labelId = `enhanced-table-checkbox-${index}`;
+                  const rowId = `row-${row}-${index}`
 
                   return (
                     <TableRow
@@ -275,7 +286,7 @@ export default function EnhancedTable({rows, columns, title}) {
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={row.id}
+                      key={rowId}
                       selected={isItemSelected}
                     >
                       <TableCell padding="checkbox">

@@ -42,30 +42,8 @@ const Login = () => {
     SetPwd(event.target.value)
   };
 
-  // function onClickLogin(){
-  //   axios({
-  //     method: "GET",
-  //     url: "http://localhost:3000/api/admin/signin",
-  //     data: {
-  //       "id": Id,
-  //       "password": Pwd
-  //     }
-  //   })
-  //   .then((res) => {
-  //     console.log(res.data.token)
-  //     document.location.href = "/admin"
-  //     //로그인 실패 시
-  //     //document.location.href = '/login'
-  //   })
-  //   .catch((error) => {
-  //     console.log(error)
-  //     console.log(Id)
-  //     console.log(Pwd)
-  //   })
-  // }
-
   const onClickLogin = () => {
-    axios.get("http://localhost:3000/api/admin/signin", 
+    axios.post("http://localhost:3000/api/admin/signin", 
     {
       "id": Id,
       "password": Pwd
@@ -76,8 +54,6 @@ const Login = () => {
     })
     .catch(err => {
       console.log(err)
-      console.log(Id)
-      console.log(Pwd)
     });
   }
 
