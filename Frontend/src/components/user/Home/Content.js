@@ -10,9 +10,9 @@ import { getLabel } from '../../../utils';
 
 const useStyles = makeStyles((theme) => ({
   card_container : {
-    background: theme.overrides.background,
-    margin: '1em 0',
-    padding: '0.8em 0.4em',
+    marginTop: '1em',
+    marginBottom: '1em'
+    
   },
   title_wrap: {
     width: '100%',
@@ -21,13 +21,17 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingLeft: 20,
-    paddingRight: 20
+    paddingRight: 20,
+    backgroundColor: theme.palette.background.paper,
   },
   content_wrap: {
     display:'flex',
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
+    backgroundColor: theme.palette.background.paper,
+    paddingTop: '0.5em',
+    paddingBottom: '0.5em'
   },
   order_wrap: {
     display:'flex',

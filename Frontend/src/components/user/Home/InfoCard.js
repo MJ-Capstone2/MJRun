@@ -82,7 +82,6 @@ const InfoCard = ({ attendant }) => {
           <Typography>말-{infos[num].horse.name}</Typography>
           <Typography>성별: {infos[num].horse.sex}</Typography>
           <Typography>나이: {infos[num].horse.age}</Typography>
-          <Typography>무게증감: {infos[num].horse.weight}</Typography>
           <Typography>전적: {infos[num].horse.total_ord1_count}/{infos[num].horse.total_ord2_count} ({infos[num].horse.total_race_count})</Typography>
         </div>
         <div className={classes.divider}></div>

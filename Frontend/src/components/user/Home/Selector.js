@@ -10,8 +10,7 @@ import { getLabel } from '../../../utils';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: '100%',
-    backgroundColor: theme.palette.background.paper,
+    width: '100%'
   },
   paper : {
     backgroundColor: theme.palette.background.paper,
