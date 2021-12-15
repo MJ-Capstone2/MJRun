@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import HomePresenter from './HomePresenter';
 import { homeApi } from '../../../api';
-import { getYYYYMMDD, parseDate } from '../../../utils';
+import { parseDate } from '../../../utils';
 
  const HomeContainer = () => {
     const [raceDate, setRaceDate] = useState('2019-02-24');
