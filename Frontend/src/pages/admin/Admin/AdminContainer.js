@@ -21,6 +21,11 @@ const AdminContainer = () => {
     trainerData: null,
     trainerErr: null,
   });
+  const [info, setInfo] = useState({
+    loading: true,
+    infoData: null,
+    infoErr: null,
+  });
 
   const getHData = async () => {
     const [horseData, horseError] = await adminApi.horses;
@@ -49,11 +54,22 @@ const AdminContainer = () => {
     });
   };
 
+  const getIData = async () => {
+    const [infoData, infoErr] = await adminApi.infos;
+    setInfo({
+      loading: false,
+      infoData,
+      infoErr,
+    });
+  };
+
   useEffect(() => {
     if (dtype === 'jockey') {
       getJData();
     } else if (dtype === 'trainer') {
       getTData();
+    } else if (dtype === 'info') {
+      getIData();
     } else {
       getHData();
     }
@@ -65,25 +81,10 @@ const AdminContainer = () => {
     { id: 'sex', numeric: true, disablePadding: false, label: '성별' },
     { id: 'age', numeric: true, disablePadding: false, label: '나이' },
     { id: 'nationality', numeric: true, disablePadding: false, label: '국적' },
-    {
-      id: 'weight',
-      numeric: false,
-      disablePadding: false,
-      label: '무게증감(Kg)',
-    },
+    { id: 'weight', numeric: false, disablePadding: false, label: '무게증감(Kg)'  },
     { id: 'rating', numeric: false, disablePadding: false, label: '레이팅' },
-    {
-      id: 'total_race_count',
-      numeric: true,
-      disablePadding: false,
-      label: '총출전',
-    },
-    {
-      id: 'total_win_rate',
-      numeric: true,
-      disablePadding: false,
-      label: '승률',
-    },
+    { id: 'total_race_count', numeric: true, disablePadding: false, label: '총출전' },
+    { id: 'total_win_rate', numeric: true, disablePadding: false, label: '승률' },
     { id: 'total_ord1_count', numeric: true, disablePadding: false, label: '1위' },
     { id: 'total_ord2_count', numeric: true, disablePadding: false, label: '2위' },
     { id: 'total_ord3_count', numeric: true, disablePadding: false, label: '3위' },
@@ -99,6 +100,14 @@ const AdminContainer = () => {
     { id: 'name', numeric: true, disablePadding: false, label: '이름' },
     { id: 'debut', numeric: true, disablePadding: false, label: '데뷔일' },
     { id: 'birthdate', numeric: true, disablePadding: false, label: '생일' },
+  ];
+  const info_columns = [
+    { id: 'race_id', numeric: false, disablePadding: true, label: 'ID' },
+    { id: 'race_date', numeric: true, disablePadding: false, label: '날짜' },
+    { id: 'race_location', numeric: true, disablePadding: false, label: '장소' },
+    { id: 'race_number', numeric: true, disablePadding: false, label: '번호' },
+    { id: 'race_start_time', numeric: true, disablePadding: false, label: '시작시간' },
+    { id: 'race_distance', numeric: true, disablePadding: false, label: '거리' },
   ];
 
   const parseProp = () => {
@@ -119,6 +128,14 @@ const AdminContainer = () => {
           loading: trainer.loading,
           dtype: 'trainer'
         };
+      case 'info':
+        return {
+          cols: info_columns,
+          rows: info.infoData,
+          title: '경기정보',
+          loading: info.loading,
+          dtype: 'info'
+        }
       default:
         return {
           cols: horse_columns,

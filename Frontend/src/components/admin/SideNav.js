@@ -43,6 +43,12 @@ const SideNav = () => {
         <ListItemLink href="/admin/trainer">
           <ListItemText primary="조교사" />
         </ListItemLink>
+        <ListItemLink href="/admin/info">
+          <ListItemText primary="경기정보" />
+        </ListItemLink>
+        {/* <ListItemLink href="/admin/result">
+          <ListItemText primary="경기결과" />
+        </ListItemLink> */}
       </List>
     </CardBox>
   );

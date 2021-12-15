@@ -42,6 +42,7 @@ export const adminApi = {
   horses : getAnything('horse-aggregation'),
   jockeys: getAnything('jockey'),
   trainers: getAnything('trainer'),
+  infos: getAnything('horse-race?race_date=20160102')
 };
 
 export const precisionApi = {
