@@ -74,24 +74,26 @@ export class AppService {
     return { races, race_attendant, predicts };
   }
   async findAllResult() {
-    const results = {};
+    const results = [];
     const ras = await this.raceAttendantService.findAll(null, [1, 2, 3]);
+    ras.sort((ra) => ra.ra_id);
+    let prev_race_id = 0;
+    let result = {};
     for (const ra of ras) {
       if (ra.result == null) continue;
+      if (ra.horseRace == null) continue;
       if (0 < ra.result && ra.result < 4) {
-        if (ra.horseRace == null) continue;
-        if (!results[`${ra.horseRace.race_id}`])
-          results[`${ra.horseRace.race_id}`] = {
-            ord1: {},
-            ord2: {},
-            ord3: {},
-          };
-        results[`${ra.horseRace.race_id}`][`ord${ra.result}`]['name'] =
-          ra.horse.name;
-        results[`${ra.horseRace.race_id}`][`ord${ra.result}`]['num'] =
-          ra.horse.horse_number;
+        if (prev_race_id != ra.horseRace.race_id) {
+          results.push(result);
+          result = {};
+          prev_race_id = ra.horseRace.race_id;
+          result['id'] = ra.horseRace.race_id;
+        }
+        result[`ord${ra.result}_name`] = ra.horse.name;
+        result[`ord${ra.result}_num`] = ra.horse.horse_number;
       }
     }
+    results.push(result);
     return results;
   }
 }
