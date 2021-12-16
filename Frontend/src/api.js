@@ -47,6 +47,15 @@ export async function postAnything(path, body = {}) {
   }
 }
 
+export async function ppost(path, params = {}) {
+  try {
+    const res = await makeRequest.post(path, params);
+    return [res, null];
+  } catch(e) {
+    return [null, e];
+  }
+}
+
 export const homeApi = {
   raceDatas: (race_date) => getAnything('all-info/at-date', { race_date }),
   ord1: getAnything('aiprediction/precision', { period: 'month', order: 1 }),
@@ -72,13 +81,14 @@ export const adminApi = {
     }
   },
   validation: getAnything('admin/validation'),
-//   upload: async (csvFile) => {
-//     const [res, err] = await postAnything('all-info/create', {
-//       files: csvFile
-//     });
-//     console.log(res);
-//     console.log(err);
-//   }
+  upload: async (csvFiles) => {
+    console.log('api.js의 ', csvFiles);
+    const [res, err] = await ppost('all-info/create', {
+      files: csvFiles
+    });
+    console.log(res);
+    console.log(err);
+  }
 };
 
 export const precisionApi = {

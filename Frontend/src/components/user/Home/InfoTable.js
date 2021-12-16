@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'flex-end',
     justifyContent: 'center',
-    minWidth: 120,
+    minWidth: 140,
     minHeight: 50
   },
   colbox1: {
@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    minWidth: 120,
+    minWidth: 140,
     minHeight: 55
   },
   rowbox1: {

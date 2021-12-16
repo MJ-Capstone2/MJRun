@@ -30,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
   },
   paper : {
     backgroundColor: theme.palette.background.paper,
+    paddingRight: 50
   }
 }));
 

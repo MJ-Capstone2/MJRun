@@ -10,6 +10,7 @@ import {
 } from '@material-ui/core';
 import NoteAddIcon from '@material-ui/icons/NoteAdd';
 import ClearIcon from '@material-ui/icons/Clear';
+import { adminApi } from '../../api';
 
 const useModalStyles = makeStyles((theme) => ({
   input: {
@@ -49,26 +50,28 @@ const useModalStyles = makeStyles((theme) => ({
 const UploadModal = ({open, handleClose}) => {
   const classes = useModalStyles();
   const [ files, setFiles ] = useState([]);
-  const handleChange = (e) => {
-    var fileArr = Array.prototype.slice.call(e.target.files);
-    setFiles([...files, ...fileArr]);
-  }
   const removeFile = (f) => {
     setFiles(files.filter(x => x !== f));
   }
-  const onSubmit = (e) => {
-    e.preventDefault();
-    const formData = new FormData();
-    for (let i=0; i < files.length; i ++) {
-      formData.append(`file[${i}]`, files[i]);
-    }
-    //new Response(formData).text().then(console.log)
-
-  //   const jsonFiles = new FormData();
-  //   for (let i in formData) {
-  //     console.log(JSON.stringify(Object.fromEntries(i)))
-  //   }
+  const handleChange = (e) => {
+    var fileArr = Array.prototype.slice.call(e.target.files);
+    setFiles([...files, ...fileArr]);
+    console.log(fileArr);
   }
+  const onSubmit = async (e) => {
+    e.preventDefault();
+
+    // console.log(files);
+    // await adminApi.upload(files);
+
+    const formData = new FormData();
+    for(let i=0; i<files.length; i++){
+      formData.append(`files`, files[i])
+    }
+    // new Response(formData.getAll('files')).text().then(console.log)
+    await adminApi.upload(formData.getAll('files'));
+  }
+
   return (
     <Modal
       aria-labelledby="transition-modal-title"
