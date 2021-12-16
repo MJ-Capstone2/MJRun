@@ -44,12 +44,7 @@ const Login = () => {
 
   const onClickLogin = async () => {
     await adminApi.login(Id,Pwd);
-    const [res, ] = await adminApi.validation;
-    if (res) {
-      window.location.href = '/admin';
-    } else{
-      alert('로그인 실패!');
-    }
+    window.location.href = '/admin';
   }
 
   const onKeyPress = (e) => {

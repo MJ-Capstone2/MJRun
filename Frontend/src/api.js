@@ -55,7 +55,7 @@ export const homeApi = {
 };
 
 export const adminApi = {
-  horses: getAnything('horse-aggregation'),
+  horses: getAnything('horse-aggregation/serialize'),
   jockeys: getAnything('jockey'),
   trainers: getAnything('trainer'),
   infos: getAnything('horse-race?race_date=20160102'),

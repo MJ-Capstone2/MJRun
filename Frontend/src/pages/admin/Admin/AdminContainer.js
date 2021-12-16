@@ -79,6 +79,7 @@ const AdminContainer = () => {
 
   useEffect(async () => {
     const [res, err] = await adminApi.validation;
+    console.log(res);
     if(!res){
       window.location.href = '/admin/login';
     }
