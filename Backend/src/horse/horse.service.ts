@@ -26,9 +26,17 @@ export class HorseService {
     });
     return newHorse;
   }
-  async multiCreate(createHorseDtos: CreateHorseDto[]): Promise<void> {
-    for (let createHorseDto of createHorseDtos)
-      await this.horseRepository.createHorse(createHorseDto);
+  async multiCreate(objs: object[]): Promise<void> {
+    const createHorseDtos = [];
+    for (let obj of objs) {
+      let newCHDto = new CreateHorseDto();
+      Object.assign(newCHDto, obj);
+      createHorseDtos.push(newCHDto);
+    }
+    for (let createHorseDto of createHorseDtos) {
+      console.log(createHorseDto);
+      // await this.horseRepository.createHorse(createHorseDto);
+    }
   }
 
   async findAll(): Promise<Horse[]> {

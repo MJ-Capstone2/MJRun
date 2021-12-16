@@ -1,14 +1,24 @@
 import { Injectable } from '@nestjs/common';
+import { createReadStream, readdirSync, readFileSync } from 'fs';
+import { join } from 'path';
 import { AIPredictionService } from './aiprediction/aiprediction.service';
 import { HorseAggregationService } from './horse-aggregation/horse-aggregation.service';
 import { HorseRaceService } from './horse-race/horse-race.service';
+import { CreateHorseDto } from './horse/dto/create-horse.dto';
+import { Horse } from './horse/entities/horse.entity';
+import { HorseService } from './horse/horse.service';
 import { JockeyAggregationService } from './jockey-aggregation/jockey-aggregation.service';
+import { JockeyService } from './jockey/jockey.service';
 import { RaceAttendantService } from './race-attendant/race-attendant.service';
 import { TrainerAggregationService } from './trainer-aggregation/trainer-aggregation.service';
+import { TrainerService } from './trainer/trainer.service';
 
 @Injectable()
 export class AppService {
   constructor(
+    private horseService: HorseService,
+    // private jockeyService: JockeyService,
+    // private trainerService: TrainerService,
     private horseRaceService: HorseRaceService,
     private raceAttendantService: RaceAttendantService,
     private horseAggregationService: HorseAggregationService,
@@ -101,10 +111,27 @@ export class AppService {
     return results.slice(1);
   }
 
-  async multiCreate(files: Array<Express.Multer.File>) {
-    for (let file of files) {
-      console.log(file);
+  async uploads(files: File[]) {
+    const file_list = readdirSync(join(__dirname, '../tempUpload'));
+    const entities = {};
+    for (let file of file_list) {
+      let file_name = file.split('.')[0];
+      let data = readFileSync(join(__dirname, '../tempUpload', file), 'utf8');
+      let rows = data.split('\r\n');
+
+      let header = rows[0].split(',');
+      let values = rows.splice(1).map((row) => row.split(','));
+      values.pop();
+      let objs = values.map((vs) =>
+        Object.fromEntries(vs.map((v, i) => [header[i], v])),
+      );
+      if (file_name == 'fakehorse') this.horseService.multiCreate(objs);
     }
-    return files.length;
+    // const stream = createReadStream('../../tempUploads');
+    // this.horseService.readUploadFiles();
+    // this.jockeyService.readUploadFiles();
+    // this.trainerService.readUploadFiles();
+    // this.horseRaceService.readUploadFiles();
+    // this.raceAttendantService.readUploadFiles();
   }
 }
