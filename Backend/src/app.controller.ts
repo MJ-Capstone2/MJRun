@@ -1,7 +1,6 @@
 import {
   Controller,
   Get,
-  Body,
   Query,
   UploadedFiles,
   Post,
@@ -9,6 +8,8 @@ import {
 } from '@nestjs/common';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { ValidationError } from 'class-validator';
+import { diskStorage } from 'multer';
+import { join } from 'path';
 import { AppService } from './app.service';
 
 @Controller('all-info')
@@ -38,8 +39,17 @@ export class AppController {
   }
 
   @Post('create')
-  @UseInterceptors(FilesInterceptor('files'))
-  multiCreate(@UploadedFiles() files: Array<Express.Multer.File>) {
-    return this.appService.multiCreate(files);
+  @UseInterceptors(
+    FilesInterceptor('files', null, {
+      storage: diskStorage({
+        destination: join(__dirname, '../tempUpload'),
+        filename: (req, file, callback) => {
+          callback(null, file.originalname);
+        },
+      }),
+    }),
+  )
+  multiCreate(@UploadedFiles() files: File[]) {
+    return this.appService.uploads(files);
   }
 }

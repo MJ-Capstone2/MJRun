@@ -21,10 +21,6 @@ export class HorseController {
   create(@Body() createHorseDto: CreateHorseDto): Promise<Horse> {
     return this.horseService.create(createHorseDto);
   }
-  @Post('multi')
-  async multiCreate(@Body() createHorseDtos: CreateHorseDto[]): Promise<void> {
-    return this.horseService.multiCreate(createHorseDtos);
-  }
 
   @Get()
   findAll() {
