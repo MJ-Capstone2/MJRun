@@ -8,6 +8,7 @@ export class RaceAttendantRepository extends Repository<RaceAttendant> {
     createRaceAttendantDto: CreateRaceAttendantDto,
   ): Promise<RaceAttendant> {
     const newRaceAttendant = this.create({ ...createRaceAttendantDto });
+    console.log(newRaceAttendant);
     await this.save(newRaceAttendant);
     return newRaceAttendant;
   }

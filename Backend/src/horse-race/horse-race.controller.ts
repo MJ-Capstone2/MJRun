@@ -31,7 +31,6 @@ export class HorseRaceController {
   }
   @Get('/serialize')
   findAllSerialize() {
-    console.log('호출됨');
     return this.horseRaceService.findAllSerialize();
   }
 

@@ -21,11 +21,9 @@ export class AdministratorController {
 
   @Get('/validation')
   getValidation(@Headers('Authorization') token: string) {
-    console.log(token);
     if (!token) return false;
     const tokens = token.split(' ');
     const result = this.administratorService.verify(tokens[tokens.length - 1]);
-    console.log(result);
     return result;
   }
 
