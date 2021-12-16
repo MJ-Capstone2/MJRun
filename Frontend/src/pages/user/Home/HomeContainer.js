@@ -41,6 +41,10 @@ const HomeContainer = () => {
     setLoading(false);
   };
 
+  useEffect(() => {
+    getData();
+  },[]);
+
   return (
     <HomePresenter
       loading={loading}
