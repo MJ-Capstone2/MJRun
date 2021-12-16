@@ -69,6 +69,13 @@ export const adminApi = {
     setAuthorizationToken(token);
   },
   validation: getAnything('admin/validation'),
+//   upload: async (csvFile) => {
+//     const [res, err] = await postAnything('all-info/create', {
+//       files: csvFile
+//     });
+//     console.log(res);
+//     console.log(err);
+//   }
 };
 
 export const precisionApi = {

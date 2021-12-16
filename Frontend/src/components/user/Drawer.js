@@ -13,14 +13,14 @@ import { Link } from "react-router-dom";
 import MenuIcon from '@material-ui/icons/Menu';
 
 const useStyles = makeStyles(()=>({
-    link:{
-        textDecoration:"none",
-        color: "blue",
-        fontSize: "20px",
-    },
-    icon:{
-        color: "white"
-    }
+  link:{
+    textDecoration:"none",
+    color: "blue",
+    fontSize: "20px"
+  },
+  icon:{
+    color: "white"
+  }
 }));
 
 function DrawerComponent() {
@@ -34,23 +34,29 @@ function DrawerComponent() {
         onClose={() => setOpenDrawer(false)}
       >
         <List>
-        <ListItem onClick={() => setOpenDrawer(false)}>
-            <ListItemText>
-              <Link to="/" className={classes.link}>홈</Link>
-            </ListItemText>
-          </ListItem>
+          <Link to="/" className={classes.link}>
+            <ListItem onClick={() => setOpenDrawer(false)}>
+              <ListItemText>
+                홈
+              </ListItemText>
+            </ListItem>
+          </Link>
           <Divider/>
-          <ListItem onClick={() => setOpenDrawer(false)}>
-            <ListItemText>
-              <Link to="/guide" className={classes.link}>초보자 가이드</Link>
-            </ListItemText>
-          </ListItem>
+          <Link to="/guide" className={classes.link}>
+            <ListItem onClick={() => setOpenDrawer(false)}>
+              <ListItemText>
+                초보자 가이드
+              </ListItemText>
+            </ListItem>
+          </Link>
           <Divider/>
-          <ListItem onClick={() => setOpenDrawer(false)}>
-            <ListItemText>
-              <Link to="/prediction" className={classes.link}>AI 예측률</Link>
-            </ListItemText>
-          </ListItem>
+          <Link to="/prediction" className={classes.link}>
+            <ListItem onClick={() => setOpenDrawer(false)}>
+              <ListItemText>
+                AI 예측률
+              </ListItemText>
+            </ListItem>
+          </Link>
           <Divider/>
         </List>
       </Drawer>
