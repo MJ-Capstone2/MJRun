@@ -25,6 +25,19 @@ export class HorseAggregationService {
     const horseAggregations = await this.horseAggregationRepository.find({
       relations: ['horse'],
     });
+    // horseAggregations.map((horseAggregation) => {
+    //   const serialHorseAgg = horseAggregation.serializeHorse();
+    //   serialHorseAgg['id'] = serialHorseAgg['horse_number'];
+    //   delete serialHorseAgg['horse_number'];
+    //   return serialHorseAgg;
+    // });
+    return horseAggregations;
+  }
+
+  async findAllSerialize(): Promise<HorseAggregation[]> {
+    const horseAggregations = await this.horseAggregationRepository.find({
+      relations: ['horse'],
+    });
     horseAggregations.map((horseAggregation) => {
       const serialHorseAgg = horseAggregation.serializeHorse();
       serialHorseAgg['id'] = serialHorseAgg['horse_number'];

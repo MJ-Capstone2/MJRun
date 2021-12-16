@@ -32,17 +32,17 @@ export class AppService {
     const horseAgg = await this.horseAggregationService.findAll();
     const horseAggObj = {};
     for (let ha of horseAgg) {
-      horseAggObj[ha['id']] = ha;
+      horseAggObj[ha.horse.horse_number] = ha.serializeHorse();
     }
     const jockeyAgg = await this.jockeyAggregationService.findAll();
     const jockeyAggObj = {};
     for (let ja of jockeyAgg) {
-      jockeyAggObj[ja['id']] = ja;
+      jockeyAggObj[ja.jockey.id] = ja.serializeJockey();
     }
     const trainerAgg = await this.trainerAggregationService.findAll();
     const trainerAggObj = {};
     for (let ta of trainerAgg) {
-      trainerAggObj[ta['id']] = ta;
+      trainerAggObj[ta.trainer.id] = ta.serializeTrainer();
     }
     const race_attendant = [];
     const predicts = [];
