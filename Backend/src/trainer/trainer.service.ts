@@ -28,9 +28,17 @@ export class TrainerService {
     });
     return newTrainer;
   }
-  async multiCreate(createTrainerDtos: CreateTrainerDto[]): Promise<void> {
+
+  async multiCreate(objs: object[]): Promise<void> {
+    const createTrainerDtos = [];
+    for (let obj of objs) {
+      let newCTDto = new CreateTrainerDto();
+      Object.assign(newCTDto, obj);
+      createTrainerDtos.push(newCTDto);
+    }
     for (let createTrainerDto of createTrainerDtos) {
-      await this.create(createTrainerDto);
+      console.log(createTrainerDto);
+      // await this.jockeyRepository.createJockey(createTrainerDto);
     }
   }
 

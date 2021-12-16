@@ -12,5 +12,6 @@ import { TrainerAggregationModule } from 'src/trainer-aggregation/trainer-aggreg
   ],
   controllers: [TrainerController],
   providers: [TrainerService],
+  exports: [TrainerService],
 })
 export class TrainerModule {}

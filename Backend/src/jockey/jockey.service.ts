@@ -27,9 +27,17 @@ export class JockeyService {
     });
     return newJockey;
   }
-  async multiCreate(createJockeyDtos: CreateJockeyDto[]): Promise<void> {
-    for (let createJockeyDto of createJockeyDtos)
-      await this.create(createJockeyDto);
+  async multiCreate(objs: object[]): Promise<void> {
+    const craeteJockeyDTOs = [];
+    for (let obj of objs) {
+      let newCJDto = new CreateJockeyDto();
+      Object.assign(newCJDto, obj);
+      craeteJockeyDTOs.push(newCJDto);
+    }
+    for (let craeteJockeyDTO of craeteJockeyDTOs) {
+      console.log(craeteJockeyDTO);
+      // await this.jockeyRepository.createJockey(craeteJockeyDTO);
+    }
   }
 
   async findAll() {
