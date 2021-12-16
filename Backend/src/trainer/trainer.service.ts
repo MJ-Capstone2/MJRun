@@ -37,8 +37,8 @@ export class TrainerService {
       createTrainerDtos.push(newCTDto);
     }
     for (let createTrainerDto of createTrainerDtos) {
-      console.log(createTrainerDto);
-      // await this.jockeyRepository.createJockey(createTrainerDto);
+      // console.log(createTrainerDto);
+      await this.trainerRepository.createTrainer(createTrainerDto);
     }
   }
 

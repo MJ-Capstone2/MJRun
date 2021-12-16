@@ -28,20 +28,27 @@ export class RaceAttendantService {
     createRaceAttendantDto: CreateRaceAttendantDto,
   ): Promise<RaceAttendant> {
     const race_id = createRaceAttendantDto.horseRace.race_id;
-    const line_number = createRaceAttendantDto.line_number;
+    const line_number = +createRaceAttendantDto['LineNumber'];
     const updatedCreateRaceAttendantDto = { ...createRaceAttendantDto };
-    updatedCreateRaceAttendantDto.ra_id = +`${race_id}${
+    updatedCreateRaceAttendantDto['ra_id'] = +`${race_id}${
       line_number > 9 ? line_number : '0' + line_number.toString()
     }`;
     return this.raceAttendantRepository.createRaceAttendant(
       updatedCreateRaceAttendantDto,
     );
   }
-  async multiCreate(
-    createRaceAttendantDtos: CreateRaceAttendantDto[],
-  ): Promise<void> {
+  async multiCreate(objs: object[]): Promise<void> {
+    const createRaceAttendantDtos = [];
+    for (let obj of objs) {
+      const horseRace = await this.horseRaceRepository.findOne(obj['race_id']);
+      obj['horseRace'] = horseRace;
+      delete obj['race_id'];
+      let newCRADto = new CreateRaceAttendantDto();
+      Object.assign(newCRADto, obj);
+      createRaceAttendantDtos.push(newCRADto);
+    }
     for (let createRaceAttendantDto of createRaceAttendantDtos) {
-      await this.create(createRaceAttendantDto);
+      this.create(createRaceAttendantDto);
     }
   }
 
@@ -99,45 +106,46 @@ export class RaceAttendantService {
     console.log(result);
   }
 
-  async addResult(race_id: number, results: JSON): Promise<void> {
-    // const resultsObj = JSON.parse(JSON.stringify(results));
-
-    const resultsObj = {
-      data: [
-        {
-          race_id: 20202020,
-          linenumber: 1,
-          result: 2,
-        },
-        {
-          race_id: 2020202,
-          linenumber: 1,
-          result: 2,
-        },
-      ],
-    };
-    for (const result of resultsObj.data) {
+  async addResult(objs: Object[]): Promise<void> {
+    // const resultsObj = {
+    //   data: [
+    //     {
+    //       race_id: 20202020,
+    //       linenumber: 1,
+    //       result: 2,
+    //     },
+    //     {
+    //       race_id: 2020202,
+    //       linenumber: 1,
+    //       result: 2,
+    //     },
+    //   ],
+    // };
+    for (const result of objs) {
       const ra_id = parseInt(
-        `${result.race_id}${result.linenumber.toString().padStart(2, '0')}`,
+        `${result['race_id']}${result['LineNumber']
+          .toString()
+          .padStart(2, '0')}`,
       );
       const raceAttendant = await this.findOne(ra_id);
       const updatedRaceAttendant = Object.assign({
         ...raceAttendant,
-        result: result.result,
+        result: result['result'],
       });
-      await this.raceAttendantRepository.save(updatedRaceAttendant);
-      await this.horseAS.addResult(
-        raceAttendant.horse.horse_number,
-        raceAttendant.result,
-      );
-      await this.jockeyAS.addResult(
-        raceAttendant.jockey.id,
-        raceAttendant.result,
-      );
-      await this.trainerAS.addResult(
-        raceAttendant.trainer.id,
-        raceAttendant.result,
-      );
+      console.log(updatedRaceAttendant);
+      // await this.raceAttendantRepository.save(updatedRaceAttendant);
+      // await this.horseAS.addResult(
+      //   raceAttendant.horse.horse_number,
+      //   raceAttendant.result,
+      // );
+      // await this.jockeyAS.addResult(
+      //   raceAttendant.jockey.id,
+      //   raceAttendant.result,
+      // );
+      // await this.trainerAS.addResult(
+      //   raceAttendant.trainer.id,
+      //   raceAttendant.result,
+      // );
     }
   }
   // async weeklyUpdate(wuraDTOs: Object[]) {

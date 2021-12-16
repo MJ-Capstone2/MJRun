@@ -35,8 +35,8 @@ export class JockeyService {
       craeteJockeyDTOs.push(newCJDto);
     }
     for (let craeteJockeyDTO of craeteJockeyDTOs) {
-      console.log(craeteJockeyDTO);
-      // await this.jockeyRepository.createJockey(craeteJockeyDTO);
+      // console.log(craeteJockeyDTO);
+      await this.jockeyRepository.createJockey(craeteJockeyDTO);
     }
   }
 

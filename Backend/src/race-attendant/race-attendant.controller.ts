@@ -52,12 +52,4 @@ export class RaceAttendantController {
   remove(@Param('ra_id') ra_id: string) {
     return this.raceAttendantService.remove(+ra_id);
   }
-
-  @Post('/result/:race_id')
-  addResult(
-    @Param('race_id', ParseIntPipe) race_id: number,
-    @Body() results: JSON,
-  ): Promise<void> {
-    return this.raceAttendantService.addResult(race_id, results);
-  }
 }

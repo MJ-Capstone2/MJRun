@@ -34,8 +34,8 @@ export class HorseService {
       createHorseDtos.push(newCHDto);
     }
     for (let createHorseDto of createHorseDtos) {
-      console.log(createHorseDto);
-      // await this.horseRepository.createHorse(createHorseDto);
+      // console.log(createHorseDto);
+      await this.create(createHorseDto);
     }
   }
 
