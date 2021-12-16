@@ -19,14 +19,6 @@ import { CreateAdministratorDto } from './dto/create-administrator.dto';
 export class AdministratorController {
   constructor(private administratorService: AdministratorService) {}
 
-  @Post('/signIn')
-  logInAdministrator(
-    @Body('id') id: string,
-    @Body('password') pw: string,
-  ): Promise<{ accessToken: string }> {
-    return this.administratorService.signIn(id, pw);
-  }
-
   @Get('/validation')
   getValidation(@Headers('Authorization') token: string) {
     return this.administratorService.verify(token.split(' ').reverse()[0]);
@@ -39,6 +31,14 @@ export class AdministratorController {
   @Get()
   getAllAdministrator(): Promise<Administrator[]> {
     return this.administratorService.getAllAdministrator();
+  }
+
+  @Post('/signIn')
+  logInAdministrator(
+    @Body('id') id: string,
+    @Body('password') pw: string,
+  ): Promise<{ accessToken: string }> {
+    return this.administratorService.signIn(id, pw);
   }
 
   @Post('/signUp')

@@ -20,7 +20,7 @@ export class HorseRaceController {
   create(@Body() createHorseRaceDto: CreateHorseRaceDto) {
     return this.horseRaceService.create(createHorseRaceDto);
   }
-  @Post()
+  @Post('multi')
   multiCreate(@Body() createHorseRaceDtos: CreateHorseRaceDto[]) {
     return this.horseRaceService.multiCreate(createHorseRaceDtos);
   }
@@ -46,10 +46,5 @@ export class HorseRaceController {
   @Delete(':race_id')
   remove(@Param('race_id') race_id: string) {
     return this.horseRaceService.remove(+race_id);
-  }
-
-  @Post('/weekly-update')
-  weeklyUpdate(@Body() data: JSON) {
-    this.horseRaceService.weeklyUpdate(data['data']);
   }
 }

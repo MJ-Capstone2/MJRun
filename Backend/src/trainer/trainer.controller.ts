@@ -21,7 +21,7 @@ export class TrainerController {
   create(@Body() createTrainerDto: CreateTrainerDto): Promise<Trainer> {
     return this.trainerService.create(createTrainerDto);
   }
-  @Post()
+  @Post('multi')
   multiCreate(@Body() createTrainerDtos: CreateTrainerDto[]): Promise<void> {
     return this.trainerService.multiCreate(createTrainerDtos);
   }

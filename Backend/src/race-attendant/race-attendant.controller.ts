@@ -20,7 +20,7 @@ export class RaceAttendantController {
   create(@Body() createRaceAttendantDto: CreateRaceAttendantDto) {
     return this.raceAttendantService.create(createRaceAttendantDto);
   }
-  @Post()
+  @Post('multi')
   multiCreate(@Body() createRaceAttendantDtos: CreateRaceAttendantDto[]) {
     return this.raceAttendantService.multiCreate(createRaceAttendantDtos);
   }
@@ -60,9 +60,4 @@ export class RaceAttendantController {
   ): Promise<void> {
     return this.raceAttendantService.addResult(race_id, results);
   }
-
-  // @Post('/weekly-update')
-  // weeklyUpdate(@Body() data: JSON) {
-  //   this.raceAttendantService.weeklyUpdate(data['data']);
-  // }
 }
