@@ -28,8 +28,6 @@ const HomeContainer = () => {
     const [ord2, ord2Err] = await homeApi.ord2;
     const [ord3, ord3Err] = await homeApi.ord3;
 
-    console.log(raceData.predicts);
-
     setHomeData({
       raceData,
       raceErr,
@@ -42,10 +40,6 @@ const HomeContainer = () => {
     });
     setLoading(false);
   };
-
-  useEffect(() => {
-    getData();
-  }, [raceDate]);
 
   return (
     <HomePresenter

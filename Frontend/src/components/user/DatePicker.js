@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { 
   Grid,
   makeStyles 
@@ -19,11 +19,15 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const DatePicker = ({ handleDate }) => {
+const DatePicker = ({ handleDate, raceDate }) => {
+
   const classes = useStyles();
+
+  const [selectedDate, setSelectedDate] = useState(raceDate);
 
   const handleDateChange = (date) => {
     handleDate(date);
+    setSelectedDate(date);
   };
 
   return (
@@ -33,6 +37,7 @@ const DatePicker = ({ handleDate }) => {
           margin="normal"
           id="date-picker-dialog"
           format="MM월 dd일"
+          value={selectedDate}
           onChange={handleDateChange}
           className={classes.datepicker}
           invalidDateMessage

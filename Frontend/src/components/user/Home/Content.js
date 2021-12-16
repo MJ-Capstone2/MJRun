@@ -64,78 +64,84 @@ const Content = ({ race, attendant, predict, result, handleDate, raceDate, ord1,
           <Typography variant="h5"><b>{getLabel(race)} {race.start_time}</b></Typography>
           <div className={classes.order_wrap}>
             <Typography><b>{raceDate}</b></Typography>
-            <DatePicker handleDate={handleDate}/>
+            <DatePicker handleDate={handleDate} raceDate={raceDate}/>
           </div>
         </div>
       </div>
-      <div className={classes.card_container}>
-        <div className={classes.content_wrap}>
-          <Typography variant="h6"><b>예측번호</b></Typography>
-          <div className={classes.order_wrap}>
-            <div className={classes.root}>
-              <div className={classes.order_title}>
-                1위
-              </div>
-              <Typography>{predict[0].name} ({predict[0].no})</Typography>
-              <Tooltip title="1위 월간 예측정확도">
-                <Typography>
-                  {ord1} %
-                </Typography>
-              </Tooltip>
-            </div>
-            <div className={classes.root}>
-              <div className={classes.order_title}>
-                2위
-              </div>
-              <Typography>{predict[1].name} ({predict[1].no})</Typography>
-              <Tooltip title="2위 월간 예측정확도">
-                <Typography>
-                  {ord2} %
-                </Typography>
-              </Tooltip>
-            </div>
-            <div className={classes.root}>
-              <div className={classes.order_title}>
-                3위
-              </div>
-              <Typography>{predict[2].name} ({predict[2].no})</Typography>
-              <Tooltip title="3위 월간 예측정확도">
-                <Typography>
-                  {ord3} %
-                </Typography>
-              </Tooltip>
-            </div>
-          </div>
-        </div>
-      </div>
-            {
-              result &&
-              <div className={classes.card_container}>
-                <div className={classes.content_wrap}>
-                  <Typography variant="h6"><b>경기결과</b></Typography>
-                  <div className={classes.order_wrap}>
-                    <div className={classes.root}>
-                      <div className={classes.order_title}>
-                        1위
-                      </div>
-                      <Typography>{result[0].line_number} ({result[0].name})</Typography>
-                    </div>
-                    <div className={classes.root}>
-                      <div className={classes.order_title}>
-                        2위
-                      </div>
-                      <Typography>{result[1].line_number} ({result[1].name})</Typography>
-                    </div>
-                    <div className={classes.root}>
-                      <div className={classes.order_title}>
-                        3위
-                      </div>
-                      <Typography>{result[2].line_number} ({result[2].name})</Typography>
-                    </div>
-                  </div>
+      {
+        predict?
+        <div className={classes.card_container}>
+          <div className={classes.content_wrap}>
+            <Typography variant="h6"><b>예측번호</b></Typography>
+            <div className={classes.order_wrap}>
+              <div className={classes.root}>
+                <div className={classes.order_title}>
+                  1위
                 </div>
+                <Typography>{predict[0].name} ({predict[0].no})</Typography>
+                <Tooltip title="1위 월간 예측정확도">
+                  <Typography>
+                    {ord1} %
+                  </Typography>
+                </Tooltip>
               </div>
-            }
+              <div className={classes.root}>
+                <div className={classes.order_title}>
+                  2위
+                </div>
+                <Typography>{predict[1].name} ({predict[1].no})</Typography>
+                <Tooltip title="2위 월간 예측정확도">
+                  <Typography>
+                    {ord2} %
+                  </Typography>
+                </Tooltip>
+              </div>
+              <div className={classes.root}>
+                <div className={classes.order_title}>
+                  3위
+                </div>
+                <Typography>{predict[2].name} ({predict[2].no})</Typography>
+                <Tooltip title="3위 월간 예측정확도">
+                  <Typography>
+                    {ord3} %
+                  </Typography>
+                </Tooltip>
+              </div>
+            </div>
+          </div>
+        </div>:
+        <div className={classes.card_container}>
+          <Typography>예측정보가 없습니다.</Typography>
+        </div>
+      }
+      {
+        result &&
+        <div className={classes.card_container}>
+          <div className={classes.content_wrap}>
+            <Typography variant="h6"><b>경기결과</b></Typography>
+            <div className={classes.order_wrap}>
+              <div className={classes.root}>
+                <div className={classes.order_title}>
+                  1위
+                </div>
+                <Typography>{result[0].line_number} ({result[0].name})</Typography>
+              </div>
+              <div className={classes.root}>
+                <div className={classes.order_title}>
+                  2위
+                </div>
+                <Typography>{result[1].line_number} ({result[1].name})</Typography>
+              </div>
+              <div className={classes.root}>
+                <div className={classes.order_title}>
+                  3위
+                </div>
+                <Typography>{result[2].line_number} ({result[2].name})</Typography>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
       <div className={classes.card_container}>
         <div className={classes.content_wrap}>
           <Typography variant="h6"><b>말/기수/조교사 정보</b></Typography>
