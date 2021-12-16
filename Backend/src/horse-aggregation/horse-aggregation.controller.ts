@@ -27,6 +27,11 @@ export class HorseAggregationController {
     return this.horseAggregationService.create(createHorseAggregationDto);
   }
 
+  @Get('/serialize')
+  findAllSerialize() {
+    return this.horseAggregationService.findAllSerialize();
+  }
+
   @Get()
   findAll() {
     return this.horseAggregationService.findAll();
