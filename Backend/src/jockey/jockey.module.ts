@@ -12,5 +12,6 @@ import { JockeyAggregationModule } from 'src/jockey-aggregation/jockey-aggregati
   ],
   controllers: [JockeyController],
   providers: [JockeyService],
+  exports: [JockeyService],
 })
 export class JockeyModule {}

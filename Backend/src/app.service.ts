@@ -17,8 +17,8 @@ import { TrainerService } from './trainer/trainer.service';
 export class AppService {
   constructor(
     private horseService: HorseService,
-    // private jockeyService: JockeyService,
-    // private trainerService: TrainerService,
+    private jockeyService: JockeyService,
+    private trainerService: TrainerService,
     private horseRaceService: HorseRaceService,
     private raceAttendantService: RaceAttendantService,
     private horseAggregationService: HorseAggregationService,
@@ -32,17 +32,17 @@ export class AppService {
     const horseAgg = await this.horseAggregationService.findAll();
     const horseAggObj = {};
     for (let ha of horseAgg) {
-      horseAggObj[ha.horse.horse_number] = ha.serializeHorse();
+      horseAggObj[ha['id']] = ha;
     }
     const jockeyAgg = await this.jockeyAggregationService.findAll();
     const jockeyAggObj = {};
     for (let ja of jockeyAgg) {
-      jockeyAggObj[ja.jockey.id] = ja.serializeJockey();
+      jockeyAggObj[ja['id']] = ja;
     }
     const trainerAgg = await this.trainerAggregationService.findAll();
     const trainerAggObj = {};
     for (let ta of trainerAgg) {
-      trainerAggObj[ta.trainer.id] = ta.serializeTrainer();
+      trainerAggObj[ta['id']] = ta;
     }
     const race_attendant = [];
     const predicts = [];
@@ -113,7 +113,6 @@ export class AppService {
 
   async uploads(files: File[]) {
     const file_list = readdirSync(join(__dirname, '../tempUpload'));
-    const entities = {};
     for (let file of file_list) {
       let file_name = file.split('.')[0];
       let data = readFileSync(join(__dirname, '../tempUpload', file), 'utf8');
@@ -126,6 +125,8 @@ export class AppService {
         Object.fromEntries(vs.map((v, i) => [header[i], v])),
       );
       if (file_name == 'fakehorse') this.horseService.multiCreate(objs);
+      if (file_name == 'fakejockey') this.jockeyService.multiCreate(objs);
+      if (file_name == 'faketrainer') this.trainerService.multiCreate(objs);
     }
     // const stream = createReadStream('../../tempUploads');
     // this.horseService.readUploadFiles();
