@@ -20,7 +20,7 @@ export class JockeyController {
   create(@Body() createJockeyDto: CreateJockeyDto) {
     return this.jockeyService.create(createJockeyDto);
   }
-  @Post()
+  @Post('multi')
   multiCreate(@Body() createJockeyDtos: CreateJockeyDto[]) {
     return this.jockeyService.multiCreate(createJockeyDtos);
   }
