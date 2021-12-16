@@ -97,8 +97,8 @@ const AdminContainer = () => {
   }, []);
 
   const horse_columns = [
-    { id: 'horse.horse_number', numeric: false, disablePadding: true, label: '마번' },
-    { id: 'horse.name', numeric: true, disablePadding: false, label: '마명' },
+    { id: 'horse_number', numeric: false, disablePadding: true, label: '마번' },
+    { id: 'name', numeric: true, disablePadding: false, label: '마명' },
     { id: 'sex', numeric: true, disablePadding: false, label: '성별' },
     { id: 'age', numeric: true, disablePadding: false, label: '나이' },
     { id: 'nationality', numeric: true, disablePadding: false, label: '국적' },
