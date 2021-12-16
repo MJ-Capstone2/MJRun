@@ -69,7 +69,7 @@ const UploadModal = ({open, handleClose}) => {
       formData.append(`files`, files[i])
     }
     // new Response(formData.getAll('files')).text().then(console.log)
-    await adminApi.upload(formData.getAll('files'));
+    await adminApi.upload(formData);
   }
 
   return (
