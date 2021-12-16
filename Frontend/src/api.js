@@ -67,6 +67,9 @@ export const adminApi = {
     });
     localStorage.setItem('jwtToken', token);
     setAuthorizationToken(token);
+    if(token){
+      window.location.href = '/admin';
+    }
   },
   validation: getAnything('admin/validation'),
 //   upload: async (csvFile) => {
