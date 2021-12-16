@@ -98,7 +98,7 @@ const AdminContainer = () => {
   }, []);
 
   const horse_columns = [
-    { id: 'horse_number', numeric: false, disablePadding: true, label: '마번' },
+    { id: 'id', numeric: false, disablePadding: true, label: '마번' },
     { id: 'name', numeric: true, disablePadding: false, label: '마명' },
     { id: 'sex', numeric: true, disablePadding: false, label: '성별' },
     { id: 'age', numeric: true, disablePadding: false, label: '나이' },
@@ -112,19 +112,19 @@ const AdminContainer = () => {
     { id: 'total_ord3_count', numeric: true, disablePadding: false, label: '3위' },
   ];
   const jockey_columns = [
-    { id: 'jk_id', numeric: false, disablePadding: true, label: 'ID' },
+    { id: 'id', numeric: false, disablePadding: true, label: 'ID' },
     { id: 'name', numeric: true, disablePadding: false, label: '이름' },
     { id: 'debut', numeric: true, disablePadding: false, label: '데뷔일' },
     { id: 'birthdate', numeric: true, disablePadding: false, label: '생일' },
   ];
   const trainer_columns = [
-    { id: 'tr_id', numeric: false, disablePadding: true, label: 'ID' },
+    { id: 'id', numeric: false, disablePadding: true, label: 'ID' },
     { id: 'name', numeric: true, disablePadding: false, label: '이름' },
     { id: 'debut', numeric: true, disablePadding: false, label: '데뷔일' },
     { id: 'birthdate', numeric: true, disablePadding: false, label: '생일' },
   ];
   const info_columns = [
-    { id: 'race_id', numeric: false, disablePadding: true, label: 'ID' },
+    { id: 'id', numeric: false, disablePadding: true, label: 'ID' },
     { id: 'race_date', numeric: true, disablePadding: false, label: '날짜' },
     { id: 'race_location', numeric: true, disablePadding: false, label: '장소' },
     { id: 'race_number', numeric: true, disablePadding: false, label: '번호' },

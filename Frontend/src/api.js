@@ -67,7 +67,7 @@ export const adminApi = {
   horses: getAnything('horse-aggregation/serialize'),
   jockeys: getAnything('jockey'),
   trainers: getAnything('trainer'),
-  infos: getAnything('horse-race?race_date=20160102'),
+  infos: getAnything('horse-race/serialize'),
   results: getAnything('all-info/results'),
   login: async (Id, Pwd) => {
     const [token, ] = await postAnything('admin/signin', {
