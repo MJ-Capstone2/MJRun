@@ -43,7 +43,7 @@ const HomeContainer = () => {
 
   useEffect(() => {
     getData();
-  },[]);
+  },[raceDate]);
 
   return (
     <HomePresenter
