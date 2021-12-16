@@ -128,6 +128,7 @@ export class AppService {
       if (file_name == 'fakejockey') this.jockeyService.multiCreate(objs);
       if (file_name == 'faketrainer') this.trainerService.multiCreate(objs);
     }
+    return file_list.length;
     // const stream = createReadStream('../../tempUploads');
     // this.horseService.readUploadFiles();
     // this.jockeyService.readUploadFiles();
