@@ -94,19 +94,19 @@ const InfoTable = ({ attendant }) => {
                   <Typography><b>{idx+1} {info.horse.name}</b> ({info.horse.sex}/{info.horse.age})</Typography>
                 </Box>
                 <Box borderRadius={5} m={1} className={`${classes.rowbox} ${idx%2===0 ? classes.evenbox : classes.oddbox}`}>
-                  <Typography className={classes.rowtypo}>{info.horse.total_race_count}  {info.horse.total_ord1_count}/{info.horse.total_ord2_count}/{info.horse.total_ord3_count}</Typography>
+                  <Typography className={classes.rowtypo}>{info.horse.total_ord1_count}/{info.horse.total_ord2_count}/{info.horse.total_ord3_count}  ({info.horse.total_race_count})</Typography>
                 </Box>
                 <Box borderRadius={5} m={1} className={`${classes.rowbox} ${idx%2===0 ? classes.evenbox : classes.oddbox}`}>
                   <Typography>{info.jockey.name}</Typography>
                 </Box>
                 <Box borderRadius={5} m={1} className={`${classes.rowbox} ${idx%2===0 ? classes.evenbox : classes.oddbox}`}>
-                  <Typography>{info.jockey.total_race_count}  {info.jockey.total_ord1_count}/{info.jockey.total_ord2_count}/{info.jockey.total_ord3_count}</Typography>
+                  <Typography>{info.jockey.total_ord1_count}/{info.jockey.total_ord2_count}/{info.jockey.total_ord3_count}  ({info.jockey.total_race_count})</Typography>
                 </Box>
                 <Box borderRadius={5} m={1} className={`${classes.rowbox} ${idx%2===0 ? classes.evenbox : classes.oddbox}`}>
                   <Typography>{info.trainer.name}</Typography>
                 </Box>
                 <Box borderRadius={5} m={1} className={`${classes.rowbox} ${idx%2===0 ? classes.evenbox : classes.oddbox}`}>
-                  <Typography>{info.trainer.total_race_count}  {info.trainer.total_ord1_count}/{info.trainer.total_ord2_count}/{info.trainer.total_ord3_count}</Typography>
+                  <Typography>{info.trainer.total_ord1_count}/{info.trainer.total_ord2_count}/{info.trainer.total_ord3_count} ({info.trainer.total_race_count})</Typography>
                 </Box>
               </div>
             ))
