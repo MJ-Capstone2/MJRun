@@ -16,9 +16,17 @@ export class HorseRaceService {
   async create(createHorseRaceDto: CreateHorseRaceDto): Promise<HorseRace> {
     return await this.horseRaceRepository.createHorseRace(createHorseRaceDto);
   }
-  async multiCreate(createHorseRaceDtos: CreateHorseRaceDto[]): Promise<void> {
-    for (let createHorseRaceDto of createHorseRaceDtos)
-      await this.create(createHorseRaceDto);
+  async multiCreate(objs: object[]): Promise<void> {
+    const createHorseRaceDtos = [];
+    for (let obj of objs) {
+      let newCHRDto = new CreateHorseRaceDto();
+      Object.assign(newCHRDto, obj);
+      createHorseRaceDtos.push(newCHRDto);
+    }
+    for (let createHorseRaceDto of createHorseRaceDtos) {
+      // console.log(createHorseRaceDto);
+      await this.horseRaceRepository.createHorseRace(createHorseRaceDto);
+    }
   }
 
   async findAll(period?: string): Promise<HorseRace[]> {
@@ -43,6 +51,36 @@ export class HorseRaceService {
       });
     }
     return await this.horseRaceRepository.find();
+  }
+  async findAllSerialize(period?: string): Promise<HorseRace[]> {
+    if (period) {
+      const today = new Date('2019-03-01');
+      const dayoff = period == 'week' ? 7 : 'month' ? 30 : 365;
+      const start_date = new Date(
+        today.getTime() - dayoff * 24 * 60 * 60 * 1000,
+      );
+      return await this.horseRaceRepository.find({
+        race_location: '서울',
+        race_date: MoreThanOrEqual(
+          parseInt(
+            `${start_date.getFullYear()}${(start_date.getMonth() + 1)
+              .toString()
+              .padStart(2, '0')}${start_date
+              .getDate()
+              .toString()
+              .padStart(2, '0')}`,
+          ),
+        ),
+      });
+    }
+
+    const hr_list = await this.horseRaceRepository.find();
+    for (let hr of hr_list) {
+      hr['id'] = hr.race_id;
+      delete hr.race_id;
+    }
+    console.log(hr_list[2]);
+    return hr_list;
   }
   async findAllAtDate(date: Date): Promise<HorseRace[]> {
     return await this.horseRaceRepository.find({
@@ -91,12 +129,5 @@ export class HorseRaceService {
       );
     }
     console.log(result);
-  }
-
-  async weeklyUpdate(createHorseRaceDTOs: CreateHorseRaceDto[]) {
-    for (const cDto of createHorseRaceDTOs) {
-      // console.log(cDto);
-      await this.create(cDto);
-    }
   }
 }

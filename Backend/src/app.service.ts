@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { createReadStream, readdirSync, readFileSync } from 'fs';
+import { createReadStream, readdirSync, readFileSync, unlinkSync } from 'fs';
 import { join } from 'path';
 import { AIPredictionService } from './aiprediction/aiprediction.service';
 import { HorseAggregationService } from './horse-aggregation/horse-aggregation.service';
@@ -112,10 +112,11 @@ export class AppService {
   }
 
   async uploads(files: File[]) {
-    const file_list = readdirSync(join(__dirname, '../tempUpload'));
+    const path = join(__dirname, '../tempUpload');
+    const file_list = readdirSync(path);
     for (let file of file_list) {
       let file_name = file.split('.')[0];
-      let data = readFileSync(join(__dirname, '../tempUpload', file), 'utf8');
+      let data = readFileSync(join(path, file), 'utf8');
       let rows = data.split('\r\n');
 
       let header = rows[0].split(',');
@@ -127,13 +128,14 @@ export class AppService {
       if (file_name == 'fakehorse') this.horseService.multiCreate(objs);
       if (file_name == 'fakejockey') this.jockeyService.multiCreate(objs);
       if (file_name == 'faketrainer') this.trainerService.multiCreate(objs);
+      if (file_name == 'horseRace') this.horseRaceService.multiCreate(objs);
+      if (file_name == 'raceAttendant')
+        this.raceAttendantService.multiCreate(objs);
+      if (file_name.slice(0, 10) == 'raceResult')
+        this.raceAttendantService.addResult(objs);
+      unlinkSync(join(path, file));
     }
+
     return file_list.length;
-    // const stream = createReadStream('../../tempUploads');
-    // this.horseService.readUploadFiles();
-    // this.jockeyService.readUploadFiles();
-    // this.trainerService.readUploadFiles();
-    // this.horseRaceService.readUploadFiles();
-    // this.raceAttendantService.readUploadFiles();
   }
 }

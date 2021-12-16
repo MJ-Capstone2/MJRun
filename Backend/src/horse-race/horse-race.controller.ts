@@ -29,6 +29,11 @@ export class HorseRaceController {
   findAll() {
     return this.horseRaceService.findAll();
   }
+  @Get('/serialize')
+  findAllSerialize() {
+    console.log('호출됨');
+    return this.horseRaceService.findAllSerialize();
+  }
 
   @Get(':race_id')
   findOne(@Param('race_id') race_id: string) {
