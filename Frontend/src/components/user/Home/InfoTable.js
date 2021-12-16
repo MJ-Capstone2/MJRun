@@ -69,7 +69,6 @@ const InfoTable = ({ attendant }) => {
   const classes = useStyles();
 
   const columns = ['말전적', '기수명', '기수전적', '조교사명', '조교사전적']
-  const infos = attendant;
 
   return(
     <TableContainer className={classes.root}>
@@ -89,25 +88,25 @@ const InfoTable = ({ attendant }) => {
 
         <div className={classes.body}>
           {
-            infos && infos.map((info, idx) => (
+            attendant && attendant.map((info, idx) => (
               <div className={classes.row} key={idx}>
                 <Box borderRadius={5} m={1} className={`${classes.rowbox1} ${idx%2===0 ? classes.evenbox : classes.oddbox}`}>
                   <Typography><b>{idx+1} {info.horse.name}</b> ({info.horse.sex}/{info.horse.age})</Typography>
                 </Box>
                 <Box borderRadius={5} m={1} className={`${classes.rowbox} ${idx%2===0 ? classes.evenbox : classes.oddbox}`}>
-                  <Typography className={classes.rowtypo}>{info.horse.total_ord1_count}/{info.horse.total_ord2_count} ({info.horse.total_race_count})</Typography>
+                  <Typography className={classes.rowtypo}>{info.horse.total_race_count}  {info.horse.total_ord1_count}/{info.horse.total_ord2_count}/{info.horse.total_ord3_count}</Typography>
                 </Box>
                 <Box borderRadius={5} m={1} className={`${classes.rowbox} ${idx%2===0 ? classes.evenbox : classes.oddbox}`}>
                   <Typography>{info.jockey.name}</Typography>
                 </Box>
                 <Box borderRadius={5} m={1} className={`${classes.rowbox} ${idx%2===0 ? classes.evenbox : classes.oddbox}`}>
-                  <Typography>{info.jockey.total_ord1_count}/{info.jockey.total_ord2_count} ({info.jockey.total_race_count})</Typography>
+                  <Typography>{info.jockey.total_race_count}  {info.jockey.total_ord1_count}/{info.jockey.total_ord2_count}/{info.jockey.total_ord3_count}</Typography>
                 </Box>
                 <Box borderRadius={5} m={1} className={`${classes.rowbox} ${idx%2===0 ? classes.evenbox : classes.oddbox}`}>
                   <Typography>{info.trainer.name}</Typography>
                 </Box>
                 <Box borderRadius={5} m={1} className={`${classes.rowbox} ${idx%2===0 ? classes.evenbox : classes.oddbox}`}>
-                  <Typography>{info.trainer.total_ord1_count}/{info.trainer.total_ord2_count} ({info.trainer.total_race_count})</Typography>
+                  <Typography>{info.trainer.total_race_count}  {info.trainer.total_ord1_count}/{info.trainer.total_ord2_count}/{info.trainer.total_ord3_count}</Typography>
                 </Box>
               </div>
             ))
