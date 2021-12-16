@@ -4,10 +4,11 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { HorseAggregationService } from 'src/horse-aggregation/horse-aggregation.service';
 import { HorseRaceRepository } from 'src/horse-race/horse-race.repository';
 import { JockeyAggregationService } from 'src/jockey-aggregation/jockey-aggregation.service';
+import { Jockey } from 'src/jockey/entities/jockey.entity';
 import { TrainerAggregationService } from 'src/trainer-aggregation/trainer-aggregation.service';
+import { Trainer } from 'src/trainer/entities/trainer.entity';
 import { CreateRaceAttendantDto } from './dto/create-race-attendant.dto';
 import { UpdateRaceAttendantDto } from './dto/update-race-attendant.dto';
-import { WeeklyUpdateRaceAttendantDto } from './dto/weekly-update-race-attendant.dto';
 import { RaceAttendant } from './entities/race-attendant.entity';
 import { RaceAttendantRepository } from './race-attendant.repository';
 
@@ -28,7 +29,7 @@ export class RaceAttendantService {
     createRaceAttendantDto: CreateRaceAttendantDto,
   ): Promise<RaceAttendant> {
     const race_id = createRaceAttendantDto.horseRace.race_id;
-    const line_number = +createRaceAttendantDto['LineNumber'];
+    const line_number = +createRaceAttendantDto.line_number;
     const updatedCreateRaceAttendantDto = { ...createRaceAttendantDto };
     updatedCreateRaceAttendantDto['ra_id'] = +`${race_id}${
       line_number > 9 ? line_number : '0' + line_number.toString()
@@ -38,13 +39,23 @@ export class RaceAttendantService {
     );
   }
   async multiCreate(objs: object[]): Promise<void> {
+    // console.log('race-attendant : objs\n', objs);
     const createRaceAttendantDtos = [];
     for (let obj of objs) {
-      const horseRace = await this.horseRaceRepository.findOne(obj['race_id']);
-      obj['horseRace'] = horseRace;
-      delete obj['race_id'];
+      const horseRace = await this.horseRaceRepository.findOne(+obj['race_id']);
+      const horse = (await this.horseAS.findOneOrigin(+obj['HR_NO'])).horse;
+      const jockey = (await this.jockeyAS.findOne(obj['JK_NO'])).jockey;
+      const trainer = (await this.trainerAS.findOne(obj['TR_NO'])).trainer;
+      // delete obj['race_id'];
       let newCRADto = new CreateRaceAttendantDto();
-      Object.assign(newCRADto, obj);
+      Object.assign(newCRADto, {
+        horse,
+        jockey,
+        trainer,
+        horseRace,
+        line_number: obj['LineNumber'],
+      });
+      if (obj == objs[0]) console.log(newCRADto);
       createRaceAttendantDtos.push(newCRADto);
     }
     for (let createRaceAttendantDto of createRaceAttendantDtos) {
@@ -59,7 +70,8 @@ export class RaceAttendantService {
     const where = [];
     const relations = ['horseRace', 'horse', 'jockey', 'trainer'];
     const horseRace = race_id;
-    if (race_id) {
+    // console.log(race_id);
+    if (horseRace) {
       if (order_array) {
         for (const result of order_array) where.push({ horseRace, result });
       } else {
@@ -73,7 +85,10 @@ export class RaceAttendantService {
   }
 
   async findOne(ra_id: number): Promise<RaceAttendant> {
-    const raceAttendant = await this.raceAttendantRepository.findOne(ra_id);
+    const relations = ['horseRace', 'horse', 'jockey', 'trainer'];
+    const raceAttendant = await this.raceAttendantRepository.findOne(ra_id, {
+      relations,
+    });
     if (!raceAttendant) {
       throw new NotFoundException(
         `Can't find Race Attendant with race attendant id : ${ra_id}`,
@@ -127,13 +142,10 @@ export class RaceAttendantService {
           .toString()
           .padStart(2, '0')}`,
       );
-      const raceAttendant = await this.findOne(ra_id);
-      const updatedRaceAttendant = Object.assign({
-        ...raceAttendant,
+      // const raceAttendant = await this.findOne(ra_id);
+      await this.raceAttendantRepository.update(ra_id, {
         result: result['result'],
       });
-      console.log(updatedRaceAttendant);
-      // await this.raceAttendantRepository.save(updatedRaceAttendant);
       // await this.horseAS.addResult(
       //   raceAttendant.horse.horse_number,
       //   raceAttendant.result,
@@ -148,26 +160,4 @@ export class RaceAttendantService {
       // );
     }
   }
-  // async weeklyUpdate(wuraDTOs: Object[]) {
-  //   const updateRaces: Object = {};
-  //   for (const weekly_update_data of wuraDTOs) {
-  //     console.log(Object.values(weekly_update_data).((value)=>parseInt(value)));
-  //     const cDto = new CreateRaceAttendantDto();
-  //     Object.assign(cDto, weekly_update_data);
-  //     // cDto.ra_id = parseInt(
-  //     //   `${weekly_update_data.race_id}${weekly_update_data.line_number
-  //     //     .toString()
-  //     //     .padStart(2, '0')}`,
-  //     // );
-  //     console.log(cDto);
-  //     console.log(typeof cDto);
-  //     // await this.create(cDto);
-  //     if (!updateRaces.hasOwnProperty(cDto.ra_id)) updateRaces[cDto.ra_id] = 1;
-  //     break;
-  //   }
-  //   console.log(updateRaces);
-  //   // for (const id in updateRaces) {
-  //   //   this.httpService.post(`http://localhost:3000/aiprediction/${id}`);
-  //   // }
-  // }
 }

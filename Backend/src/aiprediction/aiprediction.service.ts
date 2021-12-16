@@ -9,9 +9,11 @@ import { AIPrediction } from './entities/aiprediction.entity';
 import { HorseAggregationService } from 'src/horse-aggregation/horse-aggregation.service';
 import { JockeyAggregationService } from 'src/jockey-aggregation/jockey-aggregation.service';
 import { TrainerAggregationService } from 'src/trainer-aggregation/trainer-aggregation.service';
-import { find, lastValueFrom, map } from 'rxjs';
+import { lastValueFrom, map } from 'rxjs';
 import { HorseRaceRepository } from 'src/horse-race/horse-race.repository';
 import { HorseRaceService } from 'src/horse-race/horse-race.service';
+import { JockeyService } from 'src/jockey/jockey.service';
+import { TrainerService } from 'src/trainer/trainer.service';
 
 @Injectable()
 export class AIPredictionService {
@@ -28,14 +30,29 @@ export class AIPredictionService {
     private httpService: HttpService,
   ) {}
   async create(id: number) {
-    const horseRace = await this.horseRaceRepository.findOne(+id);
     const results = await this.pridiction(+id);
-    await this.aiPredictionRepository.createAIPrediction({
+    const horseRace = await this.horseRaceRepository.findOne(+id);
+    return await this.aiPredictionRepository.createAIPrediction({
       horseRace,
       first_linenumber: results[0],
       second_linenumber: results[1],
       third_linenumber: results[2],
     });
+  }
+
+  async multiCreate(objs: Object[]) {
+    // console.log('aipredicition : objs\n', objs);
+    console.log('AI-Prediction Multi Create Call');
+    const race_ids = {};
+    let i = 0;
+    for (let obj of objs) {
+      console.log(`${++i} / ${Object.values(objs).length}`);
+      const race_id = +obj['race_id'];
+      if (!race_ids[race_id]) {
+        race_ids[race_id] = true;
+        await this.create(race_id);
+      }
+    }
   }
 
   async findAll() {
@@ -45,9 +62,10 @@ export class AIPredictionService {
   }
 
   async findOne(id: number): Promise<AIPrediction> {
-    return await this.aiPredictionRepository.findOne(id, {
+    const aiPrediction = await this.aiPredictionRepository.findOne(id, {
       relations: ['horseRace'],
     });
+    return aiPrediction;
   }
 
   async update(id: number, updateAIPredictionDto: UpdateAIPredictionDto) {
@@ -120,8 +138,9 @@ export class AIPredictionService {
 
     const results = [];
     for (let ra of raceAttendants) {
+      // console.log(ra);
       try {
-        const horse_agg = await this.horseAggService.findOne(
+        const horse_agg = await this.horseAggService.findOneOrigin(
           ra.horse.horse_number,
         );
         const jockey_agg = await this.jockeyAggService.findOne(ra.jockey.id);
@@ -177,6 +196,7 @@ export class AIPredictionService {
         results.push(result);
       } catch (e) {
         console.log(`${ra.ra_id} error : ${e.toString()}`);
+        console.log(`ra = \n${ra}`);
         continue;
       }
     }
@@ -185,6 +205,7 @@ export class AIPredictionService {
   async pridiction(race_id: number) {
     // 데이터 전처리
     const race_data = await this.preprocess(race_id);
+    // console.log(race_data);
     const req_json = {
       data: race_data,
     };

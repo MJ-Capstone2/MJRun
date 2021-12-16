@@ -7,6 +7,7 @@ import { HorseRaceService } from './horse-race/horse-race.service';
 import { CreateHorseDto } from './horse/dto/create-horse.dto';
 import { Horse } from './horse/entities/horse.entity';
 import { HorseService } from './horse/horse.service';
+import { CreateJockeyAggregationDto } from './jockey-aggregation/dto/create-jockey-aggregation.dto';
 import { JockeyAggregationService } from './jockey-aggregation/jockey-aggregation.service';
 import { JockeyService } from './jockey/jockey.service';
 import { RaceAttendantService } from './race-attendant/race-attendant.service';
@@ -27,6 +28,7 @@ export class AppService {
     private aiPredictionService: AIPredictionService,
   ) {}
   async findAll(date: Date) {
+    // console.log('find all at date = ', date);
     const races = await this.horseRaceService.findAllAtDate(date);
 
     const horseAgg = await this.horseAggregationService.findAll();
@@ -51,6 +53,7 @@ export class AppService {
       const ras = await this.raceAttendantService.findAll(race.race_id);
       const race_result = [];
       const result = [{}, {}, {}];
+      let hasResult = false;
       for (let ra of ras) {
         const convetObject = {};
         convetObject['num'] = ra.line_number;
@@ -60,33 +63,37 @@ export class AppService {
         if (ra.result) {
           convetObject['result'] = ra.result;
           if (0 < ra.result && ra.result < 4) {
+            hasResult = true;
             result[ra.result - 1]['line_number'] = ra.line_number;
             result[ra.result - 1]['name'] = ra.horse.name;
           }
         }
         race_result.push(convetObject);
       }
-      results.push(result);
+      results.push(hasResult ? result : null);
       race_attendant.push(race_result);
 
       const pred = await this.aiPredictionService.findOne(race.race_id);
-      predicts.push([
-        {
-          no: pred.first_linenumber,
-          name: race_result[pred.first_linenumber - 1].horse.name,
-        },
-        {
-          no: pred.second_linenumber,
-          name: race_result[pred.second_linenumber - 1]['horse'].name,
-        },
-        {
-          no: pred.third_linenumber,
-          name: race_result[pred.third_linenumber - 1].horse.name,
-        },
-      ]);
+      if (pred) {
+        predicts.push([
+          {
+            no: pred.first_linenumber,
+            name: race_result[pred.first_linenumber - 1].horse.name,
+          },
+          {
+            no: pred.second_linenumber,
+            name: race_result[pred.second_linenumber - 1]['horse'].name,
+          },
+          {
+            no: pred.third_linenumber,
+            name: race_result[pred.third_linenumber - 1].horse.name,
+          },
+        ]);
+      }
     }
     return { races, race_attendant, predicts, results };
   }
+
   async findAllResult() {
     const results = [];
     const ras = await this.raceAttendantService.findAll(null, [1, 2, 3]);
@@ -125,12 +132,16 @@ export class AppService {
       let objs = values.map((vs) =>
         Object.fromEntries(vs.map((v, i) => [header[i], v])),
       );
-      if (file_name == 'fakehorse') this.horseService.multiCreate(objs);
-      if (file_name == 'fakejockey') this.jockeyService.multiCreate(objs);
-      if (file_name == 'faketrainer') this.trainerService.multiCreate(objs);
-      if (file_name == 'horseRace') this.horseRaceService.multiCreate(objs);
-      if (file_name == 'raceAttendant')
-        this.raceAttendantService.multiCreate(objs);
+      if (file_name == 'fakehorse') await this.horseService.multiCreate(objs);
+      if (file_name == 'fakejockey') await this.jockeyService.multiCreate(objs);
+      if (file_name == 'faketrainer')
+        await this.trainerService.multiCreate(objs);
+      if (file_name == 'horseRace')
+        await this.horseRaceService.multiCreate(objs);
+      if (file_name == 'raceAttendant') {
+        await this.raceAttendantService.multiCreate(objs);
+        await this.aiPredictionService.multiCreate(objs);
+      }
       if (file_name.slice(0, 10) == 'raceResult')
         this.raceAttendantService.addResult(objs);
       unlinkSync(join(path, file));

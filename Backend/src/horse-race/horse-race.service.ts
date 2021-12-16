@@ -76,13 +76,13 @@ export class HorseRaceService {
 
     const hr_list = await this.horseRaceRepository.find();
     for (let hr of hr_list) {
-      hr['id'] = hr.race_id;
+      hr['id'] = +hr.race_id;
       delete hr.race_id;
     }
-    console.log(hr_list[2]);
     return hr_list;
   }
   async findAllAtDate(date: Date): Promise<HorseRace[]> {
+    console.log('findAllAtDate 호출됨 date = ', date);
     return await this.horseRaceRepository.find({
       where: {
         race_date: parseInt(

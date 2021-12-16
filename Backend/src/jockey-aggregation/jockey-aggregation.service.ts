@@ -69,6 +69,6 @@ export class JockeyAggregationService {
     if (result == 3) jockeyAgg.total_ord3_count += 1;
     jockeyAgg.total_win_rate =
       jockeyAgg.total_ord1_count / jockeyAgg.total_race_count;
-    this.jockeyAggregationRepository.save(jockeyAgg);
+    this.jockeyAggregationRepository.update(jk_id, jockeyAgg);
   }
 }
