@@ -47,6 +47,8 @@ const Login = () => {
     const [res, ] = await adminApi.validation;
     if (res) {
       window.location.href = '/admin';
+    } else{
+      alert('로그인 실패!');
     }
   }
 
