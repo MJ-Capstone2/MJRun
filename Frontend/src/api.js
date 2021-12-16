@@ -83,7 +83,7 @@ export const adminApi = {
   validation: getAnything('admin/validation'),
   upload: async (csvFiles) => {
     const [res, err] = await ppost('all-info/create', csvFiles);
-    console.log(res);
+    return err;
   }
 };
 

@@ -56,20 +56,23 @@ const UploadModal = ({open, handleClose}) => {
   const handleChange = (e) => {
     var fileArr = Array.prototype.slice.call(e.target.files);
     setFiles([...files, ...fileArr]);
-    console.log(fileArr);
   }
   const onSubmit = async (e) => {
     e.preventDefault();
-
-    // console.log(files);
-    // await adminApi.upload(files);
 
     const formData = new FormData();
     for(let i=0; i<files.length; i++){
       formData.append(`files`, files[i])
     }
-    // new Response(formData.getAll('files')).text().then(console.log)
-    await adminApi.upload(formData);
+
+    const err = await adminApi.upload(formData);
+
+    if (err){
+      alert("파일 업로드 실패!");
+    } else{
+      alert("파일 업로드 성공!");
+      window.location.reload();
+    }
   }
 
   return (
