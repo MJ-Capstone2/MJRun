@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
     flexWrap: 'wrap',
     border: 'solid 1px #393939',
     borderRadius: '0.3rem',
-    margin: '0.8rem'
+    margin: '2rem'
   },
   content_box: {
     display:'flex',
@@ -39,6 +39,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     flexWrap: 'wrap',
     padding: '0.8rem 0.2rem',
+    width: 170
   },
   divider: {
     width:'1px',
@@ -79,20 +80,20 @@ const InfoCard = ({ attendant }) => {
       </div>
       <div className={classes.display_box}>
         <div className={classes.content_box}>
-          <Typography>말-{infos[num].horse.name}</Typography>
+          <Typography><b>말</b> - {infos[num].horse.name}</Typography>
           <Typography>성별: {infos[num].horse.sex}</Typography>
           <Typography>나이: {infos[num].horse.age}</Typography>
-          <Typography>전적: {infos[num].horse.total_ord1_count}/{infos[num].horse.total_ord2_count} ({infos[num].horse.total_race_count})</Typography>
+          <Typography>전적: {infos[num].horse.total_ord1_count}/{infos[num].horse.total_ord2_count}/{infos[num].horse.total_ord3_count}  ({infos[num].horse.total_race_count})</Typography>
         </div>
         <div className={classes.divider}></div>
         <div className={classes.content_box}>
-          <Typography>기수-{infos[num].jockey.name}</Typography>
-          <Typography>전적: {infos[num].jockey.total_ord1_count}/{infos[num].jockey.total_ord2_count} ({infos[num].jockey.total_race_count})</Typography>
+          <Typography><b>기수</b> - {infos[num].jockey.name}</Typography>
+          <Typography>전적: {infos[num].jockey.total_ord1_count}/{infos[num].jockey.total_ord2_count}/{infos[num].jockey.total_ord3_count}  ({infos[num].jockey.total_race_count})</Typography>
         </div>
         <div className={classes.divider}></div>
         <div className={classes.content_box} style={{borderRight:'none'}}>
-          <Typography>조교사-{infos[num].trainer.name}</Typography>
-          <Typography>전적: {infos[num].trainer.total_ord1_count}/{infos[num].trainer.total_ord2_count} ({infos[num].trainer.total_race_count})</Typography>
+          <Typography><b>조교사</b> - {infos[num].trainer.name}</Typography>
+          <Typography>전적: {infos[num].trainer.total_ord1_count}/{infos[num].trainer.total_ord2_count}/{infos[num].trainer.total_ord3_count}  ({infos[num].trainer.total_race_count})</Typography>
         </div>
       </div>
     </div>
