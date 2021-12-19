@@ -50,7 +50,6 @@ function Selector({ races, race_attendant, predicts, results, handleDate, raceDa
         attendant={race_attendant[raceIdx]}
         predict={predicts[raceIdx]}
         result={results[raceIdx]}
-        handleDate={handleDate}
         raceDate={raceDate}
         ord1={ord1}
         ord2={ord2}

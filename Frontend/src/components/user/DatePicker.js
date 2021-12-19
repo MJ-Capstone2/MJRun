@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { 
   Grid,
   makeStyles 
@@ -9,6 +9,7 @@ import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker
 } from '@material-ui/pickers';
+import { parseDate } from '../../utils';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,15 +20,13 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const DatePicker = ({ handleDate, raceDate }) => {
+const DatePicker = ({ raceDate }) => {
 
   const classes = useStyles();
 
-  const [selectedDate, setSelectedDate] = useState(raceDate);
-
   const handleDateChange = (date) => {
-    handleDate(date);
-    setSelectedDate(date);
+    const pDate = parseDate(date);
+    window.location.href = `/${pDate}`;
   };
 
   return (
@@ -37,7 +36,7 @@ const DatePicker = ({ handleDate, raceDate }) => {
           margin="normal"
           id="date-picker-dialog"
           format="MM월 dd일"
-          value={selectedDate}
+          value={raceDate}
           onChange={handleDateChange}
           className={classes.datepicker}
           invalidDateMessage

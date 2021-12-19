@@ -64,7 +64,7 @@ const Content = ({ race, attendant, predict, result, handleDate, raceDate, ord1,
           <Typography variant="h5"><b>{getLabel(race)} {race.start_time}</b></Typography>
           <div className={classes.order_wrap}>
             <Typography><b>{raceDate}</b></Typography>
-            <DatePicker handleDate={handleDate} raceDate={raceDate}/>
+            <DatePicker raceDate={raceDate}/>
           </div>
         </div>
       </div>

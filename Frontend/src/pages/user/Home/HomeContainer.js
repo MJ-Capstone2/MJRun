@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import HomePresenter from './HomePresenter';
 import { homeApi } from '../../../api';
-import { parseDate } from '../../../utils';
+import { useParams } from 'react-router-dom';
 
 const HomeContainer = () => {
-  const [raceDate, setRaceDate] = useState('2019-02-24');
+  const { date } = useParams();
+
+  const [raceDate, setRaceDate] = useState(date || '2019-02-24');
   const [HomeData, setHomeData] = useState({
     raceData: null,
     raceErr: null,
@@ -16,11 +18,6 @@ const HomeContainer = () => {
     ord3Err: null,
   });
   const [loading, setLoading] = useState(true);
-
-  const handleDate = (date) => {
-    setLoading(true);
-    setRaceDate(parseDate(date));
-  };
 
   const getData = async () => {
     const [raceData, raceErr] = await homeApi.raceDatas(raceDate);
@@ -43,12 +40,11 @@ const HomeContainer = () => {
 
   useEffect(() => {
     getData();
-  },[raceDate]);
+  },[]);
 
   return (
     <HomePresenter
       loading={loading}
-      handleDate={handleDate}
       {...HomeData.raceData}
       raceDate={raceDate}
       ord1={HomeData.ord1}
