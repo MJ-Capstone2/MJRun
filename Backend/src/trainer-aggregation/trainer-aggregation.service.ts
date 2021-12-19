@@ -70,6 +70,6 @@ export class TrainerAggregationService {
     if (result == 3) trainerAgg.total_ord3_count += 1;
     trainerAgg.total_win_rate =
       trainerAgg.total_ord1_count / trainerAgg.total_race_count;
-    this.trainerAggregationRepository.save(trainerAgg);
+    this.trainerAggregationRepository.update(tr_id, trainerAgg);
   }
 }

@@ -53,6 +53,18 @@ export class HorseAggregationService {
     }
     return horseAggreagtion.serializeHorse();
   }
+  async findOneOrigin(horse_number: number): Promise<HorseAggregation> {
+    const horseAggreagtion = await this.horseAggregationRepository.findOne(
+      horse_number,
+      { relations: ['horse'] },
+    );
+    if (!horseAggreagtion) {
+      throw new NotFoundException(
+        `Can't find Hourse with hourse_number : ${horse_number}`,
+      );
+    }
+    return horseAggreagtion;
+  }
 
   async update(
     horse_number: number,
@@ -87,6 +99,6 @@ export class HorseAggregationService {
     if (result == 3) horseAgg.total_ord3_count += 1;
     horseAgg.total_win_rate =
       horseAgg.total_ord1_count / horseAgg.total_race_count;
-    this.horseAggregationRepository.save(horseAgg);
+    await this.horseAggregationRepository.update(horse_number, horseAgg);
   }
 }
